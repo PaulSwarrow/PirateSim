@@ -35,6 +35,7 @@ namespace ShipSystems
     public class ShipEntity : BaseComponent
     {
         [SerializeField] private List<SailGroup> sails;
+        [SerializeField] private float verticalOffset = 5;
 
         private Vector3 floor;
 
@@ -56,21 +57,9 @@ namespace ShipSystems
             sailsConfig = GameManager.current.sailsConfig;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            ApplyWind(windSystem.Wind);
-            KeelWork();
-        }
-
-        private void KeelWork()
-        {
-            var localSpeed = transform.InverseTransformDirection(rigidbody.velocity);
-            localSpeed.x *= 0.6f;
-            rigidbody.velocity = transform.TransformDirection(localSpeed);
-        }
-
-        public void ApplyWind(Vector3 wind)
-        {
+            var wind = windSystem.Wind;
             var shipForward = rigidbody.transform.forward;
             var shipRight = rigidbody.transform.right;
             var shipUp = transform.up;
@@ -90,13 +79,15 @@ namespace ShipSystems
 
         private Vector3 GetSailPoint(SailGroup sailGroup)
         {
-            return transform.position + transform.forward * sailGroup.Offset + transform.up * 5;
+            return transform.position + transform.forward * sailGroup.Offset + Vector3.up * verticalOffset;
         }
 
         private Vector3 GetSailDirection(SailGroup sailGroup)
         {
-            return transform.TransformDirection(Quaternion.Euler(0, (int) sailGroup.Angle, 0) *
-                                                 (sailGroup.jib ? Vector3.right : Vector3.forward)).normalized;
+            var dir = Quaternion.Euler(0, (int) sailGroup.Angle, 0) * (sailGroup.jib ? Vector3.right : Vector3.forward);
+            dir = transform.TransformDirection(dir).normalized;
+            dir.y = 0;
+            return dir;
         }
 
         private void OnDrawGizmos()
