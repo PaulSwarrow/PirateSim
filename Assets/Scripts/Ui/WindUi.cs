@@ -19,7 +19,10 @@ public class WindUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Arrow.transform.rotation = Quaternion.Euler(0, 0,  Vector3.SignedAngle(windSystem.Wind, Vector3.forward, Vector3.up));
+        var forward = Camera.main.transform.forward;
+        forward.y = 0;
+        var angle = Vector3.SignedAngle(windSystem.Wind, forward, Vector3.up);
+        Arrow.transform.rotation = Quaternion.Euler(0, 0, angle);
         Label.text = windSystem.Wind.magnitude.ToString();
     }
 }

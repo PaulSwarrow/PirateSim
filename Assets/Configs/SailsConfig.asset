@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SailsConfig
   m_EditorClassIdentifier: 
   WindForceMultiplier: 10000
-  JibsForceMultiplier: 10
+  JibsForceMultiplier: 2

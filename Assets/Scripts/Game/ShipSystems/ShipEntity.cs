@@ -17,16 +17,20 @@ namespace ShipSystems
 
 
     [Serializable]
-    public class SailGroup
+    public class SailGroup //split into config & state
     {
         public string Name;
         public int Value;
         public bool jib;
-        public SailDirection Angle;
+        public int Angle;
         public float Offset;
+        public float[] Options = new float[0];
+        [Range(0, 1)] public float minInfluence = 0.1f;
         [NonSerialized] public float[] Potential = new[] {0, 0.5f, 1};
 
         public int MaxValue => Potential.Length;
+        public float currentInfluence;
+        
 
         public SailGroupView view;
     }
@@ -34,7 +38,7 @@ namespace ShipSystems
 
     public class ShipEntity : BaseComponent
     {
-        [SerializeField] private List<SailGroup> sails;
+        [SerializeField] public List<SailGroup> sails;
         [SerializeField] private float verticalOffset = 5;
 
         private Vector3 floor;
@@ -71,6 +75,13 @@ namespace ShipSystems
                 var windInfluence = Vector3.Dot(wind, sailForward);
                 var sailPotential = sail.Potential[sail.Value];
 
+                if (Mathf.Abs(windInfluence) < sail.minInfluence)
+                {
+                    sail.currentInfluence = 0;
+                    continue;
+                }
+                sail.currentInfluence = windInfluence;
+                
                 var resultForce = sailForward * (windInfluence * sailPotential * sailsConfig.WindForceMultiplier);
                 if (sail.jib) resultForce *= sailsConfig.JibsForceMultiplier;
                 rigidbody.AddForceAtPosition(resultForce, point, ForceMode.Force); //optimize to sail groups!
@@ -84,7 +95,7 @@ namespace ShipSystems
 
         private Vector3 GetSailDirection(SailGroup sailGroup)
         {
-            var dir = Quaternion.Euler(0, (int) sailGroup.Angle, 0) * (sailGroup.jib ? Vector3.right : Vector3.forward);
+            var dir = Quaternion.Euler(0,  sailGroup.Options[sailGroup.Angle], 0) * (sailGroup.jib ? Vector3.right : Vector3.forward);
             dir = transform.TransformDirection(dir).normalized;
             dir.y = 0;
             return dir;
@@ -92,6 +103,8 @@ namespace ShipSystems
 
         private void OnDrawGizmos()
         {
+            if(sails.Count ==0) return;
+            
             var self = transform;
             var shipPosition = self.position;
             shipPosition.y += 10;

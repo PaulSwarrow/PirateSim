@@ -38,7 +38,7 @@ namespace ShipSystems
 
             if (animator)
             {
-                animator.SetInteger(DirectionName, (int)model.Angle);
+                animator.SetFloat(DirectionName, -model.Options[model.Angle]);
             }
         }
     }

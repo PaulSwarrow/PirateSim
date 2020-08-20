@@ -12,7 +12,7 @@ namespace ShipSystems
         [SerializeField] [Range(0, 1)] private float backDrag = 0.5f;
         [SerializeField] [Range(0, 1)] private float angularDrag = 0.5f;
         
-        [SerializeField] [Range(-90, 90)] private float wheel = 0;
+        [SerializeField] [Range(-90, 90)] public float wheel = 0;
         [SerializeField] private float wheelInfluence = 1;
 
         private void Awake()
