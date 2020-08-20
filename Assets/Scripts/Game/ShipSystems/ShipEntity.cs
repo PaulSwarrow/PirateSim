@@ -21,15 +21,15 @@ namespace ShipSystems
     {
         public string Name;
         public int Value;
-        public bool jib;
+        [HideInInspector] public bool jib;
         public int Angle;
-        public float Offset;
+        [HideInInspector] public float Offset;
         public float[] Options = new float[0];
-        [Range(0, 1)] public float minInfluence = 0.1f;
+        [HideInInspector] [Range(0, 1)] public float minInfluence = 0.1f;
         [NonSerialized] public float[] Potential = new[] {0, 0.5f, 1};
 
         public int MaxValue => Potential.Length;
-        public float currentInfluence;
+        [HideInInspector] public float currentInfluence;
         
 
         public SailGroupView view;

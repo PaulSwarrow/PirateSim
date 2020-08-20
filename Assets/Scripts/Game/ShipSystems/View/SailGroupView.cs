@@ -28,7 +28,7 @@ namespace ShipSystems
 
         private void Update()
         { 
-            if(model == null)return;
+            if(model == null) return;
             
             currentValue = Mathf.Clamp(model.Value, 0, sails.Length);
             for (int i = 0; i < sails.Length; i++)
