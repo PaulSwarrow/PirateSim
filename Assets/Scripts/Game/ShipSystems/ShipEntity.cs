@@ -29,10 +29,13 @@ namespace ShipSystems
         [NonSerialized] public float[] Potential = new[] {0, 0.5f, 1};
 
         public int MaxValue => Potential.Length;
-        [HideInInspector] public float currentInfluence;
-        
+
 
         public SailGroupView view;
+
+
+        public Vector3 GetForceVector() =>
+            Quaternion.Euler(0, Options[Angle], 0) * (jib ? Vector3.right : Vector3.forward);
     }
 
 
@@ -48,6 +51,7 @@ namespace ShipSystems
         private SailsConfig sailsConfig;
 
         private Transform _transform;
+        public Vector3 localWind { get; private set; }
 
         private void Start()
         {
@@ -63,6 +67,7 @@ namespace ShipSystems
 
         private void FixedUpdate()
         {
+            localWind = _transform.InverseTransformVector(windSystem.Wind);
             var wind = windSystem.Wind;
             var shipForward = rigidbody.transform.forward;
             var shipRight = rigidbody.transform.right;
@@ -71,19 +76,17 @@ namespace ShipSystems
             foreach (var sail in sails)
             {
                 var point = GetSailPoint(sail);
-                var sailForward = GetSailDirection(sail);
-                var windInfluence = Vector3.Dot(wind, sailForward);
+                var sailVector = sail.GetForceVector();
+                var windInfluence = Vector3.Dot(localWind, sailVector);
                 var sailPotential = sail.Potential[sail.Value];
 
-                if (Mathf.Abs(windInfluence) < sail.minInfluence)
-                {
-                    sail.currentInfluence = 0;
-                    continue;
-                }
-                sail.currentInfluence = windInfluence;
-                
-                var resultForce = sailForward * (windInfluence * sailPotential * sailsConfig.WindForceMultiplier);
+                if (Mathf.Abs(windInfluence) < sail.minInfluence) continue;
+
+
+                var resultForce = sailVector * (windInfluence * sailPotential * sailsConfig.WindForceMultiplier);
                 if (sail.jib) resultForce *= sailsConfig.JibsForceMultiplier;
+                resultForce = transform.TransformVector(resultForce);
+                resultForce.y = 0;
                 rigidbody.AddForceAtPosition(resultForce, point, ForceMode.Force); //optimize to sail groups!
             }
         }
@@ -93,18 +96,11 @@ namespace ShipSystems
             return transform.position + transform.forward * sailGroup.Offset + Vector3.up * verticalOffset;
         }
 
-        private Vector3 GetSailDirection(SailGroup sailGroup)
-        {
-            var dir = Quaternion.Euler(0,  sailGroup.Options[sailGroup.Angle], 0) * (sailGroup.jib ? Vector3.right : Vector3.forward);
-            dir = transform.TransformDirection(dir).normalized;
-            dir.y = 0;
-            return dir;
-        }
 
         private void OnDrawGizmos()
         {
-            if(sails.Count ==0) return;
-            
+            if (sails.Count == 0) return;
+
             var self = transform;
             var shipPosition = self.position;
             shipPosition.y += 10;
@@ -114,7 +110,7 @@ namespace ShipSystems
             foreach (var sail in sails)
             {
                 var point = GetSailPoint(sail);
-                var sailForward = GetSailDirection(sail);
+                var sailForward = self.TransformVector(sail.GetForceVector());
                 Gizmos.color = Color.blue;
                 Gizmos.DrawRay(point, shipUp * 4);
                 Gizmos.color = Color.green;

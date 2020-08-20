@@ -27,7 +27,8 @@ namespace Ui
             {
                 SailGroupUi item = group.jib ? (SailGroupUi) jibFactory.Create() : sailFactory.Create();
                 item.model = group;
-                
+                item.ship = target;
+
             }
         }
     }
