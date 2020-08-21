@@ -13,7 +13,7 @@ namespace Lib.Tools
         {
             this.container = container;
             pool = new GameObjectsPool<T>(container);
-            var children = container.GetComponentsInChildren<T>();
+            var children = container.GetComponentsInChildren<T>(true);
             prefab = children[0];
             prefab.gameObject.SetActive(false);
             for (var i = 1; i < children.Length; i++)

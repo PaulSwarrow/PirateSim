@@ -26,8 +26,8 @@ namespace Ui
             foreach (var group in target.sails)
             {
                 SailGroupUi item = group.jib ? (SailGroupUi) jibFactory.Create() : sailFactory.Create();
-                item.model = group;
-                item.ship = target;
+                item.Model = group;
+                item.Ship = target;
 
             }
         }

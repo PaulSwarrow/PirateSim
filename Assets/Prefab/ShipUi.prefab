@@ -90,6 +90,8 @@ MonoBehaviour:
   Zero: {fileID: 21300000, guid: 1efe4aa24a33d0e4181b793c7107a7df, type: 3}
   Negative: {fileID: 21300000, guid: 43e9e9534dbced44d8adc26fb27a07c2, type: 3}
   image: {fileID: 7995655600961787779}
+  Jib: 0
+  state: 0
 --- !u!1 &7995655601203665088
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,17 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd8438c221b40cf8048da0301d94842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 7995655602927587308}
-  model:
-    Name: 
-    Value: 0
-    jib: 0
-    Angle: 0
-    Offset: 0
-    Options: []
-    minInfluence: 0.1
-    currentInfluence: 0
-    view: {fileID: 0}
 --- !u!1 &7995655601462832737
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,17 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1674a638ce04e5db75cf67c4fac636e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 7995655600961787777}
-  model:
-    Name: 
-    Value: 0
-    jib: 0
-    Angle: 0
-    Offset: 0
-    Options: []
-    minInfluence: 0.1
-    currentInfluence: 0
-    view: {fileID: 0}
 --- !u!1 &7995655602202285656
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,4 +439,6 @@ MonoBehaviour:
   Positive: {fileID: 21300000, guid: 6c66740ca7c5be442861e536cee1f920, type: 3}
   Zero: {fileID: 21300000, guid: 1efe4aa24a33d0e4181b793c7107a7df, type: 3}
   Negative: {fileID: 21300000, guid: 43e9e9534dbced44d8adc26fb27a07c2, type: 3}
-  image: {fileID: 7995655600961787779}
+  image: {fileID: 7995655602927587310}
+  Jib: 0
+  state: 0

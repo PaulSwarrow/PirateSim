@@ -34,8 +34,15 @@ namespace ShipSystems
         public SailGroupView view;
 
 
-        public Vector3 GetForceVector() =>
-            Quaternion.Euler(0, Options[Angle], 0) * (jib ? Vector3.right : Vector3.forward);
+        public Vector3 GetForceVector()
+        {
+            return Quaternion.Euler(0, Options[Angle], 0) * (jib ? Vector3.right : Vector3.forward);
+        }
+
+        public static Vector3 GetForceVector(float angle, bool jib)
+        {
+            return Quaternion.Euler(0, angle, 0) * (jib ? Vector3.right : Vector3.forward);
+        }
     }
 
 
