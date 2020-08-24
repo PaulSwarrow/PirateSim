@@ -7,48 +7,64 @@ using UnityEngine;
 
 namespace Ui
 {
-    public abstract class SailGroupUi : BaseComponent
+    public abstract class SailGroupUi : BaseUiComponent
     {
+        [SerializeField] private SailStateSelector selector;
 
-        private List<SailStateUi> states = new List<SailStateUi>();
+        [SerializeField] private SailStateUi item;
+        private SailGroup model;
         public SailGroup Model
         {
             get => model;
             set
             {
                 model = value;
-                foreach (var option in model.Options)
-                {
-                    var item = factory.Create();
-                    item.Jib = model.jib;
-                    item.Angle = option;
-                    states.Add(item);
-                }
+                item.Jib = model.jib;
+                item.Angle = model.Options[model.Angle];
+
             }
+        }
+
+        private void Awake()
+        {
+            selector.target = this;
+            selector.gameObject.SetActive(false);
+            selector.SelectEvent += OnStateSelected;
+            item.ClickEvent += ShowSelector; //unsubscribe
+        }
+
+        private void OnStateSelected(int index)
+        {
+            model.Angle = index;
+            item.Angle = model.Options[model.Angle];
+            HideSelector();
+        }
+
+        private void ShowSelector(SailStateUi obj)
+        {
+            selector.gameObject.SetActive(true);
+        }
+
+        private void HideSelector()
+        {
+            selector.gameObject.SetActive(false);
+        }
+
+        private void OnDisable()
+        {
+            HideSelector();
         }
 
         public ShipEntity Ship { get; set; }
 
-        private LocalFactory<SailStateUi> factory;
-        private SailGroup model;
-        private void Awake()
-        {
-            factory = new LocalFactory<SailStateUi>(transform);
-        }
 
         protected virtual void Update()
         {
-            Debug.Log(name);
-            foreach (var item in states)
-            {
-                var influence = Vector3.Dot(Ship.localWind, SailGroup.GetForceVector(item.Angle, model.jib));
-                if (Mathf.Abs(influence) >= model.minInfluence)
-                    item.State = influence > 0 ? 1 : -1;
-                else item.State = 0;
-                
-                item.Active = Math.Abs(item.Angle - model.Angle) < 0.1f;
-            }
-            
+            var influence = Vector3.Dot(Ship.localWind, SailGroup.GetForceVector(item.Angle, model.jib));
+            if (Mathf.Abs(influence) >= model.minInfluence)
+                item.State = influence > 0 ? 1 : -1;
+            else item.State = 0;
+
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Lib;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ namespace Ui
 {
     public class SailStateUi : BaseComponent
     {
+        public event Action<SailStateUi> ClickEvent; 
         [SerializeField] private Sprite Positive;
         [SerializeField] private Sprite Zero;
         [SerializeField] private Sprite Negative;
@@ -13,15 +15,7 @@ namespace Ui
         private float angle;
         public bool Jib;
         [SerializeField] private int state;
-
-        public bool Active
-        {
-            set
-            {
-                image.color = value ? Color.white : Color.gray;
-                if (value) image.transform.SetAsLastSibling();
-            }
-        }
+        private Button btn;
 
         public int State
         {
@@ -39,8 +33,29 @@ namespace Ui
             set
             {
                 angle = value;
-                transform.localEulerAngles = -Vector3.forward * (angle - (Jib ? 0 : 90));
+                image.transform.localEulerAngles = -Vector3.forward * (angle - (Jib ? 0 : 90));
             }
+        }
+
+        private void Awake()
+        {
+            btn = GetComponent<Button>();
+        }
+
+        private void OnEnable()
+        {
+            btn.onClick.AddListener(OnClick);
+        }
+
+        private void OnClick()
+        {
+            ClickEvent?.Invoke(this);
+        }
+
+        private void OnDisable()
+        {
+            btn.onClick.RemoveListener(OnClick);
+            
         }
     }
 }

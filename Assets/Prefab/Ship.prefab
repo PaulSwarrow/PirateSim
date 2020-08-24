@@ -1794,11 +1794,11 @@ MonoBehaviour:
     Angle: 0
     Offset: 17
     Options:
-    - -45
-    - -20
-    - 0
-    - 20
     - 45
+    - 20
+    - 0
+    - -20
+    - -45
     minInfluence: 0.1
     view: {fileID: 8707695641643707353}
   - Name: M1
@@ -1825,11 +1825,11 @@ MonoBehaviour:
     Angle: 0
     Offset: -17
     Options:
-    - -45
-    - -20
-    - 0
-    - 20
     - 45
+    - 20
+    - 0
+    - -20
+    - -45
     minInfluence: 0.1
     view: {fileID: 6862937513055739944}
   verticalOffset: 5
@@ -1849,7 +1849,7 @@ MonoBehaviour:
   sideDrag: 0.87
   backDrag: 0.93
   angularDrag: 0.5
-  wheel: 47
+  wheel: 0
   wheelInfluence: 200
 --- !u!65 &1900088292922305323
 BoxCollider:
