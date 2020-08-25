@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using App;
 using Lib;
 using Lib.Tools;
 using ShipSystems;
@@ -46,11 +47,11 @@ namespace Ui
         {
             foreach (var item in items)
             {
-                var influence = Vector3.Dot(Ship.localWind, SailGroup.GetForceVector(item.Angle, Model.jib));
-                if (Mathf.Abs(influence) >= Model.minInfluence)
+                var influence = Vector3.Dot(Ship.localWind, SailGroup.GetBaseVector(item.Angle, Model.jib));
+                if (Mathf.Abs(influence) >= GameManager.current.sailsConfig.MinInfluence)
                     item.State = influence > 0 ? 1 : -1;
                 else item.State = 0;
-                
+
             }
 
         }

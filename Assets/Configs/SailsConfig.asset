@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: SailsConfig
   m_EditorClassIdentifier: 
   WindForceMultiplier: 10000
-  JibsForceMultiplier: 2
+  JibsForceMultiplier: 3
+  MinInfluence: 0.2
+  jibsAngleCheat: 20.4

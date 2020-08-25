@@ -8,6 +8,7 @@ namespace App
     {
         public float WindForceMultiplier;
         public float JibsForceMultiplier;
-
+        [Range(0, 0.9f)]public float MinInfluence = 0.2f;
+        [Range(0, 45)]public float jibsAngleCheat = 10;
     }
 }

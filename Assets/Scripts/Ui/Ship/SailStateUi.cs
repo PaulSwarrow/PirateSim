@@ -1,13 +1,15 @@
 using System;
 using Lib;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Ui
 {
-    public class SailStateUi : BaseComponent
+    public class SailStateUi : BaseComponent,  IPointerClickHandler
     {
         public event Action<SailStateUi> ClickEvent; 
+        public event Action<SailStateUi> AltClickEvent; 
         [SerializeField] private Sprite Positive;
         [SerializeField] private Sprite Zero;
         [SerializeField] private Sprite Negative;
@@ -37,6 +39,11 @@ namespace Ui
             }
         }
 
+        public int Value
+        {
+            set => image.color = value == 0 ? Color.gray : Color.white;
+        }
+
         private void Awake()
         {
             btn = GetComponent<Button>();
@@ -56,6 +63,14 @@ namespace Ui
         {
             btn.onClick.RemoveListener(OnClick);
             
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+                ClickEvent?.Invoke(this);
+            else if (eventData.button == PointerEventData.InputButton.Right)
+                AltClickEvent?.Invoke(this);
         }
     }
 }

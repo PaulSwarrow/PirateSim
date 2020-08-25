@@ -1789,9 +1789,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sails:
   - Name: Front jibs
-    Value: 0
+    Value: 1
     jib: 1
-    Angle: 0
+    Angle: 2
     Offset: 17
     Options:
     - 45
@@ -1799,7 +1799,6 @@ MonoBehaviour:
     - 0
     - -20
     - -45
-    minInfluence: 0.1
     view: {fileID: 8707695641643707353}
   - Name: M1
     Value: 0
@@ -1807,8 +1806,9 @@ MonoBehaviour:
     Angle: 0
     Offset: 5.3
     Options:
+    - 30
     - 0
-    minInfluence: 0.1
+    - -30
     view: {fileID: 514289216653962016}
   - Name: M2
     Value: 0
@@ -1816,13 +1816,14 @@ MonoBehaviour:
     Angle: 0
     Offset: -6.6
     Options:
+    - 30
     - 0
-    minInfluence: 0.1
+    - -30
     view: {fileID: 2062844364981332443}
   - Name: Spanker
-    Value: 0
+    Value: 1
     jib: 1
-    Angle: 0
+    Angle: 2
     Offset: -17
     Options:
     - 45
@@ -1830,9 +1831,8 @@ MonoBehaviour:
     - 0
     - -20
     - -45
-    minInfluence: 0.1
     view: {fileID: 6862937513055739944}
-  verticalOffset: 5
+  verticalOffset: 8
   rigidbody: {fileID: 2540250027437860067}
 --- !u!114 &2543448786970756148
 MonoBehaviour:
@@ -1846,8 +1846,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618c7b9f306b413bbba093d97c989f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideDrag: 0.87
-  backDrag: 0.93
+  sideDrag: 0.9
+  backDrag: 0.97
   angularDrag: 0.5
   wheel: 0
   wheelInfluence: 200
@@ -2878,8 +2878,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3385501311904666882}
-  m_LocalRotation: {x: 0.00000005960466, y: -0.000000067055225, z: -3.996802e-15,
-    w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.00007643128, y: -0.043496046, z: 0.021259762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

@@ -8,13 +8,14 @@ namespace Ui
 {
     public class SailsUi : BaseComponent
     {
-        [SerializeField] private ShipEntity target;
+        private ShipEntity target;
 
         private LocalFactory<SimpleSailsUi> sailFactory;
         private LocalFactory<JibSailsUi> jibFactory;
 
         private void Awake()
         {
+            target = GetComponentInParent<ShipControllUi>().Target;
             sailFactory = new LocalFactory<SimpleSailsUi>(transform);
             jibFactory = new LocalFactory<JibSailsUi>(transform);
             

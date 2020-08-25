@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using App;
 using Lib;
 using Lib.Tools;
 using ShipSystems;
@@ -30,7 +31,13 @@ namespace Ui
             selector.target = this;
             selector.gameObject.SetActive(false);
             selector.SelectEvent += OnStateSelected;
+            item.AltClickEvent += OnValueChange;
             item.ClickEvent += ShowSelector; //unsubscribe
+        }
+
+        private void OnValueChange(SailStateUi obj)
+        {
+            model.Value = model.Value == 0 ? 1 : 0;
         }
 
         private void OnStateSelected(int index)
@@ -60,11 +67,12 @@ namespace Ui
 
         protected virtual void Update()
         {
-            var influence = Vector3.Dot(Ship.localWind, SailGroup.GetForceVector(item.Angle, model.jib));
-            if (Mathf.Abs(influence) >= model.minInfluence)
+            var influence = Vector3.Dot(Ship.localWind, SailGroup.GetBaseVector(item.Angle, model.jib));
+            if (Mathf.Abs(influence) >= GameManager.current.sailsConfig.MinInfluence)
                 item.State = influence > 0 ? 1 : -1;
             else item.State = 0;
 
+            item.Value = Model.Value;
         }
     }
 }

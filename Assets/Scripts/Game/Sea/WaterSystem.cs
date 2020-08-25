@@ -24,6 +24,7 @@ namespace App
 
         public float GetWaterHeight(Vector3 position)
         {
+            return 0;
             return OceanAdvanced.GetWaterHeight(position);
         }
     }
