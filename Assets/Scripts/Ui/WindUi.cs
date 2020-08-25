@@ -25,6 +25,6 @@ public class WindUi : MonoBehaviour
         forward.y = 0;
         var angle = Vector3.SignedAngle(windSystem.Wind, forward, Vector3.up);
         Arrow.rotation = Quaternion.Euler(0, 0, angle);
-        Label.text = windSystem.Wind.magnitude.ToString();
+        Label.text = "Wind: "+ windSystem.Wind.magnitude.ToString("0.00");
     }
 }
