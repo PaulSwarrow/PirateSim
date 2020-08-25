@@ -11,6 +11,7 @@ namespace ShipSystems
     {
         private SailView[] sails;
         private Animator animator;
+        [SerializeField] private Transform rotationTarget;
 
         private int currentValue;
 
@@ -39,6 +40,11 @@ namespace ShipSystems
             if (animator)
             {
                 animator.SetFloat(DirectionName, -model.Options[model.Angle]);
+            }
+
+            if (rotationTarget)
+            {
+                rotationTarget.localEulerAngles = Vector3.up * model.Options[model.Angle];
             }
         }
     }

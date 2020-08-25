@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409d971428124a6cac5cae95572c6d7a, type: 3}
   m_Name: SailsConfig
   m_EditorClassIdentifier: 
-  WindForceMultiplier: 10000
-  JibsForceMultiplier: 3
+  WindForceMultiplier: 4000
+  JibsForceMultiplier: 1.49
   MinInfluence: 0.2
   jibsAngleCheat: 20.4

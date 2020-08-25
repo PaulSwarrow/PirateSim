@@ -43,7 +43,7 @@ namespace ShipSystems
             var angularVelocity = rigidbody.angularVelocity;
             angularVelocity.y -= angularVelocity.y * angularDrag;
 
-            rigidbody.AddTorque(0, wheel * linearVelocity * wheelInfluence / Time.fixedDeltaTime, 0, ForceMode.Force);
+            rigidbody.AddRelativeTorque(0, wheel * linearVelocity * wheelInfluence / Time.fixedDeltaTime, 0, ForceMode.Force);
 
             //todo static angular drag wheel influence
         }

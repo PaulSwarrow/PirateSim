@@ -23,6 +23,7 @@ public class NaturalFloatingEntity : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        body.centerOfMass = Vector3.zero;
     }
 
     private void Start()
@@ -42,10 +43,11 @@ public class NaturalFloatingEntity : MonoBehaviour
             var waterHeight = waterSystem.GetWaterHeight(forcePoint);
             if (forcePoint.y < waterHeight)
             {
-                var multiplier = Mathf.Clamp01((waterHeight - forcePoint.y) / depthBeforeSubmerged) *
-                                 displacementAmount;
+                /*var multiplier = Mathf.Clamp01((waterHeight - forcePoint.y) / depthBeforeSubmerged) *
+                                 displacementAmount;*/
+                var multiplier = Mathf.Max(0,(waterHeight - forcePoint.y) / depthBeforeSubmerged);
 
-                // multiplier *= multiplier;//smoother accelerations
+                multiplier = displacementAmount * Mathf.Pow(multiplier, 2);//smoother accelerations
                 body.AddForceAtPosition(new Vector3(0, Mathf.Abs(gravityPart.y) * multiplier
                         , 0),
                     forcePoint, ForceMode.Acceleration);
@@ -68,5 +70,8 @@ public class NaturalFloatingEntity : MonoBehaviour
         {
             Gizmos.DrawWireSphere(GetWorldPoint(point), 0.3f);
         }
+        
+        
+            
     }
 }

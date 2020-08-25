@@ -84,21 +84,23 @@ namespace ShipSystems
                 var sailVector = sail.GetBaseVector();
                 var windInfluence = Vector3.Dot(localWind, sailVector);
 
-                if (sail.Value == 0 || Mathf.Abs(windInfluence) < sailsConfig.MinInfluence) continue;
+                var absInfluence = Mathf.Abs(windInfluence);
+                var influenceSign = Mathf.Sign(windInfluence);
+                if (sail.Value == 0 ||  absInfluence < sailsConfig.MinInfluence) continue;
 
                 
-                var resultForce = sailVector * (Mathf.Sign(windInfluence) * sailsConfig.WindForceMultiplier);
+                var resultForce = sailVector * (influenceSign * sailsConfig.WindForceMultiplier * Mathf.Sqrt(absInfluence));
 
                 if (sail.jib)
                 {
-                    resultForce = Quaternion.Euler(Vector3.up * (-Mathf.Sign(windInfluence) * sailsConfig.jibsAngleCheat)) *
+                    resultForce = Quaternion.Euler(Vector3.up * (- influenceSign* sailsConfig.jibsAngleCheat)) *
                         resultForce;
                     resultForce *= sailsConfig.JibsForceMultiplier;
                 }
                 resultForce = transform.TransformVector(resultForce);
                 resultForce.y = 0;
                 rigidbody.AddForceAtPosition(resultForce, point, ForceMode.Force); //optimize to sail groups!
-                Debug.DrawRay(point,resultForce, Color.yellow); //optimize to sail groups!
+                Debug.DrawRay(point,resultForce*Time.fixedDeltaTime, Color.yellow); //optimize to sail groups!
             }
         }
 
