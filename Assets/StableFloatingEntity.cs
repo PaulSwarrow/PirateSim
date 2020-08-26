@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using App;
+using Lib.Tools;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -63,10 +64,8 @@ public class StableFloatingEntity : MonoBehaviour
                 var forceResultPoint = forcePoint + angularStability * linerForce/body.mass;
                 
                 var q  = Quaternion.FromToRotation(pointVector, forceResultPoint - transform.position);
-                var euler = q.eulerAngles;
-                euler.x = SimplifyAngle(euler.x);
+                var euler = AngularMath.Minify(q.eulerAngles);
                 euler.y = 0;
-                euler.z = SimplifyAngle(euler.z);
                 /*Debug.Log(euler);
                 Debug.DrawRay(forcePoint, linerForce/body.mass);
                 Debug.DrawLine(transform.position, forceResultPoint, Color.green);
@@ -86,14 +85,6 @@ public class StableFloatingEntity : MonoBehaviour
         }
         
         // body.AddTorque(angularForce, ForceMode.Force);
-    }
-
-    private float SimplifyAngle(float value)
-    {
-        value = value % 360;
-        if (value > 180) value -= 360;
-        if (value < -180) value += 360;
-        return value;
     }
 
     private Vector3 GetWorldPoint(Vector3 point)

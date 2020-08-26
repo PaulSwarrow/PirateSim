@@ -1,5 +1,6 @@
 using System;
 using Lib;
+using Lib.Tools;
 using UnityEngine;
 
 namespace ShipSystems
@@ -36,14 +37,18 @@ namespace ShipSystems
 
             var drag = right * (sideVelocity * sideDrag);
             if (linearVelocity < 0) drag += forward * (linearVelocity * backDrag);
-            Debug.Log(sideVelocity+", "+rigidbody.velocity.z);
 
             rigidbody.AddForce(-drag, ForceMode.VelocityChange);
 
             var angularVelocity = rigidbody.angularVelocity;
             angularVelocity.y -= angularVelocity.y * angularDrag;
 
-            rigidbody.AddRelativeTorque(0, wheel * linearVelocity * wheelInfluence / Time.fixedDeltaTime, 0, ForceMode.Force);
+            
+            var localUp = transform.InverseTransformDirection(Vector3.up);
+            var m = wheelInfluence * linearVelocity;
+            var q = Quaternion.AngleAxis(wheel * m *  Time.fixedDeltaTime, localUp);
+            var euler = AngularMath.Minify(q.eulerAngles);
+            rigidbody.AddRelativeTorque(euler, ForceMode.Acceleration);
 
             //todo static angular drag wheel influence
         }
