@@ -1,4 +1,5 @@
 using System;
+using App;
 using Lib;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,25 +10,16 @@ namespace Ui
     public class SailStateUi : BaseComponent,  IPointerClickHandler
     {
         public event Action<SailStateUi> ClickEvent; 
-        public event Action<SailStateUi> AltClickEvent; 
-        [SerializeField] private Sprite Positive;
-        [SerializeField] private Sprite Zero;
-        [SerializeField] private Sprite Negative;
+        public event Action<SailStateUi> AltClickEvent;
+
+        [SerializeField] private Sprite[] stateIcons;
+        
         [SerializeField] private Image image;
         private float angle;
         public bool Jib;
-        [SerializeField] private int state;
         private Button btn;
+        [SerializeField] private float fill;
 
-        public int State
-        {
-            set
-            {
-                state = value;
-                image.sprite = value == 0 ? Zero : (value > 0 ? Positive : Negative);
-            }
-            
-        }
 
         public float Angle
         {
@@ -42,6 +34,23 @@ namespace Ui
         public int Value
         {
             set => image.color = value == 0 ? Color.gray : Color.white;
+        }
+
+
+        public float Fill
+        {
+            set
+            {
+                image.transform.localScale = new Vector3(value < 0? -1:1, 1,1);
+                
+                var abs = Mathf.Abs(value);
+                int i;
+                if (abs < GameManager.current.sailsConfig.MinInfluence) i = 0;
+                else i = Mathf.CeilToInt(abs * stateIcons.Length) - 1;
+                fill = value;
+
+                image.sprite = stateIcons[i];
+            }
         }
 
         private void Awake()

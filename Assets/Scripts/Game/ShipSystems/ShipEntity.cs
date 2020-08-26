@@ -31,12 +31,12 @@ namespace ShipSystems
         public SailGroupView view;
 
 
-        public Vector3 GetBaseVector()
+        public Vector3 GetNormaleVector()
         {
             return Quaternion.Euler(0, Options[Angle], 0) * (jib ? Vector3.right : Vector3.forward);
         }
 
-        public static Vector3 GetBaseVector(float angle, bool jib)
+        public static Vector3 GetNormaleVector(float angle, bool jib)
         {
             return Quaternion.Euler(0, angle, 0) * (jib ? Vector3.right : Vector3.forward);
         }
@@ -81,7 +81,7 @@ namespace ShipSystems
             foreach (var sail in sails)
             {
                 var point = GetSailPoint(sail);
-                var sailVector = sail.GetBaseVector();
+                var sailVector = sail.GetNormaleVector();
                 var windInfluence = Vector3.Dot(localWind, sailVector);
 
                 var absInfluence = Mathf.Abs(windInfluence);
@@ -123,7 +123,7 @@ namespace ShipSystems
             foreach (var sail in sails)
             {
                 var point = GetSailPoint(sail);
-                var sailForward = self.TransformVector(sail.GetBaseVector());
+                var sailForward = self.TransformVector(sail.GetNormaleVector());
                 Gizmos.color = Color.blue;
                 Gizmos.DrawRay(point, shipUp * 4);
                 Gizmos.color = Color.green;

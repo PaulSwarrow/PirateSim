@@ -67,11 +67,7 @@ namespace Ui
 
         protected virtual void Update()
         {
-            var influence = Vector3.Dot(Ship.localWind, SailGroup.GetBaseVector(item.Angle, model.jib));
-            if (Mathf.Abs(influence) >= GameManager.current.sailsConfig.MinInfluence)
-                item.State = influence > 0 ? 1 : -1;
-            else item.State = 0;
-
+            item.Fill = Vector3.Dot(Ship.localWind.normalized, SailGroup.GetNormaleVector(item.Angle, model.jib));
             item.Value = Model.Value;
         }
     }

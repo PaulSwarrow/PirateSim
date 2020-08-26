@@ -1827,7 +1827,7 @@ MonoBehaviour:
   backDrag: 0.97
   angularDrag: 1
   wheel: 0
-  wheelInfluence: 20
+  wheelInfluence: 0.1
 --- !u!65 &1900088292922305323
 BoxCollider:
   m_ObjectHideFlags: 0
