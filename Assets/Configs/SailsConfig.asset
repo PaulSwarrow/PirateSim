@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindForceMultiplier: 4000
   JibsForceMultiplier: 1.49
-  MinInfluence: 0.2
+  MinWindCatch: 0.2
   jibsAngleCheat: 20.4
+  SailAngularDeviationEffect: 1
+  SailRotationMomentum: 1
