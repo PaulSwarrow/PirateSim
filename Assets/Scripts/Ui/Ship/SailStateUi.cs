@@ -18,7 +18,6 @@ namespace Ui
         private float angle;
         public bool Jib;
         private Button btn;
-        [SerializeField] private float fill;
 
 
         public float Angle
@@ -47,8 +46,6 @@ namespace Ui
                 int i;
                 if (abs < GameManager.current.sailsConfig.MinInfluence) i = 0;
                 else i = Mathf.CeilToInt(abs * stateIcons.Length) - 1;
-                fill = value;
-
                 image.sprite = stateIcons[i];
             }
         }

@@ -57,6 +57,8 @@ namespace ShipSystems
         private Transform _transform;
         public Vector3 localWind { get; private set; }
         public Keel Keel => GetComponent<Keel>();
+        public float LinearVelocity => Vector3.Dot(_transform.forward, rigidbody.velocity);
+        public float AngularVelocity => rigidbody.angularVelocity.y;
 
         private void Start()
         {
