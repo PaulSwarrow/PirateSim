@@ -7,15 +7,9 @@ using UnityEngine;
 public class UiController : MonoBehaviour
 {
     [SerializeField] private ShipControllUi shipControll;
+    [SerializeField] private CinemachineFreeLook cameraLook;
 
     private const string OrdersButton = "Orders";
-    private CinemachineFreeLook cameraLook;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        cameraLook = FindObjectOfType<CinemachineFreeLook>();
-    }
 
     // Update is called once per frame
     void Update()
