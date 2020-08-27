@@ -1745,7 +1745,7 @@ Rigidbody:
   m_GameObject: {fileID: 2540250027437860066}
   serializedVersion: 2
   m_Mass: 4000
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1766,7 +1766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sails:
   - Name: Front jibs
-    Value: 1
+    Value: 0
     jib: 1
     Angle: 2
     Offset: 17
@@ -1798,7 +1798,7 @@ MonoBehaviour:
     - -30
     view: {fileID: 2062844364981332443}
   - Name: Spanker
-    Value: 1
+    Value: 0
     jib: 1
     Angle: 2
     Offset: -17
@@ -1809,7 +1809,7 @@ MonoBehaviour:
     - -20
     - -45
     view: {fileID: 6862937513055739944}
-  verticalOffset: 3.51
+  verticalOffset: 3
   rigidbody: {fileID: 2540250027437860067}
 --- !u!114 &2543448786970756148
 MonoBehaviour:
