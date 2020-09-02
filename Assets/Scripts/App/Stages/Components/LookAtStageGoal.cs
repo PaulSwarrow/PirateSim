@@ -11,9 +11,11 @@ namespace DefaultNamespace.Components
     public class LookAtStageGoal : BaseComponent, IStageGoalProvider
     {
         public bool GoalAchieved { get; private set; }
-        public string GoalDescription => "Turn ship to the required direction";
+        public string GoalDescription { get; private set; }
         public string GoalState { get; private set; } = "";
 
+
+        [SerializeField] private float[] Angles;
         [SerializeField] private ColorizedUiGroup target;
         [SerializeField] private ShipEntity ship;
         [SerializeField] private float accurancy = 1f;
@@ -22,6 +24,7 @@ namespace DefaultNamespace.Components
         private Vector3 requiredDirection;
 
         private float currentTime = 0;
+        private int currentStep;
 
         private void Awake()
         {
@@ -30,9 +33,12 @@ namespace DefaultNamespace.Components
 
         private void Update()
         {
+            GoalDescription = $"Turn the ship to the required direction. ({currentStep}/{Angles.Length})";
             if (GoalAchieved) return;
-
-            angleDelta = Vector3.Angle(ship.transform.forward, requiredDirection);
+            var targetAngle = Angles[currentStep];
+            var q = Quaternion.Euler(0, targetAngle, 0);
+            target.transform.rotation = q;
+            angleDelta = Vector3.Angle(ship.transform.forward, q * (Vector3.forward));
             target.transform.position = ship.transform.position;
 
 
@@ -42,12 +48,13 @@ namespace DefaultNamespace.Components
                 currentTime += Time.deltaTime;
                 if (currentTime >= timeToAccept)
                 {
+                    currentStep++;
+                    if (currentStep < Angles.Length) return;
                     GoalAchieved = true;
                     GoalState = "Complete!";
                 }
                 else
                 {
-
                     GoalState = $"Keep this direction: {timeToAccept - currentTime:0.00} sec";
                 }
             }

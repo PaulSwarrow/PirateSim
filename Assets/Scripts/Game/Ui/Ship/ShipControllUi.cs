@@ -1,4 +1,5 @@
 using System;
+using DefaultNamespace;
 using Lib;
 using ShipSystems;
 using UnityEngine;
@@ -13,19 +14,17 @@ namespace Ui
 
         public ShipEntity Target => target;
         
-        private void Awake()
-        {
-            Hide();
-        }
-
+        
         public void Show()
         {
+            StageUi.RequireCursor(this);
             gameObject.SetActive(true);
             
         }
 
         public void Hide()
         {
+            StageUi.LoseCursor(this);
             gameObject.SetActive(false);
             
         }

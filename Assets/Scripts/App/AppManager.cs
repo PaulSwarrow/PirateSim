@@ -6,18 +6,15 @@ namespace DefaultNamespace
 {
     public class AppManager : BaseComponent
     {
-        private string homeScene;
-        private void Awake()
-        {
-            homeScene = SceneManager.GetActiveScene().name;
-        }
+        private static string homeScene = SceneManager.GetActiveScene().name;
+     
 
-        public void LoadStage(StageConfig stage)
+        public static void LoadStage(StageConfig stage)
         {
             SceneManager.LoadScene(stage.name);
         }
 
-        public void GoHome()
+        public static void GoHome()
         {
             SceneManager.LoadScene(homeScene);
         }
