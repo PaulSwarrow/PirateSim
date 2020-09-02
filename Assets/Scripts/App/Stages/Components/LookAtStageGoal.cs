@@ -21,15 +21,10 @@ namespace DefaultNamespace.Components
         [SerializeField] private float accurancy = 1f;
         [SerializeField] private float timeToAccept = 3;
         private float angleDelta;
-        private Vector3 requiredDirection;
 
         private float currentTime = 0;
         private int currentStep;
 
-        private void Awake()
-        {
-            requiredDirection = target.transform.forward;
-        }
 
         private void Update()
         {
@@ -51,7 +46,7 @@ namespace DefaultNamespace.Components
                     currentStep++;
                     if (currentStep < Angles.Length) return;
                     GoalAchieved = true;
-                    GoalState = "Complete!";
+                    GoalState = "";
                 }
                 else
                 {

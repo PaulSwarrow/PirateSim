@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Ui.Dialogs;
 using Lib;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -20,7 +21,7 @@ namespace DefaultNamespace
         [SerializeField] private RectTransform menu;
         [SerializeField] private Text goalDescription;
         [SerializeField] private Text goalProgress;
-
+        [SerializeField] private WinDialog winDialog;
         private void Awake()
         {
             menu.gameObject.SetActive(false);
@@ -28,6 +29,7 @@ namespace DefaultNamespace
 
         private void Update()
         {
+            winDialog.gameObject.SetActive(GoalProvider.GoalAchieved);
             if (CursorUsers.Count > 0)
             {
                 Cursor.lockState = CursorLockMode.None;
