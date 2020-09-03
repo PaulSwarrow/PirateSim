@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 742155633}
   - component: {fileID: 742155632}
   - component: {fileID: 742155631}
+  - component: {fileID: 742155634}
   m_Layer: 5
   m_Name: Missons
   m_TagString: Untagged
@@ -576,6 +577,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742155629}
   m_CullTransparentMesh: 0
+--- !u!114 &742155634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742155629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5604b14ab85e4484b6d962471e7ae392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1106359574
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1106359575}
+  - component: {fileID: 1106359576}
   m_Layer: 0
   m_Name: AppManager
   m_TagString: Untagged
@@ -606,6 +620,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1106359576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106359574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d097970f6d184103baa30f0c09861d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stages:
+  - {fileID: 11400000, guid: 87bdf207d796d1e4d9900a17050db580, type: 2}
+  - {fileID: 11400000, guid: f2896bb5559e1614c8f6ad435d72dfe1, type: 2}
+  - {fileID: 11400000, guid: 7d2bf270538f2d549a17f2ef84a6dc01, type: 2}
 --- !u!1 &1517661096
 GameObject:
   m_ObjectHideFlags: 0

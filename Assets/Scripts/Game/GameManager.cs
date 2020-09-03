@@ -14,6 +14,7 @@ namespace App
             new WindSystem(), 
         };
 
+        public ShipEntity currentShip;
         private GenericMap<GameSystem> systemsMap = new GenericMap<GameSystem>();
 
         public T GetSystem<T>() where T : GameSystem => systemsMap.Get<T>();

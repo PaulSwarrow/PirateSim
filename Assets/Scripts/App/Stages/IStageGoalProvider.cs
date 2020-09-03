@@ -1,8 +1,10 @@
+using Lib;
+
 namespace DefaultNamespace
 {
     public interface IStageGoalProvider
     {
-        bool GoalAchieved { get; }
+        bool GoalAchieved { get;  }
         string GoalDescription { get; }
         string GoalState { get; }
     }

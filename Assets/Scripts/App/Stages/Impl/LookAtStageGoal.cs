@@ -1,4 +1,5 @@
 using System;
+using App;
 using App.Ui.Views;
 using Lib;
 using ShipSystems;
@@ -10,9 +11,9 @@ namespace DefaultNamespace.Components
 {
     public class LookAtStageGoal : BaseComponent, IStageGoalProvider
     {
-        public bool GoalAchieved { get; private set; }
-        public string GoalDescription { get; private set; }
-        public string GoalState { get; private set; } = "";
+        public bool GoalAchieved { get; protected set; }
+        public string GoalDescription { get; protected set; }
+        public string GoalState { get; protected set; } = "";
 
 
         [SerializeField] private float[] Angles;
@@ -25,6 +26,10 @@ namespace DefaultNamespace.Components
         private float currentTime = 0;
         private int currentStep;
 
+        private void Start()
+        {
+            ship = GameManager.current.currentShip;
+        }
 
         private void Update()
         {

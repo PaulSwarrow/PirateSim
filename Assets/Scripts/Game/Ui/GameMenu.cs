@@ -17,7 +17,7 @@ namespace Game.Ui
         {
             resume.onClick.AddListener(Resume);
             restart.onClick.AddListener(Restart);
-            restart.onClick.AddListener(AppManager.GoHome);
+            home.onClick.AddListener(AppManager.GoHome);
         }
 
         private void OnEnable()

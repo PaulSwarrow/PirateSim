@@ -1180,6 +1180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sailsConfig: {fileID: 11400000, guid: 82dbfe8d7ad5605499f4838148036fd1, type: 2}
+  currentShip: {fileID: 3787459566697224106}
 --- !u!114 &6206474256546344945
 MonoBehaviour:
   m_ObjectHideFlags: 0
