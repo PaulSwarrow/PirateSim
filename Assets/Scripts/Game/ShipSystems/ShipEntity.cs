@@ -135,5 +135,12 @@ namespace ShipSystems
                 Gizmos.DrawRay(point, sailForward * 5);
             }
         }
+
+        public void FullStop()
+        {
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            sails.ForEach(sail => sail.Value = 0);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace DefaultNamespace
     public class AppManager : BaseComponent
     {
         private static AppManager instance;
-        private static string homeScene;
+        private static string homeScene = "Main";
         private static Profile profile = new Profile();
 
         public static void LoadStage(StageConfig stage)

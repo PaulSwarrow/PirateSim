@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1edea51b9ab4646a98536576fc6ad21, type: 3}
   m_Name: Rotation Tutorial
   m_EditorClassIdentifier: 
-  scene: Game
-  tutorial: 0
-  prefab: {fileID: 216718344146772706, guid: 92a1148051d45034c82dbb1d3d057861, type: 3}
+  scene: RotationTutorial
+  tutorial: 1
