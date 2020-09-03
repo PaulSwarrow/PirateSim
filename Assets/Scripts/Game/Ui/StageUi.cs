@@ -12,6 +12,7 @@ namespace DefaultNamespace
     public class StageUi : BaseComponent
     {
         private static HashSet<Object> CursorUsers = new HashSet<object>();
+        public static StageUi current { get; private set; }
 
         public static void RequireCursor(object user) => CursorUsers.Add(user);
         public static void LoseCursor(object user) => CursorUsers.Remove(user);
@@ -25,6 +26,12 @@ namespace DefaultNamespace
         private void Awake()
         {
             menu.gameObject.SetActive(false);
+            current = this;
+        }
+
+        private void OnDestroy()
+        {
+            current = null;
         }
 
         private void Update()

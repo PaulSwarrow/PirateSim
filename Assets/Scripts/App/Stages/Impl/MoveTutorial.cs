@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using App;
 using App.Tools;
+using Game.Ui.Dialogs;
 using Lib;
 using ShipSystems;
 using UnityEngine;
@@ -14,6 +16,7 @@ namespace DefaultNamespace.Components
         {
             public float wind;
             public GameTrigger trigger;
+            public TutorialDialog[] tutorial;
         }
 
         public bool GoalAchieved { get; private set; }
@@ -34,6 +37,8 @@ namespace DefaultNamespace.Components
                 part.trigger.gameObject.SetActive(false);
                 part.trigger.EnterEvent += OnTrigger;
             }
+
+            StartCoroutine(Tutorial(sequence[0]));
         }
 
         private void OnTrigger(GameTrigger trigger, Collider collider)
@@ -57,6 +62,15 @@ namespace DefaultNamespace.Components
             currentStep = sequence[progress];
             currentStep.trigger.gameObject.SetActive(true);
             GameManager.current.GetSystem<WindSystem>().SetWind(currentStep.wind, windForce);
+        }
+
+        private IEnumerator Tutorial(Part step)
+        {
+            foreach (var prefab in step.tutorial)
+            {
+                var dialog = Instantiate(prefab, StageUi.current.transform);
+                yield return new WaitUntil(() => dialog.Complete);
+            }
         }
     }
 }

@@ -7,10 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 664768977925578925, guid: e9f414a703c0b2147836a8745f8d0a51,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 664768979354242842, guid: e9f414a703c0b2147836a8745f8d0a51,
         type: 3}
       propertyPath: m_Name
-      value: Stage
+      value: Move Stage
       objectReference: {fileID: 0}
     - target: {fileID: 664768979354243047, guid: e9f414a703c0b2147836a8745f8d0a51,
         type: 3}

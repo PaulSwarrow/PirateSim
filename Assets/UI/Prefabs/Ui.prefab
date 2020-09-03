@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipControll: {fileID: 1997872318557480229}
-  cameraLook: {fileID: 0}
 --- !u!1 &7003656429383115411
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +365,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7003656428731622358}
     m_Modifications:
+    - target: {fileID: 578626102474430088, guid: 77e260ed70472764885f870fbc71bdd1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 578626102474430088, guid: 77e260ed70472764885f870fbc71bdd1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 99
+      objectReference: {fileID: 0}
     - target: {fileID: 1476728003545532249, guid: 77e260ed70472764885f870fbc71bdd1,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -454,7 +463,32 @@ PrefabInstance:
     - target: {fileID: 3230382018622652513, guid: 77e260ed70472764885f870fbc71bdd1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000061035156
+      value: 152.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230382018622652513, guid: 77e260ed70472764885f870fbc71bdd1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.2545166
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230382018622652513, guid: 77e260ed70472764885f870fbc71bdd1,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230382018622652513, guid: 77e260ed70472764885f870fbc71bdd1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 304.17053
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230382018622652513, guid: 77e260ed70472764885f870fbc71bdd1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.8082351
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230382018622652513, guid: 77e260ed70472764885f870fbc71bdd1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 5381261079051539123, guid: 77e260ed70472764885f870fbc71bdd1,
         type: 3}
