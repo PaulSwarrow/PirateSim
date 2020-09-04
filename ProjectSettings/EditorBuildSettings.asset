@@ -16,5 +16,5 @@ EditorBuildSettings:
     guid: ec16145b465839f4784cbe88a6122905
   - enabled: 1
     path: Assets/Scenes/MoveTutorial.unity
-    guid: 70ea1fb83c1a7374593832c8b7809422
+    guid: 18b615da69c995a41b0b56af2fe5c35a
   m_configObjects: {}

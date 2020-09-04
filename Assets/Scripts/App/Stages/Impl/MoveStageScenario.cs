@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DefaultNamespace.Components
 {
-    public class MoveTutorial : BaseComponent, IStageGoalProvider
+    public class MoveStageScenario : BaseStageScenario, IStageGoalProvider
     {
         [Serializable]
         private class Part
@@ -38,7 +38,7 @@ namespace DefaultNamespace.Components
                 part.trigger.EnterEvent += OnTrigger;
             }
 
-            StartCoroutine(Tutorial(sequence[0]));
+            StartCoroutine(Tutorial(sequence[0].tutorial));
         }
 
         private void OnTrigger(GameTrigger trigger, Collider collider)
@@ -62,15 +62,6 @@ namespace DefaultNamespace.Components
             currentStep = sequence[progress];
             currentStep.trigger.gameObject.SetActive(true);
             GameManager.current.GetSystem<WindSystem>().SetWind(currentStep.wind, windForce);
-        }
-
-        private IEnumerator Tutorial(Part step)
-        {
-            foreach (var prefab in step.tutorial)
-            {
-                var dialog = Instantiate(prefab, StageUi.current.transform);
-                yield return new WaitUntil(() => dialog.Complete);
-            }
         }
     }
 }

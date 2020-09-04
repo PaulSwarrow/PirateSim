@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f326325fe82a44fc9f8e34340636cbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogs:
+  - {fileID: 3806117370765892262, guid: 536d60fb7c9927f4c895c4df033cb215, type: 3}
   Angles:
   - 90
   - 180
@@ -398,7 +400,7 @@ PrefabInstance:
     - target: {fileID: 664768979354242842, guid: e9f414a703c0b2147836a8745f8d0a51,
         type: 3}
       propertyPath: m_Name
-      value: Stage Variant
+      value: RotationStage
       objectReference: {fileID: 0}
     - target: {fileID: 664768979354243047, guid: e9f414a703c0b2147836a8745f8d0a51,
         type: 3}

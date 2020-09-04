@@ -1,16 +1,14 @@
-using System;
 using App;
 using App.Ui.Views;
-using Lib;
+using Game.Ui.Dialogs;
 using ShipSystems;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DefaultNamespace.Components
 {
-    public class LookAtStageGoal : BaseComponent, IStageGoalProvider
+    public class RotationStageScenario : BaseStageScenario, IStageGoalProvider
     {
+        public TutorialDialog[] dialogs;
         public bool GoalAchieved { get; protected set; }
         public string GoalDescription { get; protected set; }
         public string GoalState { get; protected set; } = "";
@@ -29,6 +27,7 @@ namespace DefaultNamespace.Components
         private void Start()
         {
             ship = GameManager.current.currentShip;
+            StartCoroutine(Tutorial(dialogs));
         }
 
         private void Update()

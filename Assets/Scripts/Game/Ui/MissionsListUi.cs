@@ -2,6 +2,7 @@ using System;
 using DefaultNamespace;
 using Lib;
 using Lib.Tools;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.Ui
@@ -17,12 +18,17 @@ namespace Game.Ui
 
         private void Start()
         {
+            Button btn;
             foreach (var stage in AppManager.GetStages())
             {
-                var btn = btnFactory.Create();
-                btn.onClick.AddListener(()=> AppManager.LoadStage(stage));
+                btn = btnFactory.Create();
+                btn.onClick.AddListener(() => AppManager.LoadStage(stage));
                 btn.GetComponentInChildren<Text>().text = stage.name;
             }
+
+            btn = btnFactory.Create();
+            btn.onClick.AddListener(Application.Quit);
+            btn.GetComponentInChildren<Text>().text = "Exit";
         }
     }
 }
