@@ -8,6 +8,7 @@ namespace DefaultNamespace.Components
 {
     public class MazeStage : BaseStageScenario, IStageGoalProvider, ITimeSpanTracker
     {
+        private const string HighScoreProperty = "MazeHighscore";
         public bool GoalAchieved { get; private set; }
         public string GoalDescription { get; private set; }
         public string GoalState { get; private set; }
@@ -15,6 +16,8 @@ namespace DefaultNamespace.Components
         [SerializeField] private TutorialDialog dialog;
         private float startTimestamp;
         private TimeSpan timePassed;
+        private TimeSpan highscore;
+        private bool firsttime;
 
 
         public TimeSpan TimeSpan => timePassed;
@@ -22,6 +25,12 @@ namespace DefaultNamespace.Components
 
         private void Start()
         {
+            firsttime = !PlayerPrefs.HasKey(HighScoreProperty);
+            if (!firsttime)
+            {
+                highscore = TimeSpan.FromSeconds(PlayerPrefs.GetFloat(HighScoreProperty));
+            }
+
             trigger.EnterEvent += OnFinish;
             StartCoroutine(Scenario());
         }
@@ -40,9 +49,17 @@ namespace DefaultNamespace.Components
             while (!GoalAchieved)
             {
                 timePassed = TimeSpan.FromSeconds(Time.time - startTimestamp);
-                GoalState = timePassed.ToString("mm':'ss':'fff");
+                GoalState =
+                    $"{timePassed.ToString("mm':'ss':'fff")} \n Best time: {highscore.ToString("mm':'ss':'fff")}";
                 yield return null;
             }
+
+            if (firsttime || timePassed < highscore)
+            {
+                PlayerPrefs.SetFloat(HighScoreProperty, (float) timePassed.TotalSeconds);
+                PlayerPrefs.Save();
+            }
+            
         }
     }
 }
