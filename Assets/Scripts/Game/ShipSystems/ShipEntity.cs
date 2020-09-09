@@ -90,8 +90,9 @@ namespace ShipSystems
 
                 if (sail.jib)
                 {
-                    resultForce = Quaternion.Euler(Vector3.up * (-influenceSign * sailsConfig.jibsAngleCheat)) *
-                                  resultForce;
+                    resultForce.x *= 1 - sailsConfig.jibsCheat;
+                    // resultForce = Quaternion.Euler(Vector3.up * (-influenceSign * sailsConfig.jibsAngleCheat)) *
+                                  // resultForce;
                     resultForce *= sailsConfig.JibsForceMultiplier;
                 }
 

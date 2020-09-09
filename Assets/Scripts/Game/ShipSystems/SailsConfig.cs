@@ -12,5 +12,6 @@ namespace App
         [Range(0, 45)]public float jibsAngleCheat = 10;
         [Min(0)] public float SailAngularDeviationEffect = 1;
         [Min(0)] public float SailRotationMomentum = 1;
+        [Range(0, 1)] public float jibsCheat = 0.6f;
     }
 }

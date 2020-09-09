@@ -1773,7 +1773,7 @@ Rigidbody:
   m_GameObject: {fileID: 2540250027437860066}
   serializedVersion: 2
   m_Mass: 4000
-  m_Drag: 1
+  m_Drag: 0.55
   m_AngularDrag: 9
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1900,8 +1900,8 @@ MonoBehaviour:
   _minSpatialLength: 12
   _turningHeel: 0.053
   _dragInWaterUp: 3
-  _dragInWaterRight: 2
-  _dragInWaterForward: 1
+  _dragInWaterRight: 2.73
+  _dragInWaterForward: 0.65
   _enginePower: 7
   _turnPower: 0.5
   _playerControlled: 0
