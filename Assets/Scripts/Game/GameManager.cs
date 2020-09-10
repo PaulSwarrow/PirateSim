@@ -7,7 +7,7 @@ namespace App
 {
     public class GameManager : BaseComponent
     {
-        public SailsConfig sailsConfig;
+        public SailingConstantsConfig sailsConfig;
         public static GameManager current { get; set; }
         private GameSystem[] systems = 
         {

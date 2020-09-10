@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using App;
 using DefaultNamespace.Data;
 using Lib;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace DefaultNamespace
         private static string homeScene = "Main";
         private static Profile profile = new Profile();
 
+        public static SailingConstantsConfig SailConstants => instance.sailConstants;
+
         public static void LoadStage(StageConfig stage)
         {
             SceneManager.LoadScene(stage.scene);
@@ -26,7 +29,8 @@ namespace DefaultNamespace
         public static IEnumerable<StageConfig> GetStages() => instance.stages;
 
         [SerializeField] private StageConfig[] stages;
-
+        [SerializeField] private SailingConstantsConfig sailConstants;
+ 
         private int tutorialLength;
         private HashSet<StageConfig> tutorialProgress = new HashSet<StageConfig>();
 

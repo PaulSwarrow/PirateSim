@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409d971428124a6cac5cae95572c6d7a, type: 3}
-  m_Name: SailsConfig
+  m_Script: {fileID: 11500000, guid: ef6805bf3b3a4e75bf5cdfbf93dd5e48, type: 3}
+  m_Name: JibsConfig
   m_EditorClassIdentifier: 
-  WindForceMultiplier: 4000
-  JibsForceMultiplier: 1.49
-  MinWindCatch: 0.2
-  jibsAngleCheat: 20.4
-  SailAngularDeviationEffect: 1
-  SailRotationMomentum: 1
+  availableAngles:
+  - 45
+  - 20
+  - 0
+  - -20
+  - -45
+  jib: 1

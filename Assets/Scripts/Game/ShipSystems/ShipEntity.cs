@@ -50,7 +50,7 @@ namespace ShipSystems
 
         [SerializeField] private Rigidbody rigidbody;
         private WindSystem windSystem;
-        private SailsConfig sailsConfig;
+        private SailingConstantsConfig sailsConfig;
 
         private Transform self;
         public Vector3 localWind { get; private set; }
