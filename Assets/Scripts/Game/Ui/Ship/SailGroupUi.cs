@@ -15,7 +15,10 @@ namespace Ui
 
         [SerializeField] private SailStateUi item;
 
+        public event Action<SailOrder> OrderUpdateEvent; 
+        
         private SailOrder order = new SailOrder();
+        
 
         private SailGroupModel model;
         public SailGroupModel Model
@@ -58,12 +61,14 @@ namespace Ui
         private void OnValueChange(SailStateUi obj)
         {
             order.task.sailsUp = order.task.sailsUp == 1 ? 0 : 1;
+            OrderUpdateEvent?.Invoke(order);
         }
 
         private void OnStateSelected(int index)
         {
             order.task.angleIndex = index;
             HideSelector();
+            OrderUpdateEvent?.Invoke(order);
         }
 
         private void ShowSelector(SailStateUi obj)

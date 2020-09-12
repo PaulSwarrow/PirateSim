@@ -33,7 +33,7 @@ namespace Lib.Tools
             return item;
         }
 
-        private void Remove(T item)
+        public void Remove(T item)
         {
             pool.Add(item);
         }

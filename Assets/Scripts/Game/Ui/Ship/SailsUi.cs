@@ -1,14 +1,17 @@
 
 using System.Collections.Generic;
+using Game.ShipSystems.Sails.Data;
 using Lib;
 using Lib.Tools;
 using ShipSystems;
+using UnityEngine;
 
 namespace Ui
 {
     public class SailsUi : BaseComponent
     {
         private ShipEntity target;
+        [SerializeField] private SailOrderListUi ordersList;
 
         private LocalFactory<SimpleSailsUi> sailFactory;
         private LocalFactory<JibSailsUi> jibFactory;
@@ -16,21 +19,39 @@ namespace Ui
         private List<SailGroupUi> items = new List<SailGroupUi>();
         private void Awake()
         {
-            target = GetComponentInParent<ShipControllUi>().Target;
             sailFactory = new LocalFactory<SimpleSailsUi>(transform);
             jibFactory = new LocalFactory<JibSailsUi>(transform);
             
-            foreach (var group in target.Sails.sails)
+        }
+
+        private void OnOrderUpdate(SailOrder order)
+        {
+            if (order.IsEmpty())
             {
-                var item = group.Jib ? (SailGroupUi) jibFactory.Create() : sailFactory.Create();
-                item.Model = group;
-                item.Ship = target;
-                items.Add(item);
+                ordersList.Remove(order);
+            }
+            else
+            {
+                ordersList.Add(order);
             }
         }
 
         private void OnEnable()
         {
+            if (target == null)
+            {
+                target = GetComponentInParent<ShipControllUi>().Target;
+                foreach (var group in target.Sails.sails)
+                {
+                    var item = group.Jib ? (SailGroupUi) jibFactory.Create() : sailFactory.Create();
+                    item.Model = group;
+                    item.Ship = target;
+                    item.OrderUpdateEvent += OnOrderUpdate;
+                    items.Add(item);
+                }
+                
+            }
+            ordersList.Clear();
             items.ForEach(item=> item.OnShown());
         }
 
