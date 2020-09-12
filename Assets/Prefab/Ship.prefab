@@ -1004,7 +1004,7 @@ Transform:
   - {fileID: 7289753189134327623}
   - {fileID: 5387792247587012405}
   m_Father: {fileID: 8627455638587650679}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &514289216653962016
 MonoBehaviour:
@@ -1210,7 +1210,7 @@ Transform:
   - {fileID: 7035471232220711156}
   - {fileID: 6415929863033833742}
   m_Father: {fileID: 8627455638587650679}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 36.933002, y: 0, z: 0}
 --- !u!95 &3325493546002660584
 Animator:
@@ -1410,7 +1410,7 @@ GameObject:
   - component: {fileID: 2424085811628082374}
   - component: {fileID: 2962762332894211142}
   m_Layer: 0
-  m_Name: Sail_Jib_middle
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1423,13 +1423,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2386807386952575874}
-  m_LocalRotation: {x: 0.08326464, y: 0, z: -0, w: 0.9965275}
-  m_LocalPosition: {x: -0.0015383587, y: -0.0068527185, z: -0.0071606366}
+  m_LocalRotation: {x: 0.08324864, y: -0.019558884, z: 0.001634243, w: 0.9963355}
+  m_LocalPosition: {x: -0.0001, y: -0.0069000013, z: -0.0157}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8627455638587650679}
+  m_Father: {fileID: 3213406464442584520}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9.552, y: -2.249, z: 0}
 --- !u!33 &2424085811628082374
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1741,6 +1741,7 @@ GameObject:
   - component: {fileID: 2543448786970756148}
   - component: {fileID: 1900088292922305323}
   - component: {fileID: 882564817}
+  - component: {fileID: 5007138219123770756}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -1792,53 +1793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2b9514b6b9416392be1a2ce0282e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sails:
-  - Name: Front jibs
-    Value: 0
-    jib: 1
-    Angle: 2
-    Offset: 17
-    Options:
-    - 45
-    - 20
-    - 0
-    - -20
-    - -45
-    view: {fileID: 8707695641643707353}
-  - Name: M1
-    Value: 0
-    jib: 0
-    Angle: 0
-    Offset: 5.3
-    Options:
-    - 30
-    - 0
-    - -30
-    view: {fileID: 514289216653962016}
-  - Name: M2
-    Value: 0
-    jib: 0
-    Angle: 0
-    Offset: -6.6
-    Options:
-    - 30
-    - 0
-    - -30
-    view: {fileID: 2062844364981332443}
-  - Name: Spanker
-    Value: 0
-    jib: 1
-    Angle: 2
-    Offset: -17
-    Options:
-    - 45
-    - 20
-    - 0
-    - -20
-    - -45
-    view: {fileID: 6862937513055739944}
-  verticalOffset: 3
-  rigidbody: {fileID: 2540250027437860067}
 --- !u!114 &2543448786970756148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1907,6 +1861,55 @@ MonoBehaviour:
   _playerControlled: 0
   _engineBias: 0
   _turnBias: 0
+--- !u!114 &5007138219123770756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2540250027437860066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb91e34d165423899c2ef6f94ea48e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 2d642369414e53f43a7fc1804c19454f, type: 2}
+  sails:
+  - name: Front jibs
+    view: {fileID: 8707695641643707353}
+    Config:
+      name: 
+      configuration: {fileID: 0}
+      offset: 0
+      availableSails: []
+  - name: Mast 1
+    view: {fileID: 514289216653962016}
+    Config:
+      name: 
+      configuration: {fileID: 0}
+      offset: 0
+      availableSails: []
+  - name: Middle jibs
+    view: {fileID: 6293152713868853311}
+    Config:
+      name: 
+      configuration: {fileID: 0}
+      offset: 0
+      availableSails: []
+  - name: Mast 2
+    view: {fileID: 2062844364981332443}
+    Config:
+      name: 
+      configuration: {fileID: 0}
+      offset: 0
+      availableSails: []
+  - name: Spanker
+    view: {fileID: 6862937513055739944}
+    Config:
+      name: 
+      configuration: {fileID: 0}
+      offset: 0
+      availableSails: []
 --- !u!1 &2565327331205072264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,7 +2103,7 @@ Transform:
   - {fileID: 4073416750334987534}
   - {fileID: 2161640893483430162}
   m_Father: {fileID: 8627455638587650679}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2062844364981332443
 MonoBehaviour:
@@ -2876,6 +2879,70 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &3153537579501704527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3213406464442584520}
+  - component: {fileID: 6147691671246488054}
+  - component: {fileID: 158827971876589266}
+  m_Layer: 0
+  m_Name: Jib
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3213406464442584520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153537579501704527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6788138276659133087}
+  m_Father: {fileID: 5986533912896987543}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6147691671246488054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153537579501704527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb71d1d6e99a42b3914b5637a28f720c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &158827971876589266
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153537579501704527}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 495f7694dfdc11048bb639f1cceb33f1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3288071519902981460
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,6 +3968,51 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &4303716180615911725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5986533912896987543}
+  - component: {fileID: 6293152713868853311}
+  m_Layer: 0
+  m_Name: Jibs Middle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5986533912896987543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4303716180615911725}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0084}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3213406464442584520}
+  m_Father: {fileID: 8627455638587650679}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6293152713868853311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4303716180615911725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b30380fcbd54310b01d01ee7b6e6065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationTarget: {fileID: 5986533912896987543}
 --- !u!1 &4336805994399209038
 GameObject:
   m_ObjectHideFlags: 0
@@ -4592,11 +4704,11 @@ Transform:
   m_LocalPosition: {x: 0.00012070275, y: 0.04497245, z: 0.012156922}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6788138276659133087}
   - {fileID: 2258826825210009883}
   - {fileID: 9146314065973793467}
   - {fileID: 8065993512171708801}
   - {fileID: 134184026871954424}
+  - {fileID: 5986533912896987543}
   m_Father: {fileID: 2101555001023951087}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7709,7 +7821,7 @@ Transform:
   m_Children:
   - {fileID: 4130602215394366755}
   m_Father: {fileID: 8627455638587650679}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6862937513055739944
 MonoBehaviour:

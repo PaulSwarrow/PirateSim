@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using App;
+using Game.ShipSystems.Refactoring;
 using Lib;
 using Lib.Tools;
 using ShipSystems;
@@ -17,7 +18,7 @@ namespace Ui
         private List<SailStateUi> items = new List<SailStateUi>();
         public SailGroupUi target;
 
-        public SailGroup Model => target.Model;
+        public SailGroupModel Model => target.Model;
         public ShipEntity Ship => target.Ship;
 
         private void Awake()
@@ -27,10 +28,10 @@ namespace Ui
 
         private void Start()
         {
-            foreach (var option in Model.Options)
+            foreach (var option in Model.Config.configuration.availableAngles)
             {
                 var item = factory.Create();
-                item.Jib = Model.jib;
+                item.Jib = Model.Jib;
                 item.Angle = option;
                 item.ClickEvent += OnClick;
                 items.Add(item);
@@ -47,7 +48,7 @@ namespace Ui
         {
             foreach (var item in items)
             {
-                item.Fill = Vector3.Dot(Ship.localWind.normalized, SailGroup.GetNormaleVector(item.Angle, Model.jib));
+                item.Fill = Vector3.Dot(Ship.localWind.normalized, SailGroup.GetNormaleVector(item.Angle, Model.Jib));
             }
 
         }

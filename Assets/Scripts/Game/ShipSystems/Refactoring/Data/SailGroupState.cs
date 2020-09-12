@@ -1,12 +1,14 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
 namespace Game.ShipSystems.Refactoring
 {
+    [Serializable]
     public class SailGroupState
     {
         public float angle;
-        public SailState[] sails;
+        public SailState[] sails = {new SailState()};
         public float inputWind;
         private bool jib;
 

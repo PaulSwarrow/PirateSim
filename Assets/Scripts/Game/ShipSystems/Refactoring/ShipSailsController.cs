@@ -1,37 +1,52 @@
 using System;
 using System.Collections.Generic;
 using App;
-using DefaultNamespace;
 using Lib;
+using Lib.UnityQuickTools.Collections;
+using ShipSystems;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Game.ShipSystems.Refactoring
 {
     public class ShipSailsController : BaseComponent
     {
-        public class SailLink
-        {
-            public string name;
-            
-        }
-        [SerializeField] private ShipSailsConfig config;
+        //configuration:
+        public ShipSailsConfig config;
 
-        private List<SailGroupModel> sails;
+        //cache:
+        public List<SailGroupModel> sails;
         private Transform self;
         private Rigidbody rigidbody;
         private WindSystem windSystem;
         private SailingConstantsConfig sailingConstants;
+
+        //values:
         private Vector3 localWind;
 
         private void Start()
         {
             self = transform;
-
             windSystem = GameManager.current.GetSystem<WindSystem>();
             sailingConstants = GameManager.current.sailsConfig;
             rigidbody = GetComponent<Rigidbody>();
-            
-            
+
+            foreach (var sailConfig in config.sails)
+            {
+                if (sails.TryFind(item => item.name == sailConfig.name, out var model))
+                {
+                    model.parent = self;
+                    model.Config = sailConfig;
+                    //TODO optimize by serializable dictionary!
+                    model.Init();
+                }
+                else Debug.LogError("Sail Group Model not found :" + sailConfig.name, this);
+            }
+        }
+
+        private void Update()
+        {
+            sails.ForEach(item=>item.Update());
         }
 
         private void FixedUpdate()
@@ -51,8 +66,8 @@ namespace Game.ShipSystems.Refactoring
 
 
                 var resultForce = sailVector *
-                                  (influenceSign * 
-                                   sailingConstants.WindForceMultiplier * 
+                                  (influenceSign *
+                                   sailingConstants.WindForceMultiplier *
                                    Mathf.Sqrt(absInfluence) *
                                    sailValue);
 
@@ -64,8 +79,16 @@ namespace Game.ShipSystems.Refactoring
 
                 resultForce = self.TransformVector(resultForce);
                 resultForce.y = 0;
-                rigidbody.AddForceAtPosition(resultForce, point, ForceMode.Force); 
-                Debug.DrawRay(point, resultForce * Time.fixedDeltaTime, Color.yellow); 
+                rigidbody.AddForceAtPosition(resultForce, point, ForceMode.Force);
+                Debug.DrawRay(point, resultForce * Time.fixedDeltaTime, Color.yellow);
+            }
+        }
+
+        public void FullStop()
+        {
+            foreach (var sailGroupModel in sails)
+            {
+                sailGroupModel.Task.sailsUp = 0;
             }
         }
     }

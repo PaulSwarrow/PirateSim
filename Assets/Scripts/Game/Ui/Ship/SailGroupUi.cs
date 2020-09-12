@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using App;
+using Game.ShipSystems.Refactoring;
 using Lib;
 using Lib.Tools;
 using ShipSystems;
@@ -13,15 +14,17 @@ namespace Ui
         [SerializeField] private SailStateSelector selector;
 
         [SerializeField] private SailStateUi item;
-        private SailGroup model;
-        public SailGroup Model
+
+        private SailOrder order = new SailOrder();
+
+        private SailGroupModel model;
+        public SailGroupModel Model
         {
             get => model;
             set
             {
                 model = value;
-                item.Jib = model.jib;
-                item.Angle = model.Options[model.Angle];
+                item.Jib = value.Jib;
 
             }
         }
@@ -35,15 +38,31 @@ namespace Ui
             item.ClickEvent += ShowSelector; //unsubscribe
         }
 
+        public void OnShown()
+        {
+            order = new SailOrder
+            {
+                sails = model, 
+                task = model.Task.Copy()
+            };
+            Update();
+        }
+
+
+        public void OnHidden()
+        {
+            HideSelector();
+            
+        }
+
         private void OnValueChange(SailStateUi obj)
         {
-            model.Value = model.Value == 0 ? 1 : 0;
+            order.task.sailsUp = order.task.sailsUp == 1 ? 0 : 1;
         }
 
         private void OnStateSelected(int index)
         {
-            model.Angle = index;
-            item.Angle = model.Options[model.Angle];
+            order.task.angleIndex = index;
             HideSelector();
         }
 
@@ -57,18 +76,15 @@ namespace Ui
             selector.gameObject.SetActive(false);
         }
 
-        private void OnDisable()
-        {
-            HideSelector();
-        }
 
         public ShipEntity Ship { get; set; }
 
 
         protected virtual void Update()
         {
-            item.Fill = Vector3.Dot(Ship.localWind.normalized, SailGroup.GetNormaleVector(item.Angle, model.jib));
-            item.Value = Model.Value;
+            item.Angle = order.sails.Config.GetAngle(order.task.angleIndex);
+            item.Fill = Vector3.Dot(Ship.localWind.normalized, SailGroup.GetNormaleVector(item.Angle, item.Jib));
+            item.Value = order.task.sailsUp;
         }
     }
 }

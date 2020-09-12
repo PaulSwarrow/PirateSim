@@ -16,13 +16,14 @@ namespace DefaultNamespace
 
         public static void RequireCursor(object user) => CursorUsers.Add(user);
         public static void LoseCursor(object user) => CursorUsers.Remove(user);
-        
+
         public IStageGoalProvider GoalProvider;
 
         [SerializeField] private RectTransform menu;
         [SerializeField] private Text goalDescription;
         [SerializeField] private Text goalProgress;
         [SerializeField] private WinDialog winDialog;
+
         private void Awake()
         {
             menu.gameObject.SetActive(false);
@@ -36,7 +37,6 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            winDialog.gameObject.SetActive(GoalProvider.GoalAchieved);
             if (CursorUsers.Count > 0)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -47,7 +47,10 @@ namespace DefaultNamespace
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
-            
+            if (GoalProvider == null) return;
+
+            winDialog.gameObject.SetActive(GoalProvider.GoalAchieved);
+
             goalDescription.text = GoalProvider.GoalDescription;
             goalProgress.text = GoalProvider.GoalState;
 

@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Game.ShipSystems.Refactoring
 {
-    
     [CreateAssetMenu(fileName = "ShipSailsConfig", menuName = "Game/ShipSailsConfig", order = 10000)]
     public class ShipSailsConfig : ScriptableObject
     {
@@ -17,6 +16,8 @@ namespace Game.ShipSystems.Refactoring
             public float offset;
             public bool Jib => configuration.jib;
             public float[] availableSails = {1};
+
+            public float GetAngle(int angleIndex) => configuration.availableAngles[angleIndex];
         }
 
         public List<SailGroupConfig> sails;
