@@ -1,8 +1,6 @@
-using System;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 
-namespace Game.ShipSystems.Refactoring
+namespace Game.ShipSystems.Sails.Configs
 {
     
     [CreateAssetMenu(fileName = "SailGroupConfig", menuName = "Game/SailGroupConfig", order = 10000)]

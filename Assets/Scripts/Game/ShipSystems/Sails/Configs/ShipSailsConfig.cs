@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-namespace Game.ShipSystems.Refactoring
+namespace Game.ShipSystems.Sails.Configs
 {
     [CreateAssetMenu(fileName = "ShipSailsConfig", menuName = "Game/ShipSailsConfig", order = 10000)]
     public class ShipSailsConfig : ScriptableObject

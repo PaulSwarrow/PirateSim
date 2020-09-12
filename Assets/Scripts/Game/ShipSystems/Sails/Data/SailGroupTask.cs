@@ -1,6 +1,6 @@
 using System;
 
-namespace Game.ShipSystems.Refactoring
+namespace Game.ShipSystems.Sails.Data
 {
     [Serializable]
     public class SailGroupTask

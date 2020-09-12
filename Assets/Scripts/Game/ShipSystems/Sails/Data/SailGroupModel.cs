@@ -1,10 +1,10 @@
 using System;
-using App;
 using DefaultNamespace;
+using Game.ShipSystems.Sails.Configs;
 using ShipSystems;
 using UnityEngine;
 
-namespace Game.ShipSystems.Refactoring
+namespace Game.ShipSystems.Sails.Data
 {
     [Serializable]
     public class SailGroupModel

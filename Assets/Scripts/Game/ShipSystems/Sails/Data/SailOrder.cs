@@ -1,4 +1,4 @@
-namespace Game.ShipSystems.Refactoring
+namespace Game.ShipSystems.Sails.Data
 {
     public class SailOrder
     {

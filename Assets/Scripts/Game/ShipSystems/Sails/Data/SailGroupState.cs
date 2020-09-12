@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-namespace Game.ShipSystems.Refactoring
+namespace Game.ShipSystems.Sails.Data
 {
     [Serializable]
     public class SailGroupState

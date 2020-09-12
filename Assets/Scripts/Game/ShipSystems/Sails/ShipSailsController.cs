@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using App;
+using Game.ShipSystems.Sails.Configs;
+using Game.ShipSystems.Sails.Data;
 using Lib;
 using Lib.UnityQuickTools.Collections;
-using ShipSystems;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-namespace Game.ShipSystems.Refactoring
+namespace Game.ShipSystems.Sails
 {
     public class ShipSailsController : BaseComponent
     {
