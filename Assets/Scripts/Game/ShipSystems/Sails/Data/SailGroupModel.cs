@@ -26,6 +26,10 @@ namespace Game.ShipSystems.Sails.Data
                    parent.forward * (Offset * AppManager.SailConstants.SailRotationMomentum) +
                    Vector3.up * (AppManager.SailConstants.SailAngularDeviationEffect);
         }
+        public Vector3 GetNormaleVector()
+        {
+            return Quaternion.Euler(0, State.angle, 0) * (Jib ? Vector3.right : Vector3.forward);
+        }
 
         public void Init()
         {
@@ -34,6 +38,7 @@ namespace Game.ShipSystems.Sails.Data
                 angleIndex = Mathf.FloorToInt((float)Config.configuration.availableAngles.Length/2),
                 sailsUp = 0
             };
+            view.model = this;//TODO better solution
         }
 
         public void Update()

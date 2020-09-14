@@ -58,6 +58,7 @@ namespace Ui
         private void OnDisable()
         {
             items.ForEach(item=> item.OnHidden());
+            target.Sails.ApplyOrders(ordersList.GetOrders());
         }
     }
 }

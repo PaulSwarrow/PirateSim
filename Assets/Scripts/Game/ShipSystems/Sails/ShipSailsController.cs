@@ -46,7 +46,7 @@ namespace Game.ShipSystems.Sails
 
         private void Update()
         {
-            sails.ForEach(item=>item.Update());
+            sails.ForEach(item => item.Update());
         }
 
         private void FixedUpdate()
@@ -56,7 +56,7 @@ namespace Game.ShipSystems.Sails
             foreach (var sail in sails)
             {
                 var point = sail.GetSailPointMultiplied();
-                var sailVector = sail.State.GetNormaleVector();
+                var sailVector = sail.GetNormaleVector();
                 var windInfluence = Vector3.Dot(localWind, sailVector);
 
                 var absInfluence = Mathf.Abs(windInfluence);
@@ -80,7 +80,7 @@ namespace Game.ShipSystems.Sails
                 resultForce = self.TransformVector(resultForce);
                 resultForce.y = 0;
                 rigidbody.AddForceAtPosition(resultForce, point, ForceMode.Force);
-                Debug.DrawRay(point, resultForce * Time.fixedDeltaTime, Color.yellow);
+                Debug.DrawRay(point + Vector3.up*5, resultForce * Time.fixedDeltaTime, Color.yellow);
             }
         }
 
@@ -89,6 +89,15 @@ namespace Game.ShipSystems.Sails
             foreach (var sailGroupModel in sails)
             {
                 sailGroupModel.Task.sailsUp = 0;
+            }
+        }
+
+        public void ApplyOrders(IEnumerable<SailOrder> orders)
+        {
+            //TODO animations && npc-s work
+            foreach (var sailOrder in orders)
+            {
+                sailOrder.sails.Task = sailOrder.task;
             }
         }
     }

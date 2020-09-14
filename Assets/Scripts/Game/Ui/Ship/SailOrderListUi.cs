@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.ShipSystems.Sails.Data;
 using Lib;
 using Lib.Tools;
@@ -47,6 +48,11 @@ namespace Ui
                 factory.Remove(orderUi);
             }
             items.Clear();
+        }
+
+        public IEnumerable<SailOrder> GetOrders()
+        {
+            return items.Select(item => item.order);
         }
     }
 }
