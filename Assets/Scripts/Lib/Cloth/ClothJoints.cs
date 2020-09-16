@@ -24,8 +24,17 @@ public class ClothJoints : MonoBehaviour
         public bool active;
     }
 
-    void Start()
+    private void Update()
     {
+        var constraints = cloth.coefficients;
+        foreach (var joint in joints)
+        { 
+            var coefficient = constraints[joint.vertex];
+            coefficient.maxDistance = joint.active? joint.value: float.MaxValue;
+            constraints[joint.vertex] = coefficient;
+            
+        }
+        cloth.coefficients = constraints;
     }
 
     public void Bake()
@@ -37,7 +46,7 @@ public class ClothJoints : MonoBehaviour
             var bonePosition = joint.bone.position;
             joint.vertex = vertices.Least(a => Vector3.Distance(a, bonePosition));
             var coefficient = constraints[joint.vertex];
-            coefficient.maxDistance = joint.value;
+            coefficient.maxDistance = joint.active? joint.value: float.MaxValue;
             constraints[joint.vertex] = coefficient;
         }
 
