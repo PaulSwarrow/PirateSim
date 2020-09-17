@@ -11,7 +11,7 @@ namespace ShipSystems.Sim
     {
         [SerializeField] private SkinnedMeshRenderer mesh;
         [SerializeField] private Cloth cloth;
-        [SerializeField] public SailClothRig[] rigs = new  SailClothRig[0];
+        [SerializeField] public SailClothRig[] rigs = new SailClothRig[0];
         [SerializeField] private BoxCollider[] holders;
         [HideInInspector] [SerializeField] private List<int> holderVertices = new List<int>();
         [Buttons("Bake")] [SerializeField] private bool buttons;
@@ -32,7 +32,7 @@ namespace ShipSystems.Sim
                 var c = coefficients[i];
                 c.maxDistance = float.MaxValue;
                 coefficients[i] = c;
-                
+
                 foreach (var holder in holders)
                 {
                     if (holder.bounds.Contains(vertices[i]))
@@ -42,9 +42,9 @@ namespace ShipSystems.Sim
                     }
                 }
             }
+
             cloth.coefficients = coefficients;
 
-            
             //bake rigs
             foreach (var rig in rigs)
             {
@@ -53,11 +53,13 @@ namespace ShipSystems.Sim
 
 
             int FindVertex(Transform bone) => vertices.Least(a => Vector3.Distance(a, bone.position));
-
         }
 
         private void Start()
-        { var coefficients = cloth.coefficients;
+        {
+            // cloth.SetSelfAndInterCollisionIndices(new List<uint>(cloth.vertices.Select((item, i)=> (uint)i)));
+            cloth.selfCollisionDistance = 0.1f;
+            var coefficients = cloth.coefficients;
             var vertices = cloth.vertices.Select(GetVertexPosition).ToArray();
 
             foreach (var vertex in holderVertices)
@@ -66,8 +68,8 @@ namespace ShipSystems.Sim
                 c.maxDistance = 0;
                 coefficients[vertex] = c;
             }
+
             cloth.coefficients = coefficients;
-            
         }
 
         private void Update()
@@ -82,20 +84,20 @@ namespace ShipSystems.Sim
                     coefficients[joint.vertex] = coef;
                 }
             }
+
             cloth.coefficients = coefficients;
         }
-        
+
         private void OnDrawGizmos()
         {
-            foreach (var clothRig in rigs)
+            /*foreach (var clothRig in rigs)
             {
                 foreach (var joint in clothRig.joints)
                 {
-                    
                     var position = GetVertexPosition(cloth.vertices[joint.vertex]);
                     Gizmos.DrawWireSphere(position, 0.05f);
                 }
-            }
+            }*/
 
             /*foreach (var vertex in cloth.vertices)
             {
