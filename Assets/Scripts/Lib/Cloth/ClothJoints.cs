@@ -6,6 +6,13 @@ using Lib.Tools;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
 
+[Serializable]
+public class ClothJoint
+{
+    public Transform bone;
+    public int vertex = -1;
+    public float value = 0f;
+}
 public class ClothJoints : MonoBehaviour
 {
     [SerializeField] private Cloth cloth;
@@ -15,60 +22,74 @@ public class ClothJoints : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private List<ClothJoint> joints = new List<ClothJoint>();
 
-    [Serializable]
-    public class ClothJoint
-    {
-        public Transform bone;
-        public int vertex = -1;
-        public float value;
-        public bool active;
-    }
 
     private void Update()
     {
         var constraints = cloth.coefficients;
         foreach (var joint in joints)
-        { 
+        {
             var coefficient = constraints[joint.vertex];
-            coefficient.maxDistance = joint.active? joint.value: float.MaxValue;
+            coefficient.maxDistance = float.MaxValue;
             constraints[joint.vertex] = coefficient;
-            
+            // if (!joint.active) joint.bone.position = GetVertexPosition(cloth.vertices[joint.vertex]);
         }
-        cloth.coefficients = constraints;
+
+        cloth.coefficients = constraints.ToArray();
+    }
+
+    private void Start()
+    {
+        cloth.selfCollisionDistance = 0.1f;
     }
 
     public void Bake()
     {
         var vertices = cloth.vertices.Select(GetVertexPosition).ToArray();
-        var constraints = cloth.coefficients;
-        foreach (var joint in joints)
+        joints.Clear();
+        foreach (var bone in mesh.bones)
         {
-            var bonePosition = joint.bone.position;
-            joint.vertex = vertices.Least(a => Vector3.Distance(a, bonePosition));
-            var coefficient = constraints[joint.vertex];
-            coefficient.maxDistance = joint.active? joint.value: float.MaxValue;
-            constraints[joint.vertex] = coefficient;
+            var joint = new ClothJoint
+            {
+                bone = bone,
+                vertex = vertices.Least(a => Vector3.Distance(a, bone.position))
+            };
+            // var coefficient = constraints[joint.vertex];
+            // coefficient.maxDistance = joint.active ? joint.value : float.MaxValue;
+            // constraints[joint.vertex] = coefficient;
+            joints.Add(joint);
         }
 
-        cloth.coefficients = constraints;
+        var constraints = new List<ClothSkinningCoefficient>();
+        var selfCollision = new uint[cloth.vertices.Length];
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            selfCollision[i] = (uint) i;
+            constraints.Add(new ClothSkinningCoefficient
+            {
+                collisionSphereDistance = cloth.coefficients[i].collisionSphereDistance,
+                maxDistance = (joints.TryFind(item => item.vertex == i, out var joint) )
+                    ? joint.value
+                    : float.MaxValue
+            });
+        }
+
+        cloth.coefficients = constraints.ToArray();
     }
 
     // Update is called once per frame
 
     private Vector3 GetVertexPosition(Vector3 vertex) =>
-        cloth.transform.TransformPoint(vertex) + transform.TransformVector(mesh.rootBone.localPosition);
+        transform.TransformPoint(vertex) + transform.TransformVector(mesh.rootBone.localPosition);
 
     private void OnDrawGizmos()
     {
-        var self = cloth.transform;
-
         foreach (var joint in joints)
         {
-            if(joint.vertex == -1) continue;
-            
+            if (joint.vertex == -1) continue;
+
             Gizmos.DrawWireSphere(GetVertexPosition(cloth.vertices[joint.vertex]), 0.05f);
-            
         }
+
         /*foreach (var vertex in cloth.vertices)
         {
             var position = GetVertexPosition(vertex);
