@@ -8,7 +8,7 @@ namespace ShipSystems.Sim
     public class SailClothRig : BaseComponent
     {
         [SerializeField] private Transform permanentJoint;
-        public List<ClothJoint> joints;
+        public List<ClothJoint> joints = new List<ClothJoint>();
 
         [SerializeField] [Range(0, 1)] public float progress;
 

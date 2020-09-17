@@ -11,7 +11,7 @@ namespace ShipSystems.Sim
     {
         [SerializeField] private SkinnedMeshRenderer mesh;
         [SerializeField] private Cloth cloth;
-        [SerializeField] private SailClothRig[] rigs;
+        [SerializeField] private SailClothRig[] rigs = new  SailClothRig[0];
         [SerializeField] private BoxCollider[] holders;
         [HideInInspector] [SerializeField] private List<int> holderVertices = new List<int>();
         [Buttons("Bake")] [SerializeField] private bool buttons;
