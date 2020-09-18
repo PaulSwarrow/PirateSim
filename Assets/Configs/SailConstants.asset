@@ -17,5 +17,5 @@ MonoBehaviour:
   MinWindCatch: 0.2
   jibsAngleCheat: 20.4
   SailAngularDeviationEffect: 1
-  SailRotationMomentum: 1
+  SailRotationMomentum: 10
   jibsCheat: 0

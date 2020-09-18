@@ -4,7 +4,7 @@ namespace App
 {
     public class WindSystem : GameSystem
     {
-        public Vector3 Wind;
+        public static Vector3 Wind;
         public override void Start()
         {
             base.Start();

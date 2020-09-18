@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShipSystems
 {
-    public class SailView  : BaseComponent
+    public class SailView  : BaseComponent, ISailView
     {
         private Animator animator;
         private static readonly int FlagName = Animator.StringToHash("Raised");
@@ -15,13 +15,11 @@ namespace ShipSystems
             animator = GetComponent<Animator>();
         }
 
-        public bool Raised
+
+        public float Progress
         {
-            set => animator.SetBool(FlagName, value);
-            get => animator.GetBool(FlagName);
+            set => animator.SetBool(FlagName, value > 0.1f);
         }
-
-
-
+        public Vector3 Wind { get; set; }
     }
 }

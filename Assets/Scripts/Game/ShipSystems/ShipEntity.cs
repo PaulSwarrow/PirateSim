@@ -71,7 +71,7 @@ namespace ShipSystems
 
         private void Update()
         {
-            localWind = self.InverseTransformVector(windSystem.Wind);
+            localWind = self.InverseTransformVector(WindSystem.Wind);
         }
 
         public void FullStop()

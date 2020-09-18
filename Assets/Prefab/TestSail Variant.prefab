@@ -78,6 +78,8 @@ MonoBehaviour:
   - {fileID: 1601554400}
   holderVertices: 6a0000006b0000006e000000740000007a0000007c00000082000000870000008b0000008e000000940000009a000000a0000000a6000000ac000000b2000000b8000000be000000c4000000ca000000d0000000d6000000dc000000e2000000e8000000ee000000f4000000fa00000000010000060100000c01000012010000180100001e010000240100002a01000030010000360100003c0100004201000044010000
   buttons: 1
+  windMultiplier: 3
+  progress: 0
 --- !u!114 &415578068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,14 +431,14 @@ Cloth:
   m_GameObject: {fileID: 8643125377433359779}
   m_Enabled: 1
   m_StretchingStiffness: 1
-  m_BendingStiffness: 0.25
+  m_BendingStiffness: 0.81
   m_UseTethers: 1
   m_UseGravity: 1
-  m_Damping: 0.27
+  m_Damping: 0.09
   m_ExternalAcceleration: {x: 0, y: 0, z: 14.15}
   m_RandomAcceleration: {x: 1, y: 1, z: 5}
-  m_WorldVelocityScale: 0.5
-  m_WorldAccelerationScale: 1
+  m_WorldVelocityScale: 0
+  m_WorldAccelerationScale: 0.28
   m_Friction: 0.5
   m_CollisionMassScale: 0
   m_UseContinuousCollision: 1
@@ -2166,9 +2168,7 @@ Cloth:
     collisionSphereDistance: 3.4028235e+38
   - maxDistance: 3.4028235e+38
     collisionSphereDistance: 3.4028235e+38
-  m_CapsuleColliders:
-  - {fileID: 0}
-  - {fileID: 0}
+  m_CapsuleColliders: []
   m_SphereColliders: []
   m_SelfCollisionDistance: 0.1
   m_SelfCollisionStiffness: 0.2
@@ -2268,27 +2268,37 @@ PrefabInstance:
     - target: {fileID: -1750197354950549132, guid: a338d7d89539ab44bb0965866b860a7d,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: 0
+      value: 0.0048799515
       objectReference: {fileID: 0}
     - target: {fileID: -1750197354950549132, guid: a338d7d89539ab44bb0965866b860a7d,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: 0
+      value: 0.32855484
       objectReference: {fileID: 0}
     - target: {fileID: -1750197354950549132, guid: a338d7d89539ab44bb0965866b860a7d,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0
+      value: 0.3285562
       objectReference: {fileID: 0}
     - target: {fileID: -1750197354950549132, guid: a338d7d89539ab44bb0965866b860a7d,
         type: 3}
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 7020709516302376658}
+    - target: {fileID: -1750197354950549132, guid: a338d7d89539ab44bb0965866b860a7d,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 18.962215
+      objectReference: {fileID: 0}
+    - target: {fileID: -1750197354950549132, guid: a338d7d89539ab44bb0965866b860a7d,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 9.476228
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a338d7d89539ab44bb0965866b860a7d,
         type: 3}
       propertyPath: m_Name
-      value: TestSail
+      value: TestSail Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a338d7d89539ab44bb0965866b860a7d, type: 3}

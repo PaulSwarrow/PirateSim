@@ -18,7 +18,6 @@ namespace Game.ShipSystems.Sails
         public List<SailGroupModel> sails;
         private Transform self;
         private Rigidbody rigidbody;
-        private WindSystem windSystem;
         private SailingConstantsConfig sailingConstants;
 
         //values:
@@ -27,7 +26,6 @@ namespace Game.ShipSystems.Sails
         private void Start()
         {
             self = transform;
-            windSystem = GameManager.current.GetSystem<WindSystem>();
             sailingConstants = GameManager.current.sailsConfig;
             rigidbody = GetComponent<Rigidbody>();
 
@@ -51,14 +49,13 @@ namespace Game.ShipSystems.Sails
 
         private void FixedUpdate()
         {
-            localWind = self.InverseTransformVector(windSystem.Wind);
+            localWind = self.InverseTransformVector(WindSystem.Wind);
 
             foreach (var sail in sails)
             {
                 var point = sail.GetSailPointMultiplied();
                 var sailVector = sail.GetNormaleVector();
                 var windInfluence = Vector3.Dot(localWind, sailVector);
-
                 var absInfluence = Mathf.Abs(windInfluence);
                 var influenceSign = Mathf.Sign(windInfluence);
                 var sailValue = sail.State.GetValue();

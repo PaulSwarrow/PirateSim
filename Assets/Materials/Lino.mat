@@ -83,7 +83,7 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NormalIntensity: 0.35
+    - _NormalIntensity: 0.16
     - _OcclusionStrength: 1
     - _Occulsion: 0.81
     - _Parallax: 0.02
@@ -91,7 +91,7 @@ Material:
     - _Shine: 0.182
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 0.37
+    - _SpecularIntensity: 0.93
     - _SrcBlend: 1
     - _TrueTiling: 1.31
     - _UVSec: 0

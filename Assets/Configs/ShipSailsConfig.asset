@@ -15,12 +15,12 @@ MonoBehaviour:
   sails:
   - name: Front jibs
     configuration: {fileID: 11400000, guid: 8a80bd7497134af4e9b878ae40171d57, type: 2}
-    offset: 0
+    offset: 2
     availableSails:
     - 1
   - name: Mast 1
     configuration: {fileID: 11400000, guid: 92157c00025018b4a98fc8ef8e92587d, type: 2}
-    offset: 0
+    offset: 1
     availableSails:
     - 1
   - name: Middle jibs
@@ -30,11 +30,11 @@ MonoBehaviour:
     - 1
   - name: Mast 2
     configuration: {fileID: 11400000, guid: 92157c00025018b4a98fc8ef8e92587d, type: 2}
-    offset: 0
+    offset: -1
     availableSails:
     - 1
   - name: Spanker
     configuration: {fileID: 11400000, guid: 8a80bd7497134af4e9b878ae40171d57, type: 2}
-    offset: 0
+    offset: -2
     availableSails:
     - 1

@@ -7,16 +7,19 @@ using UnityEngine;
 
 namespace ShipSystems.Sim
 {
-    public class SailCloth : BaseComponent
+    public class SailCloth : BaseComponent, ISailView
     {
         [SerializeField] private SkinnedMeshRenderer mesh;
         [SerializeField] private Cloth cloth;
-        [SerializeField] public SailClothRig[] rigs = new SailClothRig[0];
+        [SerializeField] private SailClothRig[] rigs = new SailClothRig[0];
         [SerializeField] private BoxCollider[] holders;
         [HideInInspector] [SerializeField] private List<int> holderVertices = new List<int>();
         [Buttons("Bake")] [SerializeField] private bool buttons;
+        [SerializeField] private float windMultiplier = 3;
 
 
+        [Range(0, 1)] public float progress;
+        
         public void Bake()
         {
             cloth = GetComponentInChildren<Cloth>();
@@ -83,6 +86,8 @@ namespace ShipSystems.Sim
                     coef.maxDistance = joint.value;
                     coefficients[joint.vertex] = coef;
                 }
+
+                clothRig.progress = progress;
             }
 
             cloth.coefficients = coefficients;
@@ -108,5 +113,15 @@ namespace ShipSystems.Sim
 
         private Vector3 GetVertexPosition(Vector3 vertex) =>
             transform.TransformPoint(vertex) + transform.TransformVector(mesh.rootBone.localPosition);
+
+        public float Progress {  set=> progress = value; }
+        public Vector3 Wind
+        {
+            set
+            {
+                cloth.externalAcceleration = value * windMultiplier;
+                cloth.randomAcceleration = Vector3.one * value.magnitude / 10;
+            }
+        }
     }
 }

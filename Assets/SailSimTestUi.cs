@@ -19,6 +19,6 @@ public class SailSimTestUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sail.rigs.Foreach(item=>item.progress = slider.value);
+        sail.progress = slider.value;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using App;
 using Game.ShipSystems.Sails.Data;
 using Lib;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace ShipSystems
 {
     public class SailGroupView : BaseComponent
     {
-        private SailView[] sails;
+        private ISailView[] sails;
         private Animator animator;
         [SerializeField] private Transform rotationTarget;
 
@@ -19,7 +20,7 @@ namespace ShipSystems
 
         private void Awake()
         {
-            sails = GetComponentsInChildren<SailView>();
+            sails = GetComponentsInChildren<ISailView>();
             animator = GetComponent<Animator>();
         }
 
@@ -27,10 +28,11 @@ namespace ShipSystems
         { 
             if(model == null) return;
 
-            var l = Mathf.Min(sails.Length, model.State.sails.Length);//TODO better sol
-            for (int i = 0; i < l; i++)
+            for (int i = 0; i < sails.Length; i++)
             {
-                sails[i].Raised = model.State.sails[i].value > 0.1f; 
+                var view = sails[i];
+                view.Progress = model.State.sails[Mathf.Min(i, model.State.sails.Length-1)].value;
+                view.Wind = WindSystem.Wind;
             }
             
             if (animator)

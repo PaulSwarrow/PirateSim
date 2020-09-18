@@ -51,7 +51,7 @@ namespace Game.ShipSystems.Sails.Data
                 {
                     var sail = State.sails[i];
                     var sailMaxValue = Config.availableSails[i];
-                    sail.value = i < Task.sailsUp ? sailMaxValue : 0;
+                    sail.value = Task.sailsUp > 0? sailMaxValue : 0;
                     
                     
                 }
