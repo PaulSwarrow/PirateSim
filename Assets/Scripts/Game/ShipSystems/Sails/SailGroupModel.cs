@@ -50,10 +50,10 @@ namespace Game.ShipSystems.Sails.Data
                 for (int i = 0; i < State.sails.Length; i++)
                 {
                     var sail = State.sails[i];
-                    var sailMaxValue = Config.availableSails[i];
-                    sail.value = Task.sailsUp > 0? sailMaxValue : 0;
-                    
-                    
+                    var targetValue = Task.sailsUp > 0 ? Config.availableSails[i] : 0;
+                    sail.value = Mathf.Lerp(sail.value, targetValue,  Time.deltaTime);
+
+
                 }
             }
         }
