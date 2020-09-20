@@ -21,6 +21,9 @@ namespace ShipSystems.Sim
             mesh = cloth.GetComponent<SkinnedMeshRenderer>();
             rigs = GetComponentsInChildren<BaseSailRig>().OrderBy(item => item.Priority).ToArray();
 
+            cloth.worldVelocityScale = 0.01f;
+            cloth.worldAccelerationScale = 0.5f;
+            
             //Reset cloth
             var coefficients = cloth.coefficients;
             var vertices = cloth.vertices.Select(GetVertexPosition).ToArray();

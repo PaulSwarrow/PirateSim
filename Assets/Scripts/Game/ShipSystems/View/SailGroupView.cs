@@ -9,7 +9,7 @@ namespace ShipSystems
     public class SailGroupView : BaseComponent
     {
         private ISailView[] sails;
-        private Animator animator;
+        [SerializeField] private float angleMultiplier = 1;
         [SerializeField] private Transform rotationTarget;
 
 
@@ -21,7 +21,6 @@ namespace ShipSystems
         private void Awake()
         {
             sails = GetComponentsInChildren<ISailView>();
-            animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -34,15 +33,10 @@ namespace ShipSystems
                 view.Progress = model.State.sails[Mathf.Min(i, model.State.sails.Length-1)].value;
                 view.Wind = WindSystem.Wind;
             }
-            
-            if (animator)
-            {
-                animator.SetFloat(DirectionName, -model.State.angle);
-            }
 
             if (rotationTarget)
             {
-                rotationTarget.localEulerAngles = Vector3.up * model.State.angle;
+                rotationTarget.localEulerAngles = Vector3.up * (model.State.angle * angleMultiplier);
             }
         }
     }
