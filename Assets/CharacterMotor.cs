@@ -61,19 +61,22 @@ public class CharacterMotor : MonoBehaviour
 
         Vector3 velocity;
 
+        Vector3 desiredLocalForward = localForward;
         if (grounded)
         {
             var vector = camera.transform.TransformDirection(input);
             vector.y = 0;
             vector.Normalize();
             vector *= input.magnitude;
-            vector = Quaternion.FromToRotation(Vector3.up, floorUp) * vector;
+            velocity = Quaternion.FromToRotation(Vector3.up, floorUp) * (transform.forward * (speed * input.magnitude));
+            velocity += floor.GetPointVelocity(body.position);
 
             Debug.DrawRay(transform.position, vector, Color.yellow);
-            velocity = vector * speed +  floor.GetPointVelocity(body.position);
             if (input.magnitude > 0)
             {
-                localForward = floor.transform.InverseTransformDirection(vector);
+                desiredLocalForward = floor.transform.InverseTransformDirection(vector);
+                desiredLocalForward.y = 0;
+                
             }
         }
         else
@@ -84,9 +87,8 @@ public class CharacterMotor : MonoBehaviour
         body.velocity = velocity;
 
 
-        // body.position += (vector * speed + floor.GetPointVelocity(body.position)) * Time.fixedDeltaTime;
-        // body.rotation = floor.rotation * q;
-
+        var delta = Vector3.SignedAngle(localForward, desiredLocalForward, Vector3.up);
+        localForward = Quaternion.Euler(0, delta*0.1f , 0) * localForward;
         var worldForward = floor.transform.TransformDirection(localForward);
         worldForward.y = 0;
         worldForward.Normalize();
@@ -99,7 +101,6 @@ public class CharacterMotor : MonoBehaviour
     {
         Gizmos.color = grounded ? Color.green : Color.red;
         var a = transform.position + Vector3.up;
-        var ray = new Ray(transform.position + Vector3.up, Vector3.down);
         Gizmos.DrawWireSphere(a + Vector3.down * (1 + groundRayLength - groundedRayRadius), groundedRayRadius);
 
         if (grounded)
