@@ -25,7 +25,7 @@ public class CharacterMotor : MonoBehaviour
     private static readonly int InAirKey = Animator.StringToHash("InAir");
     private Vector3 input;
 
-    private Vector3 localForward;
+    private Vector3 localForward; //cache for moving floors
 
     private bool grounded;
     private Vector3 floorUp;
@@ -49,6 +49,7 @@ public class CharacterMotor : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //CHECK GROUNDED
         var ray = new Ray(transform.position + Vector3.up, Vector3.down);
         var justFall = false;
         if (Physics.SphereCast(ray, groundedRayRadius, out var hitinfo, 1 + groundRayLength - groundedRayRadius))
@@ -58,43 +59,44 @@ public class CharacterMotor : MonoBehaviour
         }
         else
         {
-            if (grounded) justFall = true;
+            if (grounded) justFall = true; //tweak for stairs
 
             grounded = false;
         }
 
 
+        //INPUT:
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        input.Normalize();
+        input = Vector3.ClampMagnitude(input, 1);// fix for keyboard
         run = Mathf.Lerp(run, Input.GetButton("Run") ? 1 : 0, 0.1f);
 
+        //MOVEMENT
         var movementSpeed = input.magnitude * (Mathf.Lerp(walkSpeed, runSpeed, run));
-
         collider.material = input.magnitude > 0 ? slideMaterial : frictionMaterial;
-
         Vector3 velocity;
-
         Vector3 desiredLocalForward = localForward;
         if (grounded)
         {
+            //get absolute vecotr
             var vector = camera.transform.TransformDirection(input);
-            vector.y = 0;
+            vector.y = 0;//compensate camera x-angle
             vector.Normalize();
             vector *= input.magnitude;
-            velocity = Quaternion.FromToRotation(Vector3.up, floorUp) * (transform.forward * movementSpeed);
-            velocity += floor.GetPointVelocity(body.position);
+            //use local forward instead of vector ( for smooth character rotation)
+            velocity = Quaternion.FromToRotation(Vector3.up, floorUp) * (transform.forward * movementSpeed); //align to floor
+            velocity += floor.GetPointVelocity(body.position); //prevent sliding on moving ship
 
             Debug.DrawRay(transform.position, vector, Color.yellow);
             if (input.magnitude > 0)
             {
-                desiredLocalForward = floor.transform.InverseTransformDirection(vector);
+                desiredLocalForward = floor.transform.InverseTransformDirection(vector);//look towards movement
                 desiredLocalForward.y = 0;
             }
         }
         else
         {
             velocity = body.velocity;
-            if (justFall && velocity.y > 0) velocity.y = 0;
+            if (justFall && velocity.y > 0) velocity.y = 0; // fix for running upstairs (ending)
             velocity += Physics.gravity * Time.fixedDeltaTime;
         }
 
@@ -102,11 +104,11 @@ public class CharacterMotor : MonoBehaviour
 
 
         var delta = Vector3.SignedAngle(localForward, desiredLocalForward, Vector3.up);
-        localForward = Quaternion.Euler(0, delta * 0.1f, 0) * localForward;
+        localForward = Quaternion.Euler(0, delta * 0.1f, 0) * localForward;//lerp forward direction
         var worldForward = floor.transform.TransformDirection(localForward);
         worldForward.y = 0;
         worldForward.Normalize();
-        body.rotation = Quaternion.LookRotation(worldForward, Vector3.up);
+        body.rotation = Quaternion.LookRotation(worldForward, Vector3.up);//compensate ship floating rotation
 
         animator.SetBool(InAirKey, !grounded);
         animator.SetFloat(ForwardKey, input.magnitude * Mathf.Lerp(1, 2, run), 1, 0.9f);
