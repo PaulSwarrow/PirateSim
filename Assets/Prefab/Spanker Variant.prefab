@@ -3928,6 +3928,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3ddd297bea76a354b8efb54f70edc2a0, type: 2}
+    - target: {fileID: -1750197354950549132, guid: afe3bef3672f8ce4191f26d51f1bb77a,
+        type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -252805328914382950, guid: afe3bef3672f8ce4191f26d51f1bb77a,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -3936,7 +3941,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: afe3bef3672f8ce4191f26d51f1bb77a,
         type: 3}
       propertyPath: m_Name
-      value: Spanker
+      value: Spanker Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7578293060741188712, guid: afe3bef3672f8ce4191f26d51f1bb77a,
         type: 3}
