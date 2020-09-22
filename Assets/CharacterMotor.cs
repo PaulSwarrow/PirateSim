@@ -11,6 +11,7 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private Rigidbody floor;
     [SerializeField] private PhysicMaterial frictionMaterial;
     [SerializeField] private PhysicMaterial slideMaterial;
+    [SerializeField] private float groundRayLength = 0.05f;
 
     private Camera camera;
     private Animator animator;
@@ -22,6 +23,9 @@ public class CharacterMotor : MonoBehaviour
     private Vector3 input;
 
     private Vector3 localForward;
+
+    private bool grounded;
+
     void Start()
     {
         camera = Camera.main;
@@ -40,6 +44,11 @@ public class CharacterMotor : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        grounded = Physics.Raycast(
+            new Ray(transform.position + Vector3.up, Vector3.down),
+            out var groundCollision,
+            1 + groundRayLength);
+
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         var vector = camera.transform.TransformDirection(input);
         vector.y = 0;
@@ -47,30 +56,41 @@ public class CharacterMotor : MonoBehaviour
         vector *= input.magnitude;
 
         collider.material = input.magnitude > 0 ? slideMaterial : frictionMaterial;
-        if (input.magnitude > 0)
+
+        var velocity = floor.GetPointVelocity(body.position);
+
+        if (grounded)
         {
-            var velocity = vector * speed +  floor.GetPointVelocity(body.position);// + Physics.gravity;
-
-            Debug.Log(vector + ", " + velocity);
-
-            localForward = floor.transform.InverseTransformDirection(vector);
+            velocity += vector * speed;
+            if (input.magnitude > 0)
+            {
+                localForward = floor.transform.InverseTransformDirection(vector);
+            }
         }
+        else
+        {
+            velocity += Physics.gravity;
+        }
+
+        Debug.Log(vector + ", " + velocity);
+        body.velocity = velocity;
+
 
         // body.position += (vector * speed + floor.GetPointVelocity(body.position)) * Time.fixedDeltaTime;
         // body.rotation = floor.rotation * q;
-       
+
         var worldForward = floor.transform.TransformDirection(localForward);
         worldForward.y = 0;
         worldForward.Normalize();
         body.rotation = Quaternion.LookRotation(worldForward, Vector3.up);
 
         animator.SetFloat(ForwardKey, vector.magnitude, 0, 1);
+    }
 
-        /*if (Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out var info, 1.01f))
-        {
-            var bodyPosition = body.position;
-            bodyPosition.y = info.point.y;
-            body.position = bodyPosition;
-        }*/
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = grounded ? Color.green : Color.red;
+        var a = transform.position + Vector3.up;
+        Gizmos.DrawLine(a, a + Vector3.down * (1 + groundRayLength));
     }
 }
