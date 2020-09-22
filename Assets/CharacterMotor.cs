@@ -15,6 +15,7 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private float groundedRayRadius = 0.4f;
     [SerializeField] private float walkSpeed = 2;
     [SerializeField] private float runSpeed = 4;
+    [SerializeField] private float jumpForce;
 
     private Camera camera;
     private Animator animator;
@@ -30,6 +31,7 @@ public class CharacterMotor : MonoBehaviour
     private bool grounded;
     private Vector3 floorUp;
     private float run;
+    private float gravityDelay;
 
     void Start()
     {
@@ -64,11 +66,14 @@ public class CharacterMotor : MonoBehaviour
             grounded = false;
         }
 
+        if (gravityDelay > 0) gravityDelay -= Time.fixedDeltaTime;
+
 
         //INPUT:
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         input = Vector3.ClampMagnitude(input, 1);// fix for keyboard
         run = Mathf.Lerp(run, Input.GetButton("Run") ? 1 : 0, 0.1f);
+        var jump = Input.GetButtonDown("Jump");
 
         //MOVEMENT
         var movementSpeed = input.magnitude * (Mathf.Lerp(walkSpeed, runSpeed, run));
@@ -92,12 +97,19 @@ public class CharacterMotor : MonoBehaviour
                 desiredLocalForward = floor.transform.InverseTransformDirection(vector);//look towards movement
                 desiredLocalForward.y = 0;
             }
+
+            if (jump)
+            {
+                velocity.y += jumpForce;
+                gravityDelay = .2f;
+                grounded = false;
+            }
         }
         else
         {
             velocity = body.velocity;
             if (justFall && velocity.y > 0) velocity.y = 0; // fix for running upstairs (ending)
-            velocity += Physics.gravity * Time.fixedDeltaTime;
+            if(gravityDelay <=0) velocity += Physics.gravity * Time.fixedDeltaTime;
         }
 
         body.velocity = velocity;
