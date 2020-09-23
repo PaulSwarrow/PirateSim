@@ -374,7 +374,7 @@ PrefabInstance:
     - target: {fileID: 4836521399253612704, guid: 5db7e76288077c24f8ac5968548e7f52,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.055933274
+      value: -0.055933267
       objectReference: {fileID: 0}
     - target: {fileID: 4836521399253612704, guid: 5db7e76288077c24f8ac5968548e7f52,
         type: 3}
@@ -434,7 +434,7 @@ PrefabInstance:
     - target: {fileID: 6206474254533696177, guid: 5db7e76288077c24f8ac5968548e7f52,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04513514
+      value: 0.045135137
       objectReference: {fileID: 0}
     - target: {fileID: 6206474254533696177, guid: 5db7e76288077c24f8ac5968548e7f52,
         type: 3}
@@ -700,6 +700,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AABB.m_Extent.z
       value: 0.3411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118652671848630022, guid: 5db7e76288077c24f8ac5968548e7f52,
+        type: 3}
+      propertyPath: groundRayLength
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7441226573257439115, guid: 5db7e76288077c24f8ac5968548e7f52,
         type: 3}

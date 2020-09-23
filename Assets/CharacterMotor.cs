@@ -54,10 +54,11 @@ public class CharacterMotor : MonoBehaviour
         //CHECK GROUNDED
         var ray = new Ray(transform.position + Vector3.up, Vector3.down);
         var justFall = false;
-        if (Physics.SphereCast(ray, groundedRayRadius, out var hitinfo, 1 + groundRayLength - groundedRayRadius))
+        if (gravityDelay<= 0 && Physics.SphereCast(ray, groundedRayRadius, out var hitinfo, 1 + groundRayLength - groundedRayRadius))
         {
             grounded = true;
             floorUp = ray.origin + Vector3.down * hitinfo.distance - hitinfo.point;
+            body.position += Vector3.down * (hitinfo.distance - 1 + groundedRayRadius);
         }
         else
         {
