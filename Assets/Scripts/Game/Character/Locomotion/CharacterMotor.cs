@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using App.Character.Locomotion;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -8,7 +9,7 @@ public class CharacterMotor : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] private Rigidbody floor;
+    [SerializeField] private CharacterFloorProxy floor;
     [SerializeField] private PhysicMaterial frictionMaterial;
     [SerializeField] private PhysicMaterial slideMaterial;
     [SerializeField] private float groundRayLength = 0.05f;
@@ -40,7 +41,7 @@ public class CharacterMotor : MonoBehaviour
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider>();
 
-        localForward = floor.transform.InverseTransformDirection(transform.forward);
+        floor = new CharacterFloorProxy();
     }
 
 
@@ -51,28 +52,14 @@ public class CharacterMotor : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //CHECK GROUNDED
-        var ray = new Ray(transform.position + Vector3.up, Vector3.down);
-        var justFall = false;
-        if (gravityDelay<= 0 && Physics.SphereCast(ray, groundedRayRadius, out var hitinfo, 1 + groundRayLength - groundedRayRadius))
-        {
-            grounded = true;
-            floorUp = ray.origin + Vector3.down * hitinfo.distance - hitinfo.point;
-            body.position += Vector3.down * (hitinfo.distance - 1 + groundedRayRadius);
-        }
-        else
-        {
-            if (grounded) justFall = true; //tweak for stairs
-
-            grounded = false;
-        }
+        GroundCheck();
 
         if (gravityDelay > 0) gravityDelay -= Time.fixedDeltaTime;
 
 
         //INPUT:
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        input = Vector3.ClampMagnitude(input, 1);// fix for keyboard
+        input = Vector3.ClampMagnitude(input, 1); // fix for keyboard
         run = Mathf.Lerp(run, Input.GetButton("Run") ? 1 : 0, 0.1f);
         var jump = Input.GetButtonDown("Jump");
 
@@ -85,17 +72,18 @@ public class CharacterMotor : MonoBehaviour
         {
             //get absolute vecotr
             var vector = camera.transform.TransformDirection(input);
-            vector.y = 0;//compensate camera x-angle
+            vector.y = 0; //compensate camera x-angle
             vector.Normalize();
             vector *= input.magnitude;
             //use local forward instead of vector ( for smooth character rotation)
-            velocity = Quaternion.FromToRotation(Vector3.up, floorUp) * (transform.forward * movementSpeed); //align to floor
-            velocity += floor.GetPointVelocity(body.position); //prevent sliding on moving ship
+            var floorQ = Quaternion.FromToRotation(Vector3.up, floorUp);
+            velocity = floorQ * (transform.forward * movementSpeed); //align to floor
+            velocity += floor.GetVelocity(body.position); //prevent sliding on moving ship
 
             Debug.DrawRay(transform.position, vector, Color.yellow);
             if (input.magnitude > 0)
             {
-                desiredLocalForward = floor.transform.InverseTransformDirection(vector);//look towards movement
+                desiredLocalForward = floor.InverseTransformDirection(vector); //look towards movement
                 desiredLocalForward.y = 0;
             }
 
@@ -109,22 +97,43 @@ public class CharacterMotor : MonoBehaviour
         else
         {
             velocity = body.velocity;
-            if (justFall && velocity.y > 0) velocity.y = 0; // fix for running upstairs (ending)
-            if(gravityDelay <=0) velocity += Physics.gravity * Time.fixedDeltaTime;
+            if (gravityDelay <= 0) velocity += Physics.gravity * Time.fixedDeltaTime;
         }
 
         body.velocity = velocity;
 
 
         var delta = Vector3.SignedAngle(localForward, desiredLocalForward, Vector3.up);
-        localForward = Quaternion.Euler(0, delta * 0.1f, 0) * localForward;//lerp forward direction
-        var worldForward = floor.transform.TransformDirection(localForward);
+        localForward = Quaternion.Euler(0, delta * 0.1f, 0) * localForward; //lerp forward direction
+        var worldForward = floor.TransformDirection(localForward);
         worldForward.y = 0;
         worldForward.Normalize();
-        body.rotation = Quaternion.LookRotation(worldForward, Vector3.up);//compensate ship floating rotation
+        body.rotation = Quaternion.LookRotation(worldForward, Vector3.up); //compensate ship floating rotation
 
         animator.SetBool(InAirKey, !grounded);
         animator.SetFloat(ForwardKey, input.magnitude * Mathf.Lerp(1, 2, run), 1, 0.9f);
+    }
+
+    private void GroundCheck()
+    {
+        var ray = new Ray(transform.position + Vector3.up, Vector3.down);
+        var distance = grounded ? 1 + (groundRayLength - groundedRayRadius) : 1.01f;
+        if (gravityDelay <= 0 && Physics.SphereCast(ray, groundedRayRadius, out var raycastHit, distance))
+        {
+            grounded = true;
+            floorUp = ray.origin + Vector3.down * raycastHit.distance - raycastHit.point;
+            body.position += Vector3.down * (raycastHit.distance - 1 + groundedRayRadius); //magnet for slopes & stairs
+
+            floor.OnFloorCollider(raycastHit.rigidbody);
+            if (floor.Changed) localForward = floor.InverseTransformDirection(transform.forward);
+        }
+        else
+        {
+            grounded = false;
+            floorUp = Vector3.up;
+            floor.OnFloorCollider(null);
+            localForward = transform.forward;
+        }
     }
 
     private void OnDrawGizmos()
