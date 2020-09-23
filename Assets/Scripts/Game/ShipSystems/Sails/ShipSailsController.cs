@@ -17,7 +17,7 @@ namespace Game.ShipSystems.Sails
         //cache:
         public List<SailGroupModel> sails;
         private Transform self;
-        private Rigidbody rigidbody;
+        public Rigidbody rigidbody { get; private set; }
         private SailingConstantsConfig sailingConstants;
 
         //values:
@@ -36,6 +36,7 @@ namespace Game.ShipSystems.Sails
                     model.parent = self;
                     model.Config = sailConfig;
                     //TODO optimize by serializable dictionary!
+                    model.body = rigidbody;
                     model.Init();
                 }
                 else Debug.LogError("Sail Group Model not found :" + sailConfig.name, this);

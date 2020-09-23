@@ -15,6 +15,7 @@ namespace Game.ShipSystems.Sails.Data
         public SailGroupState State = new SailGroupState();
         public SailGroupTask Task;
         public Transform parent { get; set; }
+        public Rigidbody body { get; set; }
 
         public bool Jib => Config.Jib;
         public float Offset => Config.offset;
@@ -23,9 +24,12 @@ namespace Game.ShipSystems.Sails.Data
         public Vector3 GetSailPointMultiplied()
         {
             return parent.position +
-                   parent.forward * (Offset * AppManager.SailConstants.SailRotationMomentum) +
-                   Vector3.up * (AppManager.SailConstants.SailAngularDeviationEffect);
+                   parent.TransformDirection(new Vector3(
+                       0,
+                       AppManager.SailConstants.SailAngularDeviationEffect + body.centerOfMass.y,
+                       Offset * AppManager.SailConstants.SailRotationMomentum));
         }
+
         public Vector3 GetNormaleVector()
         {
             return Quaternion.Euler(0, State.angle, 0) * (Jib ? Vector3.right : Vector3.forward);
@@ -35,10 +39,10 @@ namespace Game.ShipSystems.Sails.Data
         {
             Task = new SailGroupTask
             {
-                angleIndex = Mathf.FloorToInt((float)Config.configuration.availableAngles.Length/2),
+                angleIndex = Mathf.FloorToInt((float) Config.configuration.availableAngles.Length / 2),
                 sailsUp = 0
             };
-            view.model = this;//TODO better solution
+            view.model = this; //TODO better solution
         }
 
         public void Update()
@@ -51,9 +55,7 @@ namespace Game.ShipSystems.Sails.Data
                 {
                     var sail = State.sails[i];
                     var targetValue = Task.sailsUp > 0 ? Config.availableSails[i] : 0;
-                    sail.value = Mathf.Lerp(sail.value, targetValue,  Time.deltaTime);
-
-
+                    sail.value = Mathf.Lerp(sail.value, targetValue, Time.deltaTime);
                 }
             }
         }

@@ -44,7 +44,8 @@ namespace ShipSystems
             angularVelocity.y -= angularVelocity.y * angularDrag;
 
             
-            var localUp = transform.InverseTransformDirection(Vector3.up);
+            var localUp = Vector3.up;
+            // var localUp = transform.InverseTransformDirection(Vector3.up);
             var m = wheelInfluence * linearVelocity;
             var q = Quaternion.AngleAxis(wheel * m *  Time.fixedDeltaTime, localUp);
             var euler = AngularMath.Minify(q.eulerAngles);
