@@ -125,15 +125,14 @@ public class CharacterMotor : MonoBehaviour
             body.position += Vector3.down * (raycastHit.distance - 1 + groundedRayRadius); //magnet for slopes & stairs
 
             floor.OnFloorCollider(raycastHit.rigidbody);
-            if (floor.Changed) localForward = floor.InverseTransformDirection(transform.forward);
         }
         else
         {
             grounded = false;
             floorUp = Vector3.up;
             floor.OnFloorCollider(null);
-            localForward = transform.forward;
         }
+        if (floor.BakeRotation) localForward = floor.InverseTransformDirection(transform.forward);
     }
 
     private void OnDrawGizmos()

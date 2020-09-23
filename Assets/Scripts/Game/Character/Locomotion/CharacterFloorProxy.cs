@@ -6,11 +6,11 @@ namespace App.Character.Locomotion
     {
         private Rigidbody body;
         private bool dynamicFloor;
-        public bool Changed { get; private set; }
+        public bool BakeRotation { get; private set; }
 
         public void OnFloorCollider(Rigidbody rigidbody)
         {
-            Changed = rigidbody != body;
+            BakeRotation = rigidbody == null || rigidbody != body;
             body = rigidbody;
             dynamicFloor = rigidbody;
         }
