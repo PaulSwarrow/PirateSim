@@ -38,7 +38,7 @@ public class CharacterMotor : MonoBehaviour
     {
         camera = Camera.main;
         body = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         collider = GetComponent<Collider>();
 
         floor = new CharacterFloorProxy();
