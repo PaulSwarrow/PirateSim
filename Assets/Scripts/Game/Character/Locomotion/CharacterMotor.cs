@@ -9,7 +9,7 @@ public class CharacterMotor : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] private CharacterFloorProxy floor;
+    public CharacterFloorProxy floor { get; private set; }
     [SerializeField] private PhysicMaterial frictionMaterial;
     [SerializeField] private PhysicMaterial slideMaterial;
     [SerializeField] private float groundRayLength = 0.05f;
@@ -65,7 +65,7 @@ public class CharacterMotor : MonoBehaviour
 
         //MOVEMENT
         var movementSpeed = input.magnitude * (Mathf.Lerp(walkSpeed, runSpeed, run));
-        collider.material = input.magnitude > 0 ? slideMaterial : frictionMaterial;
+        collider.material = input.magnitude > 0 || !grounded ? slideMaterial : frictionMaterial;
         Vector3 velocity;
         Vector3 desiredLocalForward = localForward;
         if (grounded)

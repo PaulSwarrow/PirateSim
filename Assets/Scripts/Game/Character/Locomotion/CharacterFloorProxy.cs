@@ -7,10 +7,12 @@ namespace App.Character.Locomotion
         private Rigidbody body;
         private bool dynamicFloor;
         public bool BakeRotation { get; private set; }
+        
+        
 
         public void OnFloorCollider(Rigidbody rigidbody)
         {
-            BakeRotation = rigidbody == null || rigidbody != body;
+            BakeRotation = !dynamicFloor || rigidbody != body;
             body = rigidbody;
             dynamicFloor = rigidbody;
         }
