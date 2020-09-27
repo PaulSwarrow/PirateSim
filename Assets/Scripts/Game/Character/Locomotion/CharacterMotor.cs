@@ -7,9 +7,11 @@ using UnityEngine.PlayerLoop;
 
 public class CharacterMotor : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    public CharacterFloorProxy floor { get; private set; }
+    //CONSTANTS
+    private static readonly int ForwardKey = Animator.StringToHash("Forward");
+    private static readonly int InAirKey = Animator.StringToHash("InAir");
+    
+    //SETTINGS:
     [SerializeField] private PhysicMaterial frictionMaterial;
     [SerializeField] private PhysicMaterial slideMaterial;
     [SerializeField] private float groundRayLength = 0.05f;
@@ -17,20 +19,20 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private float walkSpeed = 2;
     [SerializeField] private float runSpeed = 4;
     [SerializeField] private float jumpForce;
+    [SerializeField] private FloorProxySettings settings;
 
+    //CACHE
     private Camera camera;
     private Animator animator;
-    private Collider collider;
+    public CharacterFloorProxy floorProxy { get; private set; }
+    public CapsuleCollider collider { get; private set; }
 
-    private Rigidbody body;
-    private static readonly int ForwardKey = Animator.StringToHash("Forward");
-    private static readonly int InAirKey = Animator.StringToHash("InAir");
+    public Rigidbody body { get; private set; }
+    
+    //STATE
     private Vector3 input;
 
-    private Vector3 localForward; //cache for moving floors
 
-    private bool grounded;
-    private Vector3 floorUp;
     private float run;
     private float gravityDelay;
 
@@ -39,20 +41,16 @@ public class CharacterMotor : MonoBehaviour
         camera = Camera.main;
         body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-        collider = GetComponent<Collider>();
+        collider = GetComponent<CapsuleCollider>();
 
-        floor = new CharacterFloorProxy();
-    }
-
-
-    private void Update()
-    {
+        floorProxy = new CharacterFloorProxy(this, settings);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        GroundCheck();
+        floorProxy.Active = gravityDelay <= 0;
+        floorProxy.Update();
 
         if (gravityDelay > 0) gravityDelay -= Time.fixedDeltaTime;
 
@@ -65,10 +63,10 @@ public class CharacterMotor : MonoBehaviour
 
         //MOVEMENT
         var movementSpeed = input.magnitude * (Mathf.Lerp(walkSpeed, runSpeed, run));
-        collider.material = input.magnitude > 0 || !grounded ? slideMaterial : frictionMaterial;
+        collider.material = input.magnitude > 0 || !floorProxy.grounded ? slideMaterial : frictionMaterial;
         Vector3 velocity;
-        Vector3 desiredLocalForward = localForward;
-        if (grounded)
+        Vector3 desiredLocalForward = floorProxy.localForward;
+        if (floorProxy.grounded)
         {
             //get absolute vecotr
             var vector = camera.transform.TransformDirection(input);
@@ -76,14 +74,14 @@ public class CharacterMotor : MonoBehaviour
             vector.Normalize();
             vector *= input.magnitude;
             //use local forward instead of vector ( for smooth character rotation)
-            var floorQ = Quaternion.FromToRotation(Vector3.up, floorUp);
+            var floorQ = Quaternion.FromToRotation(Vector3.up, floorProxy.Normale);
             velocity = floorQ * (transform.forward * movementSpeed); //align to floor
-            velocity += floor.GetVelocity(body.position); //prevent sliding on moving ship
+            velocity += floorProxy.GetVelocity(body.position); //prevent sliding on moving ship
 
             Debug.DrawRay(transform.position, vector, Color.yellow);
             if (input.magnitude > 0)
             {
-                desiredLocalForward = floor.InverseTransformDirection(vector); //look towards movement
+                desiredLocalForward = floorProxy.InverseTransformDirection(vector); //look towards movement
                 desiredLocalForward.y = 0;
             }
 
@@ -91,7 +89,6 @@ public class CharacterMotor : MonoBehaviour
             {
                 velocity.y += jumpForce;
                 gravityDelay = .2f;
-                grounded = false;
             }
         }
         else
@@ -103,48 +100,29 @@ public class CharacterMotor : MonoBehaviour
         body.velocity = velocity;
 
 
-        var delta = Vector3.SignedAngle(localForward, desiredLocalForward, Vector3.up);
-        localForward = Quaternion.Euler(0, delta * 0.1f, 0) * localForward; //lerp forward direction
-        var worldForward = floor.TransformDirection(localForward);
+        var delta = Vector3.SignedAngle(floorProxy.localForward, desiredLocalForward, Vector3.up);
+        // localForward = Quaternion.Euler(0, delta * 0.1f, 0) * localForward; //lerp forward direction
+        floorProxy.Turn(delta * 0.1f);
+        var worldForward = floorProxy.worldForward;
         worldForward.y = 0;
         worldForward.Normalize();
         body.rotation = Quaternion.LookRotation(worldForward, Vector3.up); //compensate ship floating rotation
 
-        animator.SetBool(InAirKey, !grounded);
+        animator.SetBool(InAirKey, !floorProxy.grounded);
         animator.SetFloat(ForwardKey, input.magnitude * Mathf.Lerp(1, 2, run), 1, 0.9f);
-    }
-
-    private void GroundCheck()
-    {
-        var ray = new Ray(transform.position + Vector3.up, Vector3.down);
-        var distance = grounded ? 1 + (groundRayLength - groundedRayRadius) : 1.01f;
-        if (gravityDelay <= 0 && Physics.SphereCast(ray, groundedRayRadius, out var raycastHit, distance))
-        {
-            grounded = true;
-            floorUp = ray.origin + Vector3.down * raycastHit.distance - raycastHit.point;
-            body.position += Vector3.down * (raycastHit.distance - 1 + groundedRayRadius); //magnet for slopes & stairs
-
-            floor.OnFloorCollider(raycastHit.rigidbody);
-        }
-        else
-        {
-            grounded = false;
-            floorUp = Vector3.up;
-            floor.OnFloorCollider(null);
-        }
-        if (floor.BakeRotation) localForward = floor.InverseTransformDirection(transform.forward);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = grounded ? Color.green : Color.red;
+        if(!Application.isPlaying) return;
+        Gizmos.color = floorProxy.grounded ? Color.green : Color.red;
         var a = transform.position + Vector3.up;
         Gizmos.DrawWireSphere(a + Vector3.down * (1 + groundRayLength - groundedRayRadius), groundedRayRadius);
 
-        if (grounded)
+        if (floorProxy.grounded)
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawRay(transform.position, floorUp);
+            Gizmos.DrawRay(transform.position, floorProxy.Normale);
         }
     }
 }
