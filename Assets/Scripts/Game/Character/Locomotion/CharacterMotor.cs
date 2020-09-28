@@ -10,7 +10,7 @@ public class CharacterMotor : MonoBehaviour
     //CONSTANTS
     private static readonly int ForwardKey = Animator.StringToHash("Forward");
     private static readonly int InAirKey = Animator.StringToHash("InAir");
-    
+
     //SETTINGS:
     [SerializeField] private PhysicMaterial frictionMaterial;
     [SerializeField] private PhysicMaterial slideMaterial;
@@ -28,7 +28,7 @@ public class CharacterMotor : MonoBehaviour
     public CapsuleCollider collider { get; private set; }
 
     public Rigidbody body { get; private set; }
-    
+
     //STATE
     private Vector3 input;
 
@@ -63,11 +63,11 @@ public class CharacterMotor : MonoBehaviour
 
         //MOVEMENT
         var movementSpeed = input.magnitude * (Mathf.Lerp(walkSpeed, runSpeed, run));
-        collider.material = input.magnitude > 0 || !floorProxy.grounded ? slideMaterial : frictionMaterial;
         Vector3 velocity;
         Vector3 desiredLocalForward = floorProxy.localForward;
         if (floorProxy.grounded)
         {
+            collider.material = input.magnitude > 0  || !floorProxy.Steady? slideMaterial : frictionMaterial;
             //get absolute vecotr
             var vector = camera.transform.TransformDirection(input);
             vector.y = 0; //compensate camera x-angle
@@ -90,9 +90,14 @@ public class CharacterMotor : MonoBehaviour
                 velocity.y += jumpForce;
                 gravityDelay = .2f;
             }
+            else if (!floorProxy.Steady)
+            {
+                velocity += Physics.gravity * Time.fixedDeltaTime;
+            }
         }
         else
         {
+            collider.material = slideMaterial;
             velocity = body.velocity;
             if (gravityDelay <= 0) velocity += Physics.gravity * Time.fixedDeltaTime;
         }
@@ -108,21 +113,14 @@ public class CharacterMotor : MonoBehaviour
         worldForward.Normalize();
         body.rotation = Quaternion.LookRotation(worldForward, Vector3.up); //compensate ship floating rotation
 
+        //ANIMATE
         animator.SetBool(InAirKey, !floorProxy.grounded);
         animator.SetFloat(ForwardKey, input.magnitude * Mathf.Lerp(1, 2, run), 1, 0.9f);
     }
 
     private void OnDrawGizmos()
     {
-        if(!Application.isPlaying) return;
-        Gizmos.color = floorProxy.grounded ? Color.green : Color.red;
-        var a = transform.position + Vector3.up;
-        Gizmos.DrawWireSphere(a + Vector3.down * (1 + groundRayLength - groundedRayRadius), groundedRayRadius);
-
-        if (floorProxy.grounded)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawRay(transform.position, floorProxy.Normale);
-        }
+        if (!Application.isPlaying) return;
+        floorProxy.DrawGizmos();
     }
 }
