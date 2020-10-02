@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e569100c32310478e0b9aa79e43945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshData: {fileID: 23800000, guid: 3e951b0da0bdace48a718deee394ce83, type: 2}
+  navMeshData: {fileID: 0}
 --- !u!1 &2965596782241402694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,6 +1536,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c7bc5e5842555b24cbb1f4399cce304d, type: 2}
+    - target: {fileID: -8938866556569923485, guid: a394cb3e57db72348844c814f0adc13a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -7702688060548118539, guid: a394cb3e57db72348844c814f0adc13a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

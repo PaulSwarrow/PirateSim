@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using App.Navigation;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,7 +15,6 @@ public class DynamicNavMeshSurface : MonoBehaviour
         virtualNavmesh = new VirtualNavmesh(Instantiate(navMeshData));
 
     }
-    
 
     // Update is called once per frame
     void Update()

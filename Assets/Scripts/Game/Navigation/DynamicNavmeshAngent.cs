@@ -7,9 +7,12 @@ namespace App.Navigation
 {
     public class DynamicNavmeshAngent : BaseComponent
     {
+        private static readonly int ForwardKey = Animator.StringToHash("Forward");
+        private static readonly int InAirKey = Animator.StringToHash("InAir");
         private VirtualNavmeshGhost ghost;
         [SerializeField] private VirtualNavmeshGhost ghostPrefab;
-        [SerializeField] private DynamicNavMeshSurface surface;
+        private DynamicNavMeshSurface surface;
+        [SerializeField] private Animator animator;
 
         private void Awake()
         {
@@ -36,6 +39,13 @@ namespace App.Navigation
 
         private void Update()
         {
+            animator.SetBool(InAirKey, false);
+            animator.SetFloat(ForwardKey, ghost.NormalizedVelocity.magnitude * 1.2f);
+        }
+
+        public void GotToPlace(Vector3 worldPosition)
+        {
+            ghost.FindTargetPosition(worldPosition);
         }
     }
 }

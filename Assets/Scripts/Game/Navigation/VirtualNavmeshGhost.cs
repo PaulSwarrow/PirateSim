@@ -12,6 +12,8 @@ namespace App.Navigation
 
         public DynamicNavmeshAngent owner;
         private DynamicNavMeshSurface surface;
+        public Vector3 Velocity => agent.velocity;
+        public Vector3 NormalizedVelocity => Velocity / agent.speed;
 
         private void Awake()
         {
@@ -46,6 +48,17 @@ namespace App.Navigation
         {
             owner.transform.position = surface ? surface.Virtual2WorldPoint(transform.position) : transform.position;
             owner.transform.forward = surface ? surface.Virtual2WorldDirection(transform.forward) : transform.forward;
+        }
+
+        public void FindTargetPosition(Vector3 worldPosition)
+        {
+            var localPosition = surface.transform.InverseTransformPoint(worldPosition);
+            var virtualPosition = surface.virtualNavmesh.transform.TransformPoint(localPosition);
+            if (NavMesh.SamplePosition(virtualPosition, out var hit, 10, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+            
         }
     }
 }
