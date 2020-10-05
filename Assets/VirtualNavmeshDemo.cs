@@ -7,7 +7,7 @@ using UnityEngine;
 public class VirtualNavmeshDemo : MonoBehaviour
 {
     private Camera cam;
-    [SerializeField] private DynamicNavmeshAngent target;
+    [SerializeField] private DynamicNavmeshAgent target;
 
     // Start is called before the first frame update
     void Start()

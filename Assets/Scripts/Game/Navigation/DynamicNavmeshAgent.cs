@@ -1,25 +1,26 @@
 using System;
+using App.Character.Locomotion;
 using Lib;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace App.Navigation
 {
-    public class DynamicNavmeshAngent : BaseComponent
+    /* Responsibility:
+     * creates a virtual ghost and provides surface for it.
+     * Solves ICharacterMotor input 
+     */
+    public class DynamicNavmeshAgent : BaseComponent, ICharacterMotor
     {
         private static readonly int ForwardKey = Animator.StringToHash("Forward");
         private static readonly int InAirKey = Animator.StringToHash("InAir");
         private VirtualNavmeshGhost ghost;
         [SerializeField] private VirtualNavmeshGhost ghostPrefab;
-        private DynamicNavMeshSurface surface;
+        public DynamicNavMeshSurface surface;
         [SerializeField] private Animator animator;
 
-        private void Awake()
-        {
-            
-            
-        }
 
+        //TODO switch surface
         private void Start()
         {
             ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
@@ -34,11 +35,42 @@ namespace App.Navigation
             {
                 ghost.ClearSurface();
             }
-            
         }
+
+        public void Move(Vector3 offset)
+        {
+            offset = surface.World2VirtualDirection(offset);
+            ghost.agent.Move(offset);
+        }
+
+        public Vector3 Forward
+        {
+            get=> ghost.agent.transform.forward;
+            set
+            {
+                if (surface)
+                {
+                    ghost.agent.transform.forward = surface.World2VirtualDirection(value);
+
+                }
+                else
+                {
+                    ghost.agent.transform.forward = value;
+                }
+            }
+        }
+
+        public float LocalRotation
+        {
+            get { return ghost.transform.eulerAngles.y; }
+            set { ghost.transform.rotation = Quaternion.Euler(0, value, 0); }
+        }
+
 
         private void Update()
         {
+            // ghost.agent.steeringTarget
+            //must not be here
             animator.SetBool(InAirKey, false);
             animator.SetFloat(ForwardKey, ghost.NormalizedVelocity.magnitude * 1.2f);
         }

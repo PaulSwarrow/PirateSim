@@ -8,9 +8,9 @@ namespace App.Navigation
     [RequireComponent(typeof(NavMeshAgent))]
     public class VirtualNavmeshGhost : BaseComponent
     {
-        private NavMeshAgent agent;
+        public NavMeshAgent agent;
 
-        public DynamicNavmeshAngent owner;
+        public DynamicNavmeshAgent owner;
         private DynamicNavMeshSurface surface;
         public Vector3 Velocity => agent.velocity;
         public Vector3 NormalizedVelocity => Velocity / agent.speed;
@@ -19,6 +19,7 @@ namespace App.Navigation
         {
             agent = GetComponent<NavMeshAgent>();
             // agent.updatePosition = false;
+            agent.updateRotation = false;
         }
 
         public void SetSurface(DynamicNavMeshSurface surface)
