@@ -12,35 +12,25 @@ namespace App.Navigation
      */
     public class DynamicNavmeshAgent : BaseComponent, ICharacterMotor
     {
-        private static readonly int ForwardKey = Animator.StringToHash("Forward");
-        private static readonly int InAirKey = Animator.StringToHash("InAir");
+        [Serializable]
+        public class Properties
+        {
+            public float speed = 2f;
+            public float angularVelocity = 1f;
+        }
+
+        [SerializeField] private Properties properties;
         private VirtualNavmeshGhost ghost;
         [SerializeField] private VirtualNavmeshGhost ghostPrefab;
         public DynamicNavMeshSurface surface;
-        [SerializeField] private Animator animator;
-
 
         //TODO switch surface
-        private void Start()
-        {
-            ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
-            ghost.name = name + " ghost";
-            ghost.owner = this;
-            var ray = new Ray(transform.position + Vector3.up, Vector3.down);
-            if (Physics.Raycast(ray, out var hit, 1.5f) && hit.rigidbody && hit.rigidbody.TryGetComponent(out surface))
-            {
-                ghost.SetSurface(surface);
-            }
-            else
-            {
-                ghost.ClearSurface();
-            }
-        }
+        public Vector3 Velocity { get; set; }
 
-        public void Move(Vector3 offset)
+        public float LocalRotation
         {
-            offset = surface.World2VirtualDirection(offset);
-            ghost.agent.Move(offset);
+            get { return ghost.transform.eulerAngles.y; }
+            set { ghost.transform.rotation = Quaternion.Euler(0, value, 0); }
         }
 
         public Vector3 Forward
@@ -61,19 +51,27 @@ namespace App.Navigation
             }
         }
 
-        public float LocalRotation
+        private void Start()
         {
-            get { return ghost.transform.eulerAngles.y; }
-            set { ghost.transform.rotation = Quaternion.Euler(0, value, 0); }
+            ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
+            ghost.name = name + " ghost";
+            ghost.owner = this;
+            var ray = new Ray(transform.position + Vector3.up, Vector3.down);
+            if (Physics.Raycast(ray, out var hit, 1.5f) && hit.rigidbody && hit.rigidbody.TryGetComponent(out surface))
+            {
+                ghost.SetSurface(surface);
+            }
+            else
+            {
+                ghost.ClearSurface();
+            }
         }
 
-
-        private void Update()
+        private void FixedUpdate()
         {
-            // ghost.agent.steeringTarget
-            //must not be here
-            animator.SetBool(InAirKey, false);
-            animator.SetFloat(ForwardKey, ghost.NormalizedVelocity.magnitude * 1.2f);
+            var offset = Velocity;
+            if (surface) offset = surface.World2VirtualDirection(offset);
+            ghost.agent.Move(offset * (Time.fixedDeltaTime * properties.speed));
         }
 
         public void GotToPlace(Vector3 worldPosition)

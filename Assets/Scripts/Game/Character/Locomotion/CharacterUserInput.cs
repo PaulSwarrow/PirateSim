@@ -8,11 +8,13 @@ namespace App.Character.Locomotion
     {
         private Camera camera;
         private ICharacterMotor motor;
+        private CharacterAnimator animator;
 
         private void Awake()
         {
             camera = Camera.main;
             motor = GetComponent<ICharacterMotor>();
+            animator = GetComponent<CharacterAnimator>();
         }
 
         private void FixedUpdate()
@@ -31,9 +33,11 @@ namespace App.Character.Locomotion
                 var deltaQuaternion = Quaternion.FromToRotation(motor.Forward, vector);
                 deltaQuaternion = Quaternion.Lerp(Quaternion.identity, deltaQuaternion, 0.2f);
                 motor.Forward = deltaQuaternion * motor.Forward;
-
-
-                motor.Move(motor.Forward * (input.magnitude * Time.fixedDeltaTime));
+                motor.Velocity = motor.Forward * (input.magnitude);
+            }
+            else
+            {
+                motor.Velocity = Vector3.zero;
             }
         }
     }

@@ -12,8 +12,6 @@ namespace App.Navigation
 
         public DynamicNavmeshAgent owner;
         private DynamicNavMeshSurface surface;
-        public Vector3 Velocity => agent.velocity;
-        public Vector3 NormalizedVelocity => Velocity / agent.speed;
 
         private void Awake()
         {
