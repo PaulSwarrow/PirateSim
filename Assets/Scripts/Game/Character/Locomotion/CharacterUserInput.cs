@@ -29,10 +29,11 @@ namespace App.Character.Locomotion
             if (input.magnitude > 0)
             {
                 var deltaQuaternion = Quaternion.FromToRotation(motor.Forward, vector);
-                motor.Forward = vector; //deltaQuaternion * motor.Forward;
+                deltaQuaternion = Quaternion.Lerp(Quaternion.identity, deltaQuaternion, 0.2f);
+                motor.Forward = deltaQuaternion * motor.Forward;
 
 
-                motor.Move(vector * (input.magnitude * Time.fixedDeltaTime));
+                motor.Move(motor.Forward * (input.magnitude * Time.fixedDeltaTime));
             }
         }
     }

@@ -45,13 +45,14 @@ namespace App.Navigation
 
         public Vector3 Forward
         {
-            get=> ghost.agent.transform.forward;
+            get => surface
+                ? surface.Virtual2WorldDirection(ghost.agent.transform.forward)
+                : ghost.agent.transform.forward;
             set
             {
                 if (surface)
                 {
                     ghost.agent.transform.forward = surface.World2VirtualDirection(value);
-
                 }
                 else
                 {
