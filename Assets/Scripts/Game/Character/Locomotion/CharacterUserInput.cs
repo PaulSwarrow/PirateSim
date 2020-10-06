@@ -17,7 +17,7 @@ namespace App.Character.Locomotion
             animator = GetComponent<CharacterAnimator>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             var input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             var run = Input.GetButton("Run");

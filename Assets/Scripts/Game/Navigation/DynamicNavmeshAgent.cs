@@ -67,7 +67,7 @@ namespace App.Navigation
             }
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             var offset = Velocity;
             if (surface) offset = surface.World2VirtualDirection(offset);
