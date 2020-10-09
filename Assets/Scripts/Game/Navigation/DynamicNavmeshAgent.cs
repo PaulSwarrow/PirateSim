@@ -10,7 +10,7 @@ namespace App.Navigation
      * creates a virtual ghost and provides surface for it.
      * Solves ICharacterMotor input 
      */
-    public class DynamicNavmeshAgent : BaseComponent, ICharacterMotor
+    public class DynamicNavmeshAgent : BaseComponent
     {
         [Serializable]
         public class Properties
@@ -24,14 +24,6 @@ namespace App.Navigation
         [SerializeField] private VirtualNavmeshGhost ghostPrefab;
         public DynamicNavMeshSurface surface;
 
-        //TODO switch surface
-        public Vector3 Velocity { get; set; }
-
-        public float LocalRotation
-        {
-            get { return ghost.transform.eulerAngles.y; }
-            set { ghost.transform.rotation = Quaternion.Euler(0, value, 0); }
-        }
 
         public Vector3 Forward
         {
@@ -51,11 +43,17 @@ namespace App.Navigation
             }
         }
 
-        private void Start()
+        private void Awake()
         {
             ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
             ghost.name = name + " ghost";
             ghost.owner = this;
+            
+        }
+
+        public void CheckSurface()
+        {
+            //TODO runtime support
             var ray = new Ray(transform.position + Vector3.up, Vector3.down);
             if (Physics.Raycast(ray, out var hit, 1.5f) && hit.rigidbody && hit.rigidbody.TryGetComponent(out surface))
             {
@@ -67,11 +65,16 @@ namespace App.Navigation
             }
         }
 
-        private void Update()
+        public void Sync()
         {
-            var offset = Velocity;
+            transform.position = ghost.WorldPosition;
+            transform.forward = ghost.WorldForward;
+        }
+
+        public void Move(Vector3 offset)
+        {
             if (surface) offset = surface.World2VirtualDirection(offset);
-            ghost.agent.Move(offset * (Time.fixedDeltaTime * properties.speed));
+            ghost.agent.Move(offset );
         }
 
         public void GotToPlace(Vector3 worldPosition)

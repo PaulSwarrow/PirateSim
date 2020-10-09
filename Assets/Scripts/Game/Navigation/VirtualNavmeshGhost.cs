@@ -45,9 +45,12 @@ namespace App.Navigation
 
         private void Update()
         {
-            owner.transform.position = surface ? surface.Virtual2WorldPoint(transform.position) : transform.position;
-            owner.transform.forward = surface ? surface.Virtual2WorldDirection(transform.forward) : transform.forward;
+            WorldPosition = surface ? surface.Virtual2WorldPoint(transform.position) : transform.position;
+            WorldForward = surface ? surface.Virtual2WorldDirection(transform.forward) : transform.forward;
         }
+        
+        public Vector3 WorldPosition { get; private set; }
+        public Vector3 WorldForward { get; private set; }
 
         public void FindTargetPosition(Vector3 worldPosition)
         {
