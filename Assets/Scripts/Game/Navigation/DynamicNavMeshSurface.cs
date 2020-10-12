@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using App.Character.Locomotion;
-using App.Navigation;
-using UnityEditor;
+﻿using App.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 

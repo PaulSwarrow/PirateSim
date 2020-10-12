@@ -1,5 +1,4 @@
 using System;
-using App.Character.Locomotion;
 using Lib;
 using UnityEngine;
 using UnityEngine.AI;
