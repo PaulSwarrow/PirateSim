@@ -6,15 +6,13 @@ namespace App.Character.UserControl
     public class CharacterMainInput : GameCharacterState
     {
         private Camera camera;
-        private DynamicNavmeshAgent navigator;
         private CharacterMainMotor motor;
 
         public override void Start()
         {
             camera = Camera.main;
-            navigator = character.agent.navigator;
             motor = character.agent.defaultMotor;
-            motor.Enable(character.agent);
+            character.agent.SetMotor(motor);
         }
 
         public override void Update()
@@ -30,7 +28,6 @@ namespace App.Character.UserControl
 
             if (input.magnitude > 0)
             {
-                
                 var deltaQuaternion = Quaternion.FromToRotation(motor.Forward, vector);
                 deltaQuaternion = Quaternion.Lerp(Quaternion.identity, deltaQuaternion, 0.2f);
                 motor.Forward = deltaQuaternion * motor.Forward;
@@ -41,12 +38,11 @@ namespace App.Character.UserControl
                 motor.NormalizedVelocity = Vector3.zero;
             }
             
-            motor.Update();
         }
 
         public override void Stop()
         {
-            motor.Disable();
+            
         }
     }
 }

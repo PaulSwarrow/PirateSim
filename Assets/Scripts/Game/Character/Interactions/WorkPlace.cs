@@ -37,13 +37,13 @@ namespace App.AI
         }
 
         public bool Reserved => character;
+        public bool Occupied { get; private set; }
 
-        public void AddCharacter(GameCharacterView view)
+        public void Occupy(GameCharacterView view)
         {
             Assert.IsNull(character);
-
             character = view;
-            StartCoroutine(FadeIn());
+            view.transform.SetParent(transform, true);
         }
 
         private IEnumerator FadeIn()
@@ -55,15 +55,15 @@ namespace App.AI
             director.Play();
             yield return new WaitUntil(() => director.time / director.duration > .5f);
             character.animator.runtimeAnimatorController = controller;
-            character.animator.applyRootMotion = true;
             yield return new WaitUntil(() => director.time / director.duration >= 1);
             director.enabled = false;
             director.playableAsset = null;
+            Occupied = true;
             yield break;
         }
 
 
-        public void ExtractCharacter()
+        public void Release()
         {
             var view = character;
             character = null;

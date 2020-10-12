@@ -1,4 +1,5 @@
 using System;
+using App.AI;
 using Lib;
 
 namespace App.Character.UserControl
@@ -16,5 +17,6 @@ namespace App.Character.UserControl
             character.SetState(new CharacterMainInput());
 
         }
+
     }
 }

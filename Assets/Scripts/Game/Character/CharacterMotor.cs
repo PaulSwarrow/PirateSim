@@ -9,11 +9,14 @@ namespace App.Character
      */
     public abstract class CharacterMotor
     {
+        [SerializeField] private RuntimeAnimatorController animator;
         protected GameCharacterAgent agent { get; private set; }
 
         public void Enable(GameCharacterAgent agent)
         {
             this.agent = agent;
+            if (animator)
+                agent.view.animator.runtimeAnimatorController = animator;
             OnEnable();
         }
 
@@ -24,7 +27,7 @@ namespace App.Character
         }
 
         protected abstract void OnEnable();
-        
+
         public abstract void Update();
 
         protected abstract void OnDisable();

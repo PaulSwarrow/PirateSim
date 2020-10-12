@@ -66,7 +66,7 @@ namespace Lib.UnityQuickTools.Collections
             return list.Count > 0 ? list[Random.Range(0, list.Count)] : default(T);
         }
 
-        public static bool TryFind<T>(this List<T> list, Predicate<T> predicate, out T result)
+        public static bool TryFind<T>(this IEnumerable<T> list, Predicate<T> predicate, out T result)
         {
             foreach (var item in list)
             {
@@ -102,6 +102,26 @@ namespace Lib.UnityQuickTools.Collections
                 if (!predicate(item)) continue;
                 result.Add(item);
                 list.RemoveAt(i);
+            }
+
+            return result;
+        }
+        
+        
+
+        public static int Least<T>(this IList<T> collection, Func<T, float> selectBy)
+        {
+            var result = -1;
+            var min = float.MaxValue;
+            for (var i = 0; i < collection.Count; i++)
+            {
+                var item = collection[i];
+                var value = selectBy(item);
+                if (value < min)
+                {
+                    result = i;
+                    min = value;
+                }
             }
 
             return result;

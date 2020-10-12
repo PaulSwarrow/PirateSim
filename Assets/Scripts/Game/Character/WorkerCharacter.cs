@@ -20,13 +20,13 @@ namespace App.Character
         {
             this.workPlace = workPlace;
             view.transform.SetParent(workPlace.transform, true);
-            workPlace.AddCharacter(view);
+            workPlace.Occupy(view);
             workPlace.ReleasedEvent += OnWorkPlaceReleased;
         }
 
         public void ReleaseWorkPlace()
         {
-            workPlace.ExtractCharacter();
+            workPlace.Release();
         }
 
         private void OnWorkPlaceReleased()

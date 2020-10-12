@@ -3,6 +3,7 @@ namespace App.Character
     /*
      * Character model
      * Links profile, input, ai and state machine
+     * Exists all the time
      */
     public class GameCharacter
     {
@@ -25,7 +26,5 @@ namespace App.Character
             state.Update();
             
         }
-
-
     }
 }
