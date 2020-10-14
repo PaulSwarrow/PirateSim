@@ -4,7 +4,9 @@ namespace Lib
 {
     public class BaseUiComponent : BaseComponent
     {
-        public RectTransform rectTransform => transform as RectTransform;
+        private RectTransform _transform;
+        private bool cached;
+        public RectTransform rectTransform => cached ? _transform : _transform = (RectTransform) transform;
         
     }
 }

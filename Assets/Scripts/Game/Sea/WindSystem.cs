@@ -13,7 +13,6 @@ namespace App
 
         public override void Update()
         {
-            base.Update();
             // Wind = Quaternion.Euler(0, Random.Range(-.1f, .1f), 0) * Wind;
             // Wind *= Random.Range(0.99f, 1.01f);
         }

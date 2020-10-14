@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace App.Character
 {
+    /*
+     * Visual representation of the character
+     * provides api for higher logic
+     */
     public class GameCharacterView : BaseComponent
     {
         public event Action MoveEvent;

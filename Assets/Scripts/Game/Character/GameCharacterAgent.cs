@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using App.AI;
 using App.Navigation;
 using Lib;
 using UnityEngine;
@@ -15,6 +16,10 @@ namespace App.Character
     [RequireComponent(typeof(DynamicNavmeshAgent))]
     public class GameCharacterAgent : BaseComponent
     {
+        public delegate void TriggerEvent(Collider trigger);
+
+        public event TriggerEvent TriggerEnterEvent;
+        public event TriggerEvent TriggerExitEvent;
         
         [SerializeField] public CharacterMainMotor defaultMotor;
         private CharacterMotor motor;
@@ -40,6 +45,16 @@ namespace App.Character
         private void Update()
         {
             motor.Update();
+        }
+
+        public void OnAreaEnter(Collider area)
+        {
+            TriggerEnterEvent?.Invoke(area);
+        }
+
+        public void OnAreaExit(Collider area)
+        {
+            TriggerExitEvent?.Invoke(area);
         }
     }
 }

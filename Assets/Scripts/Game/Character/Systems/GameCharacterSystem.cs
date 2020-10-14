@@ -9,7 +9,7 @@ namespace App.Character
      * Global characters system
      * Implements characters lifecycle
      */
-    public class GameCharacterSystem : BaseComponent
+    public class GameCharacterSystem : GameSystem
     {
         private static List<GameCharacter> list = new List<GameCharacter>();
 
@@ -25,13 +25,7 @@ namespace App.Character
         }
 
         
-        private void Start()
-        {
-            
-
-        }
-
-        private void Update()
+        public override void Update()
         {
             foreach (var character in list)
             {

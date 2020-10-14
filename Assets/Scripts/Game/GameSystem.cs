@@ -2,16 +2,11 @@ namespace App
 {
     public abstract class GameSystem
     {
+        protected GameManager manager => GameManager.current;
         public  virtual void Start() {}
 
-        public virtual void Update()
-        {
-            
-        }
+        public abstract void Update();
 
-        public virtual void DrawGizmos()
-        {
-            
-        }
+        public virtual void Stop() {}
     }
 }

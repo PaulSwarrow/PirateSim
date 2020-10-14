@@ -126,5 +126,22 @@ namespace Lib.UnityQuickTools.Collections
 
             return result;
         }
+
+        public static T LeastOrDefault<T>(this IEnumerable<T> collection, Func<T, float> selectBy)
+        {
+            var min = float.MaxValue;
+            T result = default;
+            foreach (var item in collection)
+            {
+                var value = selectBy(item);
+                if (value < min)
+                {
+                    min = value;
+                    result = item;
+                }
+            }
+
+            return result;
+        }
     }
 }

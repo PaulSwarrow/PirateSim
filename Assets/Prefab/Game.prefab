@@ -615,8 +615,6 @@ GameObject:
   - component: {fileID: 6206474256546344944}
   - component: {fileID: 6206474256546344947}
   - component: {fileID: 6206474256546344945}
-  - component: {fileID: 5977314491281317705}
-  - component: {fileID: 2541148466955429838}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -674,30 +672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Force: 5
   Angle: 108.51
---- !u!114 &5977314491281317705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6206474256546344946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c9b48f67a2e4f4b935cc0b0bcf31afd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2541148466955429838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6206474256546344946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8a3e7b096a49638d36bd7db72ca98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6376179238805962648
 GameObject:
   m_ObjectHideFlags: 0
