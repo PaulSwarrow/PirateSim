@@ -37,7 +37,7 @@ namespace App.Character
         public void SetMotor(CharacterMotor motor)
         {
             if(this.motor == motor) return;
-            if(this.motor != null) motor.Disable();
+            this.motor?.Disable();
             motor.Enable(this);
             this.motor = motor;
         }

@@ -13,6 +13,13 @@ namespace App.Character
 
         public PlayableDirector director;
         private string trackName;
+        private bool complete;
+
+        public CharacterCutsceneState(CharacterMotor nextMotor, PlayableDirector director)
+        {
+            this.nextMotor = nextMotor;
+            this.director = director;
+        }
 
         public override void Start()
         {
@@ -37,6 +44,7 @@ namespace App.Character
             character.agent.SetMotor(nextMotor);
             yield return new WaitUntil(() => director.time / director.duration >= 1);
             director.enabled = false;
+            complete = true;
         }
 
         public override void Update()
@@ -46,5 +54,7 @@ namespace App.Character
         public override void Stop()
         {
         }
+
+        public bool IsComplete() => complete;
     }
 }

@@ -10,6 +10,7 @@ namespace App.Character.UserControl.Modules
 
         public bool InteractionAvailable { get; private set; }
         public Vector3 InteractionViewportPoint { get; private set; }
+        public InteractiveObject InteractionObject => objectSelector.SelectedObject;
 
         public override void Start()
         {

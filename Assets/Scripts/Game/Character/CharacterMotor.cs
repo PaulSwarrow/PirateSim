@@ -22,8 +22,8 @@ namespace App.Character
 
         public void Disable()
         {
-            this.agent = null;
             OnDisable();
+            this.agent = null;
         }
 
         protected abstract void OnEnable();
