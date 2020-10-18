@@ -27,7 +27,8 @@ namespace App.Character.UserControl
                 {
                     if (workableObject.OccupyWorkplace(character, out var workplace))
                     {
-                        GameManager.current.StartCoroutine(WorkAt(workplace));
+                        
+                        character.SetState(new WorkingCharacterState(workplace));
                     }
                 }
             }

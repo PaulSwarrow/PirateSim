@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8874799223996552372}
-  - component: {fileID: 482195945178297258}
   m_Layer: 0
   m_Name: ShipBarrel
   m_TagString: Untagged
@@ -31,18 +30,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &482195945178297258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6194721824072168087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fad46dadf5845d6bf5653629aaa1dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryScene: {fileID: 0}
-  exitScene: {fileID: 0}
-  controller: {fileID: 0}

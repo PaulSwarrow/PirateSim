@@ -13,6 +13,11 @@ namespace App.Character
         };
         
         private WorkPlace workPlace;
+
+        public WorkingCharacterState(WorkPlace workPlace)
+        {
+            this.workPlace = workPlace;
+        }
         public override void Start()
         {
             GameManager.current.StartCoroutine(Coroutine());
@@ -20,9 +25,10 @@ namespace App.Character
 
         private IEnumerator Coroutine()
         {
-            workPlace.Occupy(character);
+            // workPlace.Occupy(character);
             yield return Cutscene.TransitionCutscene(character.agent, workPlace.entryScene, workPlace.characterMotor);
-            
+            // character.agent.SetMotor(workPlace.characterMotor);
+            yield break;
         }
 
         public override void Update()

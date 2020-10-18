@@ -23,17 +23,25 @@ namespace App.AI
             var tracks = director.playableAsset.outputs;
             if (tracks.TryFind(item => item.streamName == TrackName, out var track))
             {
-                director.SetGenericBinding(track.sourceObject, agent.view);
+                director.SetGenericBinding(track.sourceObject, agent.view.animator);
             }
             
             director.enabled = true;
             director.Play();
             yield return new WaitUntil(() => director.time / director.duration > .5f);
-            if(nextMotor != null) agent.SetMotor(nextMotor);
-            yield return new WaitUntil(() => director.time / director.duration >= 1);
+            if (nextMotor != null)
+            {
+                agent.SetMotor(nextMotor);
+                
+            }
+            yield return new WaitUntil(() => director.state == PlayState.Paused);
             director.enabled = false;
+            agent.transform.position = agent.view.transform.position;
+            agent.transform.rotation = agent.view.transform.rotation;
             agent.view.transform.SetParent(agent.transform, true);
-            
+
+            agent.motorEnabled = false;
+
         }
     }
 }

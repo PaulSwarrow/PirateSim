@@ -10,7 +10,7 @@ using UnityEngine.Timeline;
 
 namespace App.AI
 {
-    public class WorkPlace : BaseComponent
+    public abstract class WorkPlace : BaseComponent
     {
         public event Action TakenEvent; 
         public event Action ReleasedEvent;
@@ -24,7 +24,7 @@ namespace App.AI
 
 
         public bool Occupied { get; private set; }
-        public CharacterMotor characterMotor { get; set; }
+        public abstract CharacterMotor characterMotor { get;}
 
         public void Occupy(GameCharacter character)
         {

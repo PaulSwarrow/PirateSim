@@ -20,9 +20,10 @@ namespace App.Character
 
         public event TriggerEvent TriggerEnterEvent;
         public event TriggerEvent TriggerExitEvent;
-        
+
         [SerializeField] public CharacterMainMotor defaultMotor;
         private CharacterMotor motor;
+        public bool motorEnabled { get; set; } = true;
         public GameCharacterView view { get; private set; }
         public DynamicNavmeshAgent navigator { get; private set; }
 
@@ -32,11 +33,11 @@ namespace App.Character
             navigator = GetComponent<DynamicNavmeshAgent>();
             GameCharacterSystem.AddAgent(this);
         }
-        
-        
+
+
         public void SetMotor(CharacterMotor motor)
         {
-            if(this.motor == motor) return;
+            if (this.motor == motor) return;
             this.motor?.Disable();
             motor.Enable(this);
             this.motor = motor;
@@ -44,6 +45,7 @@ namespace App.Character
 
         private void Update()
         {
+            if (!motorEnabled) return;
             motor.Update();
         }
 

@@ -1,6 +1,6 @@
 namespace App.Character
 {
-    public class CharacterSittingMotor
+    public class CharacterSittingMotor : CharacterRootMotionMotor
     {
         
     }

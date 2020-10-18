@@ -21,8 +21,8 @@ namespace App.Character
 
         private void OnAnimatorMove()
         {
-            agent.transform.position += agent.view.deltaPosition;
-            agent.transform.rotation *= agent.view.deltaRotation;
+            agent.view.transform.position += agent.view.deltaPosition;
+            agent.view.transform.rotation *= agent.view.deltaRotation;
         }
     }
 }
