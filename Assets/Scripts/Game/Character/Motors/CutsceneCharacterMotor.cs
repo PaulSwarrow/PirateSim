@@ -1,8 +1,8 @@
 namespace App.Character
 {
-    public class CharacterRootMotionMotor : CharacterMotor
+    public class CutsceneCharacterMotor : CharacterMotor
     {
-        public static CharacterMotor Create() => new CharacterRootMotionMotor();
+        public static CharacterMotor Create() => new CutsceneCharacterMotor();
         protected override void OnEnable()
         {
             agent.view.MoveEvent += OnAnimatorMove;

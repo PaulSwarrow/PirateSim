@@ -24,7 +24,7 @@ namespace App.AI
         }
 
 
-        [SerializeField] private Motor motor;
+        [SerializeField] private WorkSpaceCharacterMotor motor;
         public override CharacterMotor characterMotor => motor;
     }
 }

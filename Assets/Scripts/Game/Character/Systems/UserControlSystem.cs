@@ -33,12 +33,5 @@ namespace App.Character.UserControl
                 }
             }
         }
-
-        private IEnumerator WorkAt(WorkPlace workPlace)
-        {
-            var entry = new CharacterCutsceneState(workPlace.characterMotor, workPlace.entryScene);
-            character.SetState(entry);
-            yield return new WaitUntil(entry.IsComplete);
-        }
     }
 }

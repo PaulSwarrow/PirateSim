@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3404528320832600770}
   - component: {fileID: 5556327324911313327}
   - component: {fileID: 4344707428856582338}
-  - component: {fileID: 620379835701657417}
+  - component: {fileID: 4074360589521865021}
+  - component: {fileID: 4803903091227326536}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -64,7 +65,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &620379835701657417
+--- !u!114 &4074360589521865021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,16 +74,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 6722401767479906407}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bccd4c0eb54e18f4783825f088c988ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 63c9dfc0beab4517933761592dc45e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frictionMaterial: {fileID: 13400000, guid: 40f12d389b1153b4fba188dc1d7892bf, type: 2}
-  slideMaterial: {fileID: 0}
-  groundRayLength: 0.5
-  groundedRayRadius: 0.4
-  walkSpeed: 2
-  runSpeed: 6
-  jumpForce: 3
+  properties:
+    speed: 2
+    angularVelocity: 1
+  ghostPrefab: {fileID: 5230986192392367393, guid: 077da93e00976c1458d602bd4fb66f24,
+    type: 3}
+  surface: {fileID: 0}
+--- !u!114 &4803903091227326536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6722401767479906407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9acc422cd8c24be09a70344c2fcf03b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMotor:
+    animator: {fileID: 9100000, guid: ee38a95dec4fb6a4b9dee7e25473f5b8, type: 2}
 --- !u!1001 &5125246685148084831
 PrefabInstance:
   m_ObjectHideFlags: 0

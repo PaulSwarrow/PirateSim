@@ -23,7 +23,7 @@ namespace App.Character
 
         public override void Start()
         {
-            character.agent.SetMotor(CharacterRootMotionMotor.Create());
+            character.agent.SetMotor(CutsceneCharacterMotor.Create());
             director.time = 0;
             character.agent.view.transform.SetParent(director.transform, true);
             var tracks = director.playableAsset.outputs;

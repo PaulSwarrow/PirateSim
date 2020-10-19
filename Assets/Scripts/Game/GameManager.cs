@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using App.Character;
 using App.Character.UserControl;
 using App.Character.UserControl.Modules;
+using DefaultNamespace;
 using Lib;
 using ShipSystems;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace App
 {
     public class GameManager : BaseComponent
     {
+        public static event Action FixedUpdateEvent;
+        public static event Action LateUpdateEvent;
         public SailingConstantsConfig sailsConfig;
         public static GameManager current { get; set; }
         private static List<GameSystem> systems = new List<GameSystem>();
@@ -53,6 +56,16 @@ namespace App
             {
                 gameSystem.Update();
             }
+        }
+
+        private void FixedUpdate()
+        {
+            FixedUpdateEvent?.Invoke();
+        }
+
+        private void LateUpdate()
+        {
+            LateUpdateEvent?.Invoke();
         }
     }
 }

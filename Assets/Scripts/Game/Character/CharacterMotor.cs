@@ -9,7 +9,7 @@ namespace App.Character
      */
     public abstract class CharacterMotor
     {
-        [SerializeField] private RuntimeAnimatorController animator;
+        [SerializeField] public RuntimeAnimatorController animator;
         protected GameCharacterAgent agent { get; private set; }
 
         public void Enable(GameCharacterAgent agent)

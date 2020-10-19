@@ -27,6 +27,8 @@ namespace App.Character
         {
             // workPlace.Occupy(character);
             yield return Cutscene.TransitionCutscene(character.agent, workPlace.entryScene, workPlace.characterMotor);
+            character.agent.transform.SetParent(workPlace.transform, true);
+            character.agent.SetMotor(workPlace.characterMotor);
             // character.agent.SetMotor(workPlace.characterMotor);
             yield break;
         }
