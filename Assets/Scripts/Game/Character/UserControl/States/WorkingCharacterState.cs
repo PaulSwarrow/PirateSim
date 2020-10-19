@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using App.AI;
 using Game.Character.UserControl.States;
+using UnityEngine;
 
 namespace App.Character
 {
@@ -13,7 +14,6 @@ namespace App.Character
         };
         
         private WorkPlace workPlace;
-
         public WorkingCharacterState(WorkPlace workPlace)
         {
             this.workPlace = workPlace;
@@ -26,7 +26,7 @@ namespace App.Character
         private IEnumerator Coroutine()
         {
             // workPlace.Occupy(character);
-            yield return Cutscene.TransitionCutscene(character.agent, workPlace.entryScene, workPlace.characterMotor);
+            yield return Cutscene.TransitionCutscene(character.agent, workPlace.entryScene, workPlace.characterMotor.animator);
             character.agent.transform.SetParent(workPlace.transform, true);
             character.agent.SetMotor(workPlace.characterMotor);
             // character.agent.SetMotor(workPlace.characterMotor);
@@ -35,7 +35,6 @@ namespace App.Character
 
         public override void Update()
         {
-            
         }
 
         public override void Stop()

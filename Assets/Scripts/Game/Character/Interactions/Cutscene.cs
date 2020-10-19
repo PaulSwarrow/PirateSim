@@ -15,7 +15,7 @@ namespace App.AI
 
        
 
-        public static IEnumerator TransitionCutscene(GameCharacterAgent agent, PlayableDirector director, CharacterMotor nextMotor = null)
+        public static IEnumerator TransitionCutscene(GameCharacterAgent agent, PlayableDirector director, RuntimeAnimatorController nextAnimator = null)
         {
             agent.SetMotor(CutsceneCharacterMotor.Create());
             director.time = 0;
@@ -29,9 +29,9 @@ namespace App.AI
             director.enabled = true;
             director.Play();
             yield return new WaitUntil(() => director.time / director.duration > .5f);
-            if (nextMotor != null)
+            if (nextAnimator != null)
             {
-                agent.view.animator.runtimeAnimatorController = nextMotor.animator;
+                agent.view.animator.runtimeAnimatorController = nextAnimator;
 
             }
             yield return new WaitUntil(() => director.state == PlayState.Paused);
