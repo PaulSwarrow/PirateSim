@@ -16,6 +16,7 @@ namespace App.AI
         public event Action ReleasedEvent;
         
         [SerializeField] public PlayableDirector entryScene;
+        [SerializeField] public PlayableDirector exitScene;
         private GameCharacter character;
 
         private void Awake()
