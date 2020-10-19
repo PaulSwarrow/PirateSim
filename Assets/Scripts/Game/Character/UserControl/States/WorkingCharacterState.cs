@@ -7,17 +7,24 @@ using UnityEngine;
 
 namespace App.Character
 {
-    public class WorkingCharacterState : GameCharacterState
+    public class WorkingCharacterState : GameCharacterState<WorkPlace>
     {
         private static Dictionary<Type, BaseMotorController> controllers = new Dictionary<Type, BaseMotorController>
         {
         };
         
         private WorkPlace workPlace;
-        public WorkingCharacterState(WorkPlace workPlace)
+        public WorkingCharacterState()
         {
             this.workPlace = workPlace;
         }
+
+        public override void SetData(WorkPlace data)
+        {
+            this.workPlace = data;
+            
+        }
+
         public override void Start()
         {
             GameManager.current.StartCoroutine(Coroutine());

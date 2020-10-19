@@ -12,11 +12,13 @@ namespace App.Character.UserControl
     {
         public GameCharacter character { get; private set; }
 
+        private UserCharacterStateMachine statemachine;
 
         public override void Start()
         {
             character = GameCharacterSystem.First();
-            character.SetState(new CharacterMainInput());
+            statemachine = new UserCharacterStateMachine();
+            statemachine.Init(character);
         }
 
         public override void Update()
@@ -28,7 +30,7 @@ namespace App.Character.UserControl
                     if (workableObject.OccupyWorkplace(character, out var workplace))
                     {
                         
-                        character.SetState(new WorkingCharacterState(workplace));
+                        statemachine.RequireState<WorkingCharacterState, WorkPlace>(workplace);
                     }
                 }
             }

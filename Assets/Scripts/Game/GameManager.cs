@@ -12,6 +12,7 @@ namespace App
 {
     public class GameManager : BaseComponent
     {
+        public static event Action UpdateEvent;
         public static event Action FixedUpdateEvent;
         public static event Action LateUpdateEvent;
         public SailingConstantsConfig sailsConfig;
@@ -56,6 +57,7 @@ namespace App
             {
                 gameSystem.Update();
             }
+            UpdateEvent?.Invoke();
         }
 
         private void FixedUpdate()
@@ -67,5 +69,6 @@ namespace App
         {
             LateUpdateEvent?.Invoke();
         }
+
     }
 }

@@ -20,4 +20,9 @@ namespace App.Character
         public abstract void Stop();
 
     }
+    public abstract class GameCharacterState<TData> : GameCharacterState
+    {
+        public abstract void SetData(TData data);
+
+    }
 }

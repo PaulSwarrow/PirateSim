@@ -27,10 +27,6 @@ namespace App.Character
         
         public override void Update()
         {
-            foreach (var character in list)
-            {
-                character.Update();
-            }
         }
     }
 }
