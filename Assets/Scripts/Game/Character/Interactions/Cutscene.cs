@@ -40,8 +40,6 @@ namespace App.AI
             agent.transform.rotation = agent.view.transform.rotation;
             agent.view.transform.SetParent(agent.transform, true);
 
-            agent.motorEnabled = false;
-
         }
     }
 }

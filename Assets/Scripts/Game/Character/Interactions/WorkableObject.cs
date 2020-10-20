@@ -20,10 +20,5 @@ namespace App.AI
 
             return false;
         }
-
-        public void ReleaseWorkPlace(WorkPlace workPlace)
-        {
-            workPlace.Release();//??
-        }
     }
 }

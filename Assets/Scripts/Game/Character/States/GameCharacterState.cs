@@ -7,9 +7,11 @@ namespace App.Character
     public abstract class GameCharacterState
     {
         public GameCharacter character;
+        protected UserCharacterStateMachine stateMachine;
 
-        public void Init(GameCharacter character)
+        public void Init(GameCharacter character, UserCharacterStateMachine stateMachine)
         {
+            this.stateMachine = stateMachine;
             this.character = character;
         }
 

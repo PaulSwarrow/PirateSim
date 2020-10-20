@@ -23,17 +23,7 @@ namespace App.Character.UserControl
 
         public override void Update()
         {
-            if (GameManager.CharacterHud.InteractionAvailable && Input.GetButtonDown("Action"))
-            {
-                if (GameManager.CharacterHud.InteractionObject.TryGetComponent<WorkableObject>(out var workableObject))
-                {
-                    if (workableObject.OccupyWorkplace(character, out var workplace))
-                    {
-                        
-                        statemachine.RequireState<WorkingCharacterState, WorkPlace>(workplace);
-                    }
-                }
-            }
+            
         }
     }
 }

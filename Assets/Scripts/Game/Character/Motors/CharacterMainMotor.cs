@@ -14,9 +14,10 @@ namespace App.Character
         
         protected override void OnEnable()
         {
+            Forward = agent.navigator.Forward = agent.transform.forward;
             agent.navigator.CheckSurface();
-            Forward = agent.navigator.Forward;
             agent.view.MoveEvent += OnAnimatorMove;
+            agent.navigator.Sync();
 
         }
 

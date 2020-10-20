@@ -17,12 +17,12 @@ namespace App.Character
         {
             this.character = character;
             GameManager.UpdateEvent += Update;
-            states.Set(new CharacterMainInput());
-            states.Set(new WorkingCharacterState());
+            states.Set(new MainUserCharacterState());
+            states.Set(new WorkingUserCharacterState());
             
-            states.Values.Foreach(item=>item.Init(character));
+            states.Values.Foreach(item=>item.Init(character, this));
             
-            RequireState<CharacterMainInput>();
+            RequireState<MainUserCharacterState>();
         }
 
 

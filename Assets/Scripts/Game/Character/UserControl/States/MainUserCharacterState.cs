@@ -1,9 +1,10 @@
+using App.AI;
 using App.Navigation;
 using UnityEngine;
 
 namespace App.Character.UserControl
 {
-    public class CharacterMainInput : GameCharacterState
+    public class MainUserCharacterState : GameCharacterState
     {
         private Camera camera;
         private CharacterMainMotor motor;
@@ -13,6 +14,8 @@ namespace App.Character.UserControl
             camera = Camera.main;
             motor = character.agent.defaultMotor;
             character.agent.SetMotor(motor);
+            GameManager.CharacterHud.Active = true;
+            GameManager.CharacterHud.WorkEvent += OnUseWorkplace;
         }
 
         public override void Update()
@@ -40,8 +43,18 @@ namespace App.Character.UserControl
             
         }
 
+        private void OnUseWorkplace(WorkableObject workableObject)
+        {
+            if (workableObject.OccupyWorkplace(character, out var workplace))
+            {
+                stateMachine.RequireState<WorkingUserCharacterState, WorkPlace>(workplace);
+            }
+        }
+
         public override void Stop()
         {
+            GameManager.CharacterHud.WorkEvent -= OnUseWorkplace;
+            GameManager.CharacterHud.Active = false;
             
         }
     }

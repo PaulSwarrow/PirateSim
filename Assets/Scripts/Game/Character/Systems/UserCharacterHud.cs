@@ -1,3 +1,4 @@
+using System;
 using App.AI;
 using UnityEngine;
 
@@ -5,16 +6,21 @@ namespace App.Character.UserControl.Modules
 {
     public class UserCharacterHud : GameSystem
     {
+        public event Action<WorkableObject> WorkEvent; 
+        
         private GameCharacterAgent agent;
         private InteractiveObjectSelector objectSelector = new InteractiveObjectSelector();
+        private GameCharacter character;
 
         public bool InteractionAvailable { get; private set; }
         public Vector3 InteractionViewportPoint { get; private set; }
         public InteractiveObject InteractionObject => objectSelector.SelectedObject;
+        public bool Active { get; set; }
 
         public override void Start()
         {
             objectSelector.SetCamera(Camera.main);
+            character = GameManager.CharacterUserControl.character;
             agent = GameManager.CharacterUserControl.character.agent;
             agent.TriggerEnterEvent += OnTriggerEnter;
             agent.TriggerExitEvent += OnTriggerExit;
@@ -29,11 +35,23 @@ namespace App.Character.UserControl.Modules
         public override void Update()
         {
             objectSelector.UpdateSelection();
-            InteractionAvailable = objectSelector.HasObject;
-            if (objectSelector.HasObject)
+            var available = objectSelector.HasObject && Active;
+            InteractionAvailable = available;
+            if (available)
             {
                 InteractionViewportPoint =
                     Camera.main.WorldToScreenPoint(objectSelector.SelectedObject.transform.position);
+                
+                
+                if (Input.GetButtonDown("Action"))
+                {
+                    if (GameManager.CharacterHud.InteractionObject.TryGetComponent<WorkableObject>(out var workableObject))
+                    {
+                        WorkEvent?.Invoke(workableObject);
+                    }
+                }
+                
+                
             }
         }
 

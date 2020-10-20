@@ -22,14 +22,19 @@ namespace App.Navigation
 
         public void SetSurface(DynamicNavMeshSurface surface)
         {
-            if(surface == this.surface) return;
-            agent.enabled = false;
+            // if(surface == this.surface) return;
             this.surface = surface;
+            transform.parent = surface.virtualNavmesh.transform;
+            RecalculatePosition();
+        }
+        public void RecalculatePosition()
+        {
+            agent.enabled = false;
             transform.parent = surface.virtualNavmesh.transform;
             transform.localPosition = surface.transform.InverseTransformPoint(owner.transform.position);
             agent.nextPosition = transform.position;
             agent.enabled = true;
-
+            
         }
 
         public void ClearSurface()
