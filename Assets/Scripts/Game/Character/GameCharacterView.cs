@@ -20,6 +20,7 @@ namespace App.Character
             animator = GetComponent<Animator>();
         }
 
+        
         private void OnAnimatorMove()
         {
             deltaPosition = animator.deltaPosition;

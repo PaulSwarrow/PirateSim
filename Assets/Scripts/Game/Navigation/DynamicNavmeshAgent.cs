@@ -54,7 +54,8 @@ namespace App.Navigation
         public void Sync(float blendWeights)
         {
             transform.position = Vector3.Lerp(transform.position, ghost.WorldPosition, blendWeights);
-            transform.forward = ghost.WorldForward;
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.LookRotation(ghost.WorldForward, Vector3.up), blendWeights);
         }
 
         public void Move(Vector3 offset)

@@ -39,10 +39,9 @@ namespace App.Navigation
 
         public void ClearSurface()
         {
-            if(surface == null) return;
             agent.enabled = false;
             transform.parent = null;
-            transform.position = surface.transform.TransformPoint(owner.transform.position);
+            transform.position = owner.transform.position;
             agent.nextPosition = transform.position;
             surface = null;
             agent.enabled = true;
