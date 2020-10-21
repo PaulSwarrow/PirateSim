@@ -13,22 +13,27 @@ namespace App.Character
         private float blendWeights = 0;
 
 
+        private Tween tween;
         public bool active = true;
+
         protected override void OnEnable()
         {
             agent.navigator.CheckSurface();
-            agent.navigator.Forward = Forward = agent.transform.forward;//bad code - bind to be adter checkSurface()
+            agent.navigator.Forward = Forward = agent.transform.forward; //bad code - bind to be adter checkSurface()
             agent.view.MoveEvent += OnAnimatorMove;
 
             blendWeights = 0;
-            DOTween.To(() => blendWeights, v => blendWeights = v, 1, 5).SetEase(Ease.OutQuad);
-        
+            tween?.Kill();
+            tween = DOTween.To(() => blendWeights, v => blendWeights = v, 1, 5)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() => tween = null);
+
             agent.navigator.Sync(blendWeights);
         }
 
         public override void Update()
         {
-            if(!active) return;
+            if (!active) return;
             agent.navigator.Sync(blendWeights);
             agent.view.animator.SetFloat(ForwardKey, NormalizedVelocity.z);
             agent.navigator.Forward = Forward;
@@ -42,7 +47,6 @@ namespace App.Character
         protected override void OnDisable()
         {
             agent.view.MoveEvent -= OnAnimatorMove;
-            
         }
 
         //API:
