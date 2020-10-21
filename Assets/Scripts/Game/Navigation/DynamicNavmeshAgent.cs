@@ -26,20 +26,8 @@ namespace App.Navigation
 
         public Vector3 Forward
         {
-            get => surface
-                ? surface.Virtual2WorldDirection(ghost.agent.transform.forward)
-                : ghost.agent.transform.forward;
-            set
-            {
-                if (surface)
-                {
-                    ghost.agent.transform.forward = surface.World2VirtualDirection(value);
-                }
-                else
-                {
-                    ghost.agent.transform.forward = value;
-                }
-            }
+            get => ghost.WorldForward;
+            set => ghost.WorldForward = value;
         }
 
         private void Awake()
@@ -47,7 +35,6 @@ namespace App.Navigation
             ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
             ghost.name = name + " ghost";
             ghost.owner = this;
-            
         }
 
         public void CheckSurface()
@@ -64,16 +51,16 @@ namespace App.Navigation
             }
         }
 
-        public void Sync()
+        public void Sync(float blendWeights)
         {
-            transform.position = ghost.WorldPosition;
+            transform.position = Vector3.Lerp(transform.position, ghost.WorldPosition, blendWeights);
             transform.forward = ghost.WorldForward;
         }
 
         public void Move(Vector3 offset)
         {
             if (surface) offset = surface.World2VirtualDirection(offset);
-            ghost.agent.Move(offset );
+            ghost.agent.Move(offset);
         }
 
         public void GotToPlace(Vector3 worldPosition)

@@ -39,7 +39,7 @@ namespace App.Navigation
         }
         
 
-        public Vector3 FromWorld2Virtual(Vector3 position)
+        public Vector3 FromWorld2VirtualPoint(Vector3 position)
         {
             return transform.TransformPoint(surface.InverseTransformPoint(position));
         }
@@ -51,7 +51,7 @@ namespace App.Navigation
         
         public bool SamplePosition(Vector3 sourcePosition, out NavMeshHit hit, float maxDistance, int filter = NavMesh.AllAreas)
         {
-            var virtualPosition = FromWorld2Virtual(sourcePosition);
+            var virtualPosition = FromWorld2VirtualPoint(sourcePosition);
             return NavMesh.SamplePosition(virtualPosition, out hit, maxDistance, filter);
         }
         

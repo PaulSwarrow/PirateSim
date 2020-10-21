@@ -23,7 +23,6 @@ namespace App.Character
 
         [SerializeField] public CharacterMainMotor defaultMotor;
         private CharacterMotor motor;
-        public bool motorEnabled { get; set; } = true;
         public GameCharacterView view { get; private set; }
         public DynamicNavmeshAgent navigator { get; private set; }
 
@@ -39,13 +38,12 @@ namespace App.Character
         {
             if (this.motor == motor) return;
             this.motor?.Disable();
-            motor.Enable(this);
             this.motor = motor;
+            this.motor.Enable(this);
         }
 
         private void Update()
         {
-            if (!motorEnabled) return;
             motor.Update();
         }
 

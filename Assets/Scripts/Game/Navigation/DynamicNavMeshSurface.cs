@@ -19,6 +19,11 @@ public class DynamicNavMeshSurface : MonoBehaviour
         return virtualNavmesh.Virtual2WorldPoint(position);
     }
 
+    public Vector3 World2VirtualPoint(Vector3 position)
+    {
+        return virtualNavmesh.FromWorld2VirtualPoint(position);
+    }
+
     public Vector3 Virtual2WorldDirection(Vector3 direction)
     {
         return transform.TransformDirection(direction);

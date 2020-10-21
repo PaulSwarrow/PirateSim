@@ -48,14 +48,18 @@ namespace App.Navigation
             agent.enabled = true;
         }
 
-        private void Update()
+
+        public Vector3 WorldPosition
         {
-            WorldPosition = surface ? surface.Virtual2WorldPoint(transform.position) : transform.position;
-            WorldForward = surface ? surface.Virtual2WorldDirection(transform.forward) : transform.forward;
+            get =>surface ? surface.Virtual2WorldPoint(transform.position) : transform.position;
+            set => transform.position = surface ? surface.World2VirtualPoint(value) : value;
         }
-        
-        public Vector3 WorldPosition { get; private set; }
-        public Vector3 WorldForward { get; private set; }
+
+        public Vector3 WorldForward
+        {
+            get =>  surface ? surface.Virtual2WorldDirection(transform.forward) : transform.forward; 
+            set => transform.forward = surface? surface.World2VirtualDirection(value) : value;
+        }
 
         public void FindTargetPosition(Vector3 worldPosition)
         {

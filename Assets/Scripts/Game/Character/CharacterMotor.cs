@@ -15,7 +15,7 @@ namespace App.Character
         public void Enable(GameCharacterAgent agent)
         {
             this.agent = agent;
-            if (animator)
+            if (animator && animator != agent.view.animator.runtimeAnimatorController)
                 agent.view.animator.runtimeAnimatorController = animator;
             OnEnable();
         }
