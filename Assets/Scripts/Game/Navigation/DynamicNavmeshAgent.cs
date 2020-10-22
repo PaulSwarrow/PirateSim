@@ -30,6 +30,8 @@ namespace App.Navigation
             set => ghost.WorldForward = value;
         }
 
+        public Vector3 navPosition => ghost.transform.position;
+
         private void Awake()
         {
             ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
@@ -67,6 +69,13 @@ namespace App.Navigation
         public void GotToPlace(Vector3 worldPosition)
         {
             ghost.FindTargetPosition(worldPosition);
+        }
+
+        public NavMeshPath GetPath(Vector3 navPoint)
+        {
+            var path = new NavMeshPath();
+            NavMesh.CalculatePath(ghost.transform.position, navPoint, NavMesh.AllAreas, path);
+            return path;
         }
     }
 }

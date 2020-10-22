@@ -8,49 +8,26 @@ using UnityEngine;
 
 namespace App.Character
 {
-    public class WorkingUserCharacterState : GameCharacterState<WorkPlace>
+    public class WorkingUserCharacterState : BaseWorkingState<WorkPlace>
     {
-        private static Dictionary<Type, BaseMotorController> controllers = new Dictionary<Type, BaseMotorController>
-        {
-        };
-        
-        private WorkPlace workPlace;
+        protected override WorkPlace workPlace => data;
 
-        public override void SetData(WorkPlace data)
+        protected override void OnEntered()
         {
-            workPlace = data;
             
         }
 
-        public override void Start()
+        protected override void OnWorking()
         {
-            GameManager.current.StartCoroutine(Coroutine());
+            if (Input.GetButtonDown("Action"))
+            {
+                Exit();
+            }
         }
 
-        private IEnumerator Coroutine()
+        protected override void OnExit()
         {
-            // workPlace.Occupy(character);
-            yield return Cutscene.TransitionCutscene(character.agent, workPlace.entryScene, workPlace.characterMotor.animator);
-            character.agent.transform.SetParent(workPlace.transform, true);
-            character.agent.SetMotor(workPlace.characterMotor);
-            // character.agent.SetMotor(workPlace.characterMotor);
-            yield return new WaitUntil(()=> Input.GetButtonDown("Action"));
-            
-            yield return Cutscene.TransitionCutscene(character.agent, workPlace.exitScene, character.agent.defaultMotor.animator);
-            character.agent.transform.SetParent(null, true);
-            workPlace.Release();
             stateMachine.RequireState<MainUserCharacterState>();
-            
-            yield break;
-        }
-
-        public override void Update()
-        {
-        }
-
-        public override void Stop()
-        {
-            
         }
     }
 }

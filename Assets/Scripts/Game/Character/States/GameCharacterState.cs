@@ -7,9 +7,9 @@ namespace App.Character
     public abstract class GameCharacterState
     {
         public GameCharacter character;
-        protected UserCharacterStateMachine stateMachine;
+        protected CharacterStateMachine stateMachine;
 
-        public void Init(GameCharacter character, UserCharacterStateMachine stateMachine)
+        public void Init(GameCharacter character, CharacterStateMachine stateMachine)
         {
             this.stateMachine = stateMachine;
             this.character = character;
@@ -24,7 +24,11 @@ namespace App.Character
     }
     public abstract class GameCharacterState<TData> : GameCharacterState
     {
-        public abstract void SetData(TData data);
+        protected TData data { get; private set; }
+        public void SetData(TData data)
+        {
+            this.data = data;
+        }
 
     }
 }

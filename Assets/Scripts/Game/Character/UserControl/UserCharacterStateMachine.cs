@@ -7,59 +7,15 @@ using Lib.UnityQuickTools.Collections;
 
 namespace App.Character
 {
-    public class UserCharacterStateMachine
+    public class UserCharacterStateMachine : CharacterStateMachine
     {
-        private GameCharacterState currentState;
-        private GameCharacter character;
-        private GenericMap<GameCharacterState> states = new GenericMap<GameCharacterState>();
-
-        public void Init(GameCharacter character)
+        protected override GenericMap<GameCharacterState> PrepareStates()
         {
-            this.character = character;
-            GameManager.UpdateEvent += Update;
-            states.Set(new MainUserCharacterState());
-            states.Set(new WorkingUserCharacterState());
-            
-            states.Values.Foreach(item=>item.Init(character, this));
-            
-            RequireState<MainUserCharacterState>();
+            var map = new GenericMap<GameCharacterState>();
+            map.Set(new MainUserCharacterState());
+            map.Set(new WorkingUserCharacterState());
+            return map;
         }
-
-
-        public void Dispose()
-        {
-            GameManager.UpdateEvent -= Update;
-            states.Clear();
-            character = null;
-        }
-        
-        
-        public void RequireState<T>() where T : GameCharacterState
-        {
-            SetState(states.Get<T>());
-        }
-        
-        public void RequireState<T, TData>(TData data) where T : GameCharacterState<TData>
-        {
-            var state = states.Get<T>();
-            state.SetData(data);
-            SetState(state);
-        }
-        
-
-        private void SetState(GameCharacterState state)
-        {
-            currentState?.Stop();
-            currentState = state;
-            currentState.Start();
-        }
-
-
-        private void Update()
-        {
-            currentState.Update();
-        }
-        
 
     }
 }

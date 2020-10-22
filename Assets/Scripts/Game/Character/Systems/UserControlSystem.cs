@@ -19,6 +19,7 @@ namespace App.Character.UserControl
             character = GameCharacterSystem.First();
             statemachine = new UserCharacterStateMachine();
             statemachine.Init(character);
+            statemachine.RequireState<MainUserCharacterState>();
         }
 
         public override void Update()

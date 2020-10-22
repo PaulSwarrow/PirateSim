@@ -56,5 +56,10 @@ namespace App.Character
         {
             TriggerExitEvent?.Invoke(area);
         }
+
+        public void SetDefaultMotor()
+        {
+            SetMotor(defaultMotor);
+        }
     }
 }
