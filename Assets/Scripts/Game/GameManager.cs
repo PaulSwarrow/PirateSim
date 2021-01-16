@@ -30,10 +30,10 @@ namespace Game
         }
 
         public static readonly WindSystem Wind = AddSystem(new WindSystem());
+        public static readonly AiCharacterSystem Npc = AddSystem(new AiCharacterSystem());
         public static readonly GameCharacterSystem Characters = AddSystem(new GameCharacterSystem());
         public static readonly UserControlSystem CharacterUserControl = AddSystem(new UserControlSystem());
         public static readonly UserCharacterHud CharacterHud = AddSystem(new UserCharacterHud());
-        public static readonly AiCharacterSystem Npc = AddSystem(new AiCharacterSystem());
 
         public T GetSystem<T>() where T : IGameSystem => systemsMap.Get<T>();
 

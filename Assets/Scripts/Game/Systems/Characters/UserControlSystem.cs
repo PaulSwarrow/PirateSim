@@ -10,7 +10,9 @@ namespace Game.Systems.Characters
      */
     public class UserControlSystem : IGameSystem
     {
-        public GameCharacter character { get; private set; }
+        public GameCharacter Character => character;
+
+        private GameCharacter character;
 
         public void Init()
         {
@@ -18,7 +20,7 @@ namespace Game.Systems.Characters
 
         public void Start()
         {
-            character = GameCharacterSystem.First();
+            GameManager.Characters.TryFind(item => item.actor.controlMode == CharacterControlMode.user, out character);
             GameManager.UpdateEvent += Update;
         }
 
@@ -39,7 +41,7 @@ namespace Game.Systems.Characters
             vector = vector.normalized * input.magnitude;
             var move = vector;
 
-            var motor = (CharacterMainMotor) character.actor.motor;
+            var motor = (CharacterMainMotor) Character.actor.motor;
 
             if (move.magnitude > 0)
             {

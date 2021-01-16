@@ -28,8 +28,8 @@ namespace Game.Systems.Characters
         public void Start()
         {
             objectSelector.SetCamera(Camera.main);
-            character = GameManager.CharacterUserControl.character;
-            actor = GameManager.CharacterUserControl.character.actor;
+            character = GameManager.CharacterUserControl.Character;
+            actor = GameManager.CharacterUserControl.Character.actor;
             actor.TriggerEnterEvent += OnTriggerEnter;
             actor.TriggerExitEvent += OnTriggerExit;
             

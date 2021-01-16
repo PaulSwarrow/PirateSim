@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Actors.Character;
 using Game.Interfaces;
+using Lib.UnityQuickTools.Collections;
 
 namespace Game.Systems.Characters
 {
@@ -17,6 +18,7 @@ namespace Game.Systems.Characters
         public static GameCharacter First() => list.First();
 
         public List<GameCharacter> FindAll(Predicate<GameCharacter> predicate) => list.FindAll(predicate);
+        public bool TryFind(Predicate<GameCharacter> predicate, out GameCharacter character) => list.TryFind(predicate, out character);
 
 
         public void RegisterAgent(GameCharacterActor actor)
