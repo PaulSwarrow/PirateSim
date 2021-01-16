@@ -1,6 +1,4 @@
-using System.Collections;
-using App.AI;
-using HutongGames.PlayMaker.Actions;
+using App.Interfaces;
 using UnityEngine;
 
 namespace App.Character.UserControl
@@ -8,17 +6,26 @@ namespace App.Character.UserControl
     /*
      * Implements user control for selected character
      */
-    public class UserControlSystem : GameSystem
+    public class UserControlSystem : IGameSystem
     {
-        
         public GameCharacter character { get; private set; }
 
-        public override void Start()
+        public void Init()
         {
-            character = GameCharacterSystem.First();
         }
 
-        public override void Update()
+        public void Start()
+        {
+            character = GameCharacterSystem.First();
+            GameManager.UpdateEvent += Update;
+        }
+
+        public void Stop()
+        {
+            GameManager.UpdateEvent -= Update;
+        }
+
+        public void Update()
         {
             var input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             var run = Input.GetButton("Run");
@@ -31,7 +38,7 @@ namespace App.Character.UserControl
             var move = vector;
 
             var motor = (CharacterMainMotor) character.agent.motor;
-            
+
             if (move.magnitude > 0)
             {
                 var deltaQuaternion = Quaternion.FromToRotation(motor.Forward, move);

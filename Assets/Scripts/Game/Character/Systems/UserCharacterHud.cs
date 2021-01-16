@@ -1,10 +1,11 @@
 using System;
 using App.AI;
+using App.Interfaces;
 using UnityEngine;
 
 namespace App.Character.UserControl.Modules
 {
-    public class UserCharacterHud : GameSystem
+    public class UserCharacterHud : IGameSystem
     {
         public event Action<WorkableObject> WorkEvent; 
         
@@ -17,22 +18,30 @@ namespace App.Character.UserControl.Modules
         public InteractiveObject InteractionObject => objectSelector.SelectedObject;
         public bool Active { get; set; }
 
-        public override void Start()
+        public void Init()
+        {
+            
+        }
+
+        public void Start()
         {
             objectSelector.SetCamera(Camera.main);
             character = GameManager.CharacterUserControl.character;
             agent = GameManager.CharacterUserControl.character.agent;
             agent.TriggerEnterEvent += OnTriggerEnter;
             agent.TriggerExitEvent += OnTriggerExit;
+            
+            GameManager.UpdateEvent += Update;
         }
 
-        public override void Stop()
+        public void Stop()
         {
             agent.TriggerEnterEvent -= OnTriggerEnter;
             agent.TriggerExitEvent -= OnTriggerExit;
+            GameManager.UpdateEvent -= Update;
         }
 
-        public override void Update()
+        public void Update()
         {
             objectSelector.UpdateSelection();
             var available = objectSelector.HasObject && Active;

@@ -1,28 +1,31 @@
 using System;
 using System.Collections.Generic;
+using App.Interfaces;
 
 namespace App.Character.AI
 {
-    public class AiCharacterSystem : GameSystem
+    public class AiCharacterSystem : IGameSystem
     {
-        public event Action<NpcBrain> NpcCreatedEvent;
-        public event Action<NpcBrain> NpcDisposedEvent;
-        
         private List<NpcBrain> list = new List<NpcBrain>();
-        
 
-        public override void Start()
+
+        public void Init()
         {
-            base.Start();
+            
+        }
+
+        public void Start()
+        {
             var characters = GameManager.Characters.FindAll(item => item.agent.controlMode == CharacterControlMode.ai);
             characters.ForEach(CreateNpc);
         }
 
-        private void CreateNpc(GameCharacter character)
+        public void Stop()
         {
+            
         }
 
-        public override void Update()
+        private void CreateNpc(GameCharacter character)
         {
         }
     }

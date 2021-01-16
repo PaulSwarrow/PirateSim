@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using App.Interfaces;
 
 namespace App.Character
 {
@@ -8,7 +9,7 @@ namespace App.Character
      * Global characters system
      * Implements characters statemachines
      */
-    public class GameCharacterSystem : GameSystem
+    public class GameCharacterSystem : IGameSystem
     {
         private static List<GameCharacter> list = new List<GameCharacter>();
 
@@ -17,7 +18,7 @@ namespace App.Character
         public List<GameCharacter> FindAll(Predicate<GameCharacter> predicate) => list.FindAll(predicate);
 
 
-        public static void AddAgent(GameCharacterAgent agent)
+        public void RegisterAgent(GameCharacterAgent agent)
         {
             var character = new GameCharacter
             {
@@ -27,13 +28,21 @@ namespace App.Character
             list.Add(character);
         }
 
-        public override void Start()
+        public void Init()
         {
-            base.Start();
         }
 
+        public void Start()
+        {
+            GameManager.UpdateEvent += Update;
+        }
 
-        public override void Update()
+        public void Stop()
+        {
+            GameManager.UpdateEvent -= Update;
+        }
+
+        private void Update()
         {
             list.ForEach(UpdateCharacter);
         }
