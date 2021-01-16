@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Game.ShipSystems.Sails.Data;
+using Game.Actors.Ship.Sails.Data;
 using Lib;
 using Lib.Tools;
 using Lib.UnityQuickTools.Collections;
 
-namespace Ui
+namespace Game.Ui.Ship
 {
     public class SailOrderListUi : BaseComponent
     {

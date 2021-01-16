@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace App.Navigation
+namespace Game.Navigation
 {
     public class NavPoint
     {

@@ -1,9 +1,8 @@
-using System;
 using Lib;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ui
+namespace Game.Ui.Ship
 {
     public class ShipVelocityUi : BaseComponent
     {

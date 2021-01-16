@@ -1,9 +1,8 @@
-using System;
 using Lib;
 using Lib.Tools;
 using UnityEngine.UI;
 
-namespace App.Ui
+namespace Game.Ui
 {
     public class MainMenu : BaseComponent
     {

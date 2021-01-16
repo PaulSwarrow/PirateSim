@@ -1,8 +1,7 @@
-using System;
+using Game.Systems.Sea;
 using Lib;
-using UnityEngine;
 
-namespace App.GDTools
+namespace Game.GDTools
 {
     public class WindSetup : BaseComponent
     {

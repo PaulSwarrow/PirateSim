@@ -1,5 +1,5 @@
 using System;
-using App;
+using Game.Ui;
 using Lib;
 using UnityEngine;
 

@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using App;
 using DefaultNamespace.Data;
+using Game.Actors.Ship;
 using Lib;
 using UnityEngine;
 using UnityEngine.SceneManagement;

@@ -1,7 +1,7 @@
-using App;
-using App.Ui.Views;
+using Game;
+using Game.Actors.Ship;
 using Game.Ui.Dialogs;
-using ShipSystems;
+using Game.Ui.Views;
 using UnityEngine;
 
 namespace DefaultNamespace.Components

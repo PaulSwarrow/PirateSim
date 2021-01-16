@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using Game.Ui.Dialogs;
 using Lib;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using Object = System.Object;
 
-namespace DefaultNamespace
+namespace Game.Ui
 {
     public class StageUi : BaseComponent
     {

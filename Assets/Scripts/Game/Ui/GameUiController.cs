@@ -1,28 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
-using DefaultNamespace;
-using Ui;
+﻿using Game.Ui.Ship;
 using UnityEngine;
 
-public class GameUiController : MonoBehaviour
+namespace Game.Ui
 {
-    [SerializeField] private ShipControllUi shipControll;
-
-    private const string OrdersButton = "Orders";
-
-    // Update is called once per frame
-    void Update()
+    public class GameUiController : MonoBehaviour
     {
-        if (Input.GetButtonDown(OrdersButton))
-        {
-            shipControll.Show();
-        }
+        [SerializeField] private ShipControllUi shipControll;
 
-        if (Input.GetButtonUp(OrdersButton))
-        {
-            shipControll.Hide();
-        }
+        private const string OrdersButton = "Orders";
 
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetButtonDown(OrdersButton))
+            {
+                shipControll.Show();
+            }
+
+            if (Input.GetButtonUp(OrdersButton))
+            {
+                shipControll.Hide();
+            }
+
+        }
     }
 }

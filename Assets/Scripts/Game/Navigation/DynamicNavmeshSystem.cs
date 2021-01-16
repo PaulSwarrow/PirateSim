@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace App.Navigation
+namespace Game.Navigation
 {
     public static class DynamicNavmeshSystem
     {

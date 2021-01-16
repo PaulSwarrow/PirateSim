@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Lib.UnityQuickTools.Collections;
 
-namespace App.Tools
+namespace Game.Tools
 {
     public class GenericEventDispatcher
     {

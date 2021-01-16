@@ -1,11 +1,10 @@
 using System;
-using App;
 using Lib;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Ui
+namespace Game.Ui.Ship
 {
     public class SailStateUi : BaseComponent,  IPointerClickHandler
     {

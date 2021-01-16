@@ -3,7 +3,7 @@ using Lib;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace App.Navigation
+namespace Game.Navigation
 {
     /* Responsibility:
      * creates a virtual ghost and provides surface for it.

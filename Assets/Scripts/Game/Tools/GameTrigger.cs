@@ -2,7 +2,7 @@ using System;
 using Lib;
 using UnityEngine;
 
-namespace App.Tools
+namespace Game.Tools
 {
     public class GameTrigger : BaseComponent
     {

@@ -1,10 +1,9 @@
-using System;
 using Lib;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace App.Ui.Views
+namespace Game.Ui.Views
 {
     public class ColorizedUiGroup : BaseComponent
     {

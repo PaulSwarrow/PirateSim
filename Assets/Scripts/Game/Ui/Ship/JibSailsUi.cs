@@ -1,8 +1,4 @@
-using System;
-using Lib.Tools;
-using ShipSystems;
-
-namespace Ui
+namespace Game.Ui.Ship
 {
     public class JibSailsUi : SailGroupUi
     {

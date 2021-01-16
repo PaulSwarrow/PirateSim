@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using App.Tools;
+using Game.Tools;
 using Game.Ui.Dialogs;
 using UnityEngine;
 

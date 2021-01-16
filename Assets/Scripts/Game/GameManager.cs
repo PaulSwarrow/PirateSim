@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using App.Character;
-using App.Character.AI;
-using App.Character.UserControl;
-using App.Character.UserControl.Modules;
-using App.Interfaces;
+using Game.Actors.Ship;
+using Game.Interfaces;
+using Game.Systems.Characters;
+using Game.Systems.Sea;
 using Lib;
 using Lib.UnityQuickTools.Collections;
-using ShipSystems;
 
-namespace App
+namespace Game
 {
     public class GameManager : BaseComponent
     {

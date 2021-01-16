@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Actors.Ship.View.Sim;
 using Lib.UnityQuickTools.Collections;
-using ShipSystems.Sim;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,10 +1,8 @@
-using System;
 using Cinemachine;
 using Lib;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-namespace App.Tools
+namespace Game.Tools
 {
     public class VirtualCameraHelper : BaseComponent
     {

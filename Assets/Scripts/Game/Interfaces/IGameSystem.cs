@@ -1,4 +1,4 @@
-namespace App.Interfaces
+namespace Game.Interfaces
 {
     public interface IGameSystem
     {

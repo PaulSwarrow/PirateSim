@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
-using App;
-using Game.ShipSystems.Sails.Data;
+using Game.Actors.Ship;
+using Game.Actors.Ship.Sails;
+using Game.Actors.Ship.Sails.Data;
 using Lib;
-using Lib.Tools;
-using ShipSystems;
 using UnityEngine;
 
-namespace Ui
+namespace Game.Ui.Ship
 {
     public abstract class SailGroupUi : BaseUiComponent
     {

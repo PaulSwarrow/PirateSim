@@ -1,9 +1,9 @@
-using Game.ShipSystems.Sails.Data;
+using Game.Actors.Ship.Sails.Data;
 using Lib;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ui
+namespace Game.Ui.Ship
 {
     public class SailOrderUi : BaseComponent
     {

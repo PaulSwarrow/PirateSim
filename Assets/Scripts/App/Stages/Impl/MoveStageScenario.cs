@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
-using App;
-using App.Tools;
+using Game;
+using Game.Actors.Ship;
+using Game.Systems.Sea;
+using Game.Tools;
 using Game.Ui.Dialogs;
 using Lib;
-using ShipSystems;
 using UnityEngine;
 
 namespace DefaultNamespace.Components

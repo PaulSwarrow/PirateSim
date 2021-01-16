@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using Lib.Tools;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace App.Navigation
+namespace Game.Navigation
 {
     public class VirtualNavmesh
     {

@@ -1,11 +1,9 @@
-using System;
-using DefaultNamespace;
+using Game.Actors.Ship;
 using Lib;
-using ShipSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Ui
+namespace Game.Ui.Ship
 {
     public class ShipControllUi : BaseComponent
     {
