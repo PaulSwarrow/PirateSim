@@ -10,10 +10,10 @@ namespace Game.Actors.Character.Motors
         private Quaternion localRotation;
         protected override void OnEnable()
         {
-            localPosition = agent.transform.localPosition;
-            localRotation = agent.transform.localRotation;
+            localPosition = Actor.transform.localPosition;
+            localRotation = Actor.transform.localRotation;
             GameManager.LateUpdateEvent += OnLateUpdate;
-            agent.view.MoveEvent += OnAnimatorMove;
+            Actor.view.MoveEvent += OnAnimatorMove;
         }
 
         public override void Update()
@@ -24,20 +24,20 @@ namespace Game.Actors.Character.Motors
         protected override void OnDisable()
         {
             GameManager.LateUpdateEvent -= OnLateUpdate;
-            agent.view.MoveEvent -= OnAnimatorMove;
+            Actor.view.MoveEvent -= OnAnimatorMove;
         }
 
         private void OnLateUpdate()
         {
-            agent.transform.localPosition = localPosition;
-            agent.transform.localRotation = localRotation;
+            Actor.transform.localPosition = localPosition;
+            Actor.transform.localRotation = localRotation;
 
         }
 
         private void OnAnimatorMove()
         {
-            localPosition += agent.view.deltaPosition;
-            localRotation *= agent.view.deltaRotation;
+            localPosition += Actor.view.deltaPosition;
+            localRotation *= Actor.view.deltaRotation;
         }
     }
 }

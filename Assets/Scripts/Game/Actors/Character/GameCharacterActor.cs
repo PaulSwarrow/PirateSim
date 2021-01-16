@@ -19,7 +19,7 @@ namespace Game.Actors.Character
      * Exists only in loaded/rendered area
      */
     [RequireComponent(typeof(DynamicNavmeshAgent))]
-    public class GameCharacterAgent : BaseComponent
+    public class GameCharacterActor : BaseComponent
     {
         public delegate void TriggerEvent(Collider trigger);
 
@@ -36,12 +36,12 @@ namespace Game.Actors.Character
         {
             view = GetComponentInChildren<GameCharacterView>();
             navigator = GetComponent<DynamicNavmeshAgent>();
-            GameManager.StartEvent += OnGameStart;
+            GameManager.ReadSceneEvent += RegisterActor; //TODO remove
         }
 
-        private void OnGameStart()
+        private void RegisterActor()
         {
-            GameManager.StartEvent -= OnGameStart;
+            GameManager.StartEvent -= RegisterActor;
             GameManager.Characters.RegisterAgent(this);
         }
 

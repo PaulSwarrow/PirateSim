@@ -17,7 +17,7 @@ namespace Game.Systems.Characters
 
         public void Start()
         {
-            var characters = GameManager.Characters.FindAll(item => item.agent.controlMode == CharacterControlMode.ai);
+            var characters = GameManager.Characters.FindAll(item => item.actor.controlMode == CharacterControlMode.ai);
             characters.ForEach(CreateNpc);
         }
 

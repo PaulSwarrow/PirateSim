@@ -12,15 +12,15 @@ namespace Game.Actors.Character.Interactions
 
        
 
-        public static IEnumerator TransitionCutscene(GameCharacterAgent agent, PlayableDirector director, RuntimeAnimatorController nextAnimator = null)
+        public static IEnumerator TransitionCutscene(GameCharacterActor actor, PlayableDirector director, RuntimeAnimatorController nextAnimator = null)
         {
-            agent.SetMotor(CutsceneCharacterMotor.Create());
+            actor.SetMotor(CutsceneCharacterMotor.Create());
             director.time = 0;
-            agent.view.transform.SetParent(director.transform, true);
+            actor.view.transform.SetParent(director.transform, true);
             var tracks = director.playableAsset.outputs;
             if (tracks.TryFind(item => item.streamName == TrackName, out var track))
             {
-                director.SetGenericBinding(track.sourceObject, agent.view.animator);
+                director.SetGenericBinding(track.sourceObject, actor.view.animator);
             }
             
             director.enabled = true;
@@ -28,14 +28,14 @@ namespace Game.Actors.Character.Interactions
             yield return new WaitUntil(() => director.time / director.duration > .5f);
             if (nextAnimator != null)
             {
-                agent.view.animator.runtimeAnimatorController = nextAnimator;
+                actor.view.animator.runtimeAnimatorController = nextAnimator;
 
             }
             yield return new WaitUntil(() => director.state == PlayState.Paused);
             director.enabled = false;
-            agent.transform.position = agent.view.transform.position;
-            agent.transform.rotation = agent.view.transform.rotation;
-            agent.view.transform.SetParent(agent.transform, true);
+            actor.transform.position = actor.view.transform.position;
+            actor.transform.rotation = actor.view.transform.rotation;
+            actor.view.transform.SetParent(actor.transform, true);
 
         }
     }

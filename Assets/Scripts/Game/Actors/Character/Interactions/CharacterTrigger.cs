@@ -17,7 +17,7 @@ namespace Game.Actors.Character.Interactions
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<GameCharacterAgent>(out var agent))
+            if (other.TryGetComponent<GameCharacterActor>(out var agent))
             {
                 agent.OnAreaEnter(area);
             }
@@ -26,7 +26,7 @@ namespace Game.Actors.Character.Interactions
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<GameCharacterAgent>(out var agent))
+            if (other.TryGetComponent<GameCharacterActor>(out var agent))
             {
                 agent.OnAreaExit(area);
             }

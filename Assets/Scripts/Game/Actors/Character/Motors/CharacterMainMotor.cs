@@ -17,9 +17,9 @@ namespace Game.Actors.Character.Motors
 
         protected override void OnEnable()
         {
-            agent.navigator.CheckSurface();
-            agent.navigator.Forward = Forward = agent.transform.forward; //bad code - bind to be adter checkSurface()
-            agent.view.MoveEvent += OnAnimatorMove;
+            Actor.navigator.CheckSurface();
+            Actor.navigator.Forward = Forward = Actor.transform.forward; //bad code - bind to be adter checkSurface()
+            Actor.view.MoveEvent += OnAnimatorMove;
 
             blendWeights = 0;
             tween?.Kill();
@@ -27,25 +27,25 @@ namespace Game.Actors.Character.Motors
                 .SetEase(Ease.OutQuad)
                 .OnComplete(() => tween = null);
 
-            agent.navigator.Sync(blendWeights);
+            Actor.navigator.Sync(blendWeights);
         }
 
         public override void Update()
         {
             if (!active) return;
-            agent.navigator.Sync(blendWeights);
-            agent.view.animator.SetFloat(ForwardKey, NormalizedVelocity.z);
-            agent.navigator.Forward = Forward;
+            Actor.navigator.Sync(blendWeights);
+            Actor.view.animator.SetFloat(ForwardKey, NormalizedVelocity.z);
+            Actor.navigator.Forward = Forward;
         }
 
         private void OnAnimatorMove()
         {
-            agent.navigator.Move(agent.view.deltaPosition);
+            Actor.navigator.Move(Actor.view.deltaPosition);
         }
 
         protected override void OnDisable()
         {
-            agent.view.MoveEvent -= OnAnimatorMove;
+            Actor.view.MoveEvent -= OnAnimatorMove;
         }
 
         //API:

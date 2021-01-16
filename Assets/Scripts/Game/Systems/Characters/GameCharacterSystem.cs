@@ -19,13 +19,13 @@ namespace Game.Systems.Characters
         public List<GameCharacter> FindAll(Predicate<GameCharacter> predicate) => list.FindAll(predicate);
 
 
-        public void RegisterAgent(GameCharacterAgent agent)
+        public void RegisterAgent(GameCharacterActor actor)
         {
             var character = new GameCharacter
             {
-                agent = agent,
+                actor = actor,
             };
-            character.agent.SetMotor(character.agent.defaultMotor);
+            character.actor.SetMotor(character.actor.defaultMotor);
             list.Add(character);
         }
 

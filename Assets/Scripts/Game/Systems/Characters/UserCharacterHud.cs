@@ -11,7 +11,7 @@ namespace Game.Systems.Characters
     {
         public event Action<WorkableObject> WorkEvent; 
         
-        private GameCharacterAgent agent;
+        private GameCharacterActor actor;
         private InteractiveObjectSelector objectSelector = new InteractiveObjectSelector();
         private GameCharacter character;
 
@@ -29,17 +29,17 @@ namespace Game.Systems.Characters
         {
             objectSelector.SetCamera(Camera.main);
             character = GameManager.CharacterUserControl.character;
-            agent = GameManager.CharacterUserControl.character.agent;
-            agent.TriggerEnterEvent += OnTriggerEnter;
-            agent.TriggerExitEvent += OnTriggerExit;
+            actor = GameManager.CharacterUserControl.character.actor;
+            actor.TriggerEnterEvent += OnTriggerEnter;
+            actor.TriggerExitEvent += OnTriggerExit;
             
             GameManager.UpdateEvent += Update;
         }
 
         public void Stop()
         {
-            agent.TriggerEnterEvent -= OnTriggerEnter;
-            agent.TriggerExitEvent -= OnTriggerExit;
+            actor.TriggerEnterEvent -= OnTriggerEnter;
+            actor.TriggerExitEvent -= OnTriggerExit;
             GameManager.UpdateEvent -= Update;
         }
 

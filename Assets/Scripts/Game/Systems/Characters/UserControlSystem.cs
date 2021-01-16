@@ -39,7 +39,7 @@ namespace Game.Systems.Characters
             vector = vector.normalized * input.magnitude;
             var move = vector;
 
-            var motor = (CharacterMainMotor) character.agent.motor;
+            var motor = (CharacterMainMotor) character.actor.motor;
 
             if (move.magnitude > 0)
             {

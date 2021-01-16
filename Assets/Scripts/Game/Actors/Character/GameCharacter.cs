@@ -7,7 +7,7 @@ namespace Game.Actors.Character
      */
     public class GameCharacter
     {
-        public GameCharacterAgent agent;
+        public GameCharacterActor actor;
 
     }
 }

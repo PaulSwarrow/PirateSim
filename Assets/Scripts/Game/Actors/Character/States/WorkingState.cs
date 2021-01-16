@@ -28,10 +28,10 @@ namespace Game.Actors.Character.States
 
         private IEnumerator EnterCoroutine()
         {
-            yield return Cutscene.TransitionCutscene(character.agent, api.WorkPlace.entryScene,
+            yield return Cutscene.TransitionCutscene(character.actor, api.WorkPlace.entryScene,
                 api.WorkPlace.characterMotor.animator);
-            character.agent.transform.SetParent(api.WorkPlace.transform, true);
-            character.agent.SetMotor(api.WorkPlace.characterMotor);
+            character.actor.transform.SetParent(api.WorkPlace.transform, true);
+            character.actor.SetMotor(api.WorkPlace.characterMotor);
             api.Ready = true;
         }
 
@@ -39,9 +39,9 @@ namespace Game.Actors.Character.States
         private IEnumerator ExitCoroutine()
         {
             api.Ready = false;
-            yield return Cutscene.TransitionCutscene(character.agent, api.WorkPlace.exitScene,
-                character.agent.defaultMotor.animator);
-            character.agent.transform.SetParent(null, true);
+            yield return Cutscene.TransitionCutscene(character.actor, api.WorkPlace.exitScene,
+                character.actor.defaultMotor.animator);
+            character.actor.transform.SetParent(null, true);
             api.WorkPlace.Release();
             // stateMachine.RequireState<MainState>();//To the main state
         }

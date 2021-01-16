@@ -5,7 +5,7 @@ namespace Game.Actors.Character.Motors
         public static CharacterMotor Create() => new CutsceneCharacterMotor();
         protected override void OnEnable()
         {
-            agent.view.MoveEvent += OnAnimatorMove;
+            Actor.view.MoveEvent += OnAnimatorMove;
             
         }
 
@@ -15,14 +15,14 @@ namespace Game.Actors.Character.Motors
 
         protected override void OnDisable()
         {
-            agent.view.MoveEvent -= OnAnimatorMove;
+            Actor.view.MoveEvent -= OnAnimatorMove;
             
         }
 
         private void OnAnimatorMove()
         {
-            agent.view.transform.position += agent.view.deltaPosition;
-            agent.view.transform.rotation *= agent.view.deltaRotation;
+            Actor.view.transform.position += Actor.view.deltaPosition;
+            Actor.view.transform.rotation *= Actor.view.deltaRotation;
         }
     }
 }

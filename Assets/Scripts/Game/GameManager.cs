@@ -11,6 +11,7 @@ namespace Game
 {
     public class GameManager : BaseComponent
     {
+        public static event Action ReadSceneEvent;
         public static event Action StartEvent;
         public static event Action UpdateEvent;
         public static event Action FixedUpdateEvent;
@@ -47,7 +48,9 @@ namespace Game
 
         private void Start()
         {
+            ReadSceneEvent?.Invoke();
             systems.Foreach(system=> system.Start());
+            StartEvent?.Invoke();
         }
 
 

@@ -10,20 +10,20 @@ namespace Game.Actors.Character
     public abstract class CharacterMotor
     {
         [SerializeField] public RuntimeAnimatorController animator;
-        protected GameCharacterAgent agent { get; private set; }
+        protected GameCharacterActor Actor { get; private set; }
 
-        public void Enable(GameCharacterAgent agent)
+        public void Enable(GameCharacterActor actor)
         {
-            this.agent = agent;
-            if (animator && animator != agent.view.animator.runtimeAnimatorController)
-                agent.view.animator.runtimeAnimatorController = animator;
+            this.Actor = actor;
+            if (animator && animator != actor.view.animator.runtimeAnimatorController)
+                actor.view.animator.runtimeAnimatorController = animator;
             OnEnable();
         }
 
         public void Disable()
         {
             OnDisable();
-            this.agent = null;
+            this.Actor = null;
         }
 
         protected abstract void OnEnable();

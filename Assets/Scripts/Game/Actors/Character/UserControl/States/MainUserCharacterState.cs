@@ -13,8 +13,8 @@ namespace Game.Actors.Character.UserControl.States
         public override void Start()
         {
             camera = Camera.main;
-            motor = character.agent.defaultMotor;
-            character.agent.SetMotor(motor);
+            motor = character.actor.defaultMotor;
+            character.actor.SetMotor(motor);
             GameManager.CharacterHud.Active = true;
             GameManager.CharacterHud.WorkEvent += OnUseWorkplace;
         }
