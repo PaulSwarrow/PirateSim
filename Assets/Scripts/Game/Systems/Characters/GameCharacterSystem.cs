@@ -20,6 +20,8 @@ namespace Game.Systems.Characters
         public List<GameCharacter> FindAll(Predicate<GameCharacter> predicate) => list.FindAll(predicate);
         public bool TryFind(Predicate<GameCharacter> predicate, out GameCharacter character) => list.TryFind(predicate, out character);
 
+        public void Foreach(Action<GameCharacter> handler) => list.Foreach(handler);
+
 
         public void RegisterAgent(GameCharacterActor actor)
         {

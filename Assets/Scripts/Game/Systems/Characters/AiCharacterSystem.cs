@@ -7,27 +7,28 @@ namespace Game.Systems.Characters
 {
     public class AiCharacterSystem : IGameSystem
     {
-        private List<NpcBrain> list = new List<NpcBrain>();
+        private List<Npc> list = new List<Npc>();
 
 
         public void Init()
         {
-            
         }
 
         public void Start()
         {
-            var characters = GameManager.Characters.FindAll(item => item.actor.controlMode == CharacterControlMode.ai);
-            characters.ForEach(CreateNpc);
+            GameManager.Characters.Foreach(TryCreateNpc);
         }
 
         public void Stop()
         {
-            
         }
 
-        private void CreateNpc(GameCharacter character)
+        private void TryCreateNpc(GameCharacter character)
         {
+            if (character.actor.controlMode != CharacterControlMode.ai) return;
+
+            var npc = new Npc(character);
+            list.Add(npc);
         }
     }
 }
