@@ -1,4 +1,5 @@
 using App.AI;
+using App.Character.AI;
 using App.Navigation;
 using UnityEngine;
 
@@ -47,7 +48,7 @@ namespace App.Character.UserControl
         {
             if (workableObject.OccupyWorkplace(character, out var workplace))
             {
-                stateMachine.RequireState<WorkingUserCharacterState, WorkPlace>(workplace);
+                // stateMachine.RequireState<WorkingUserCharacterState, WorkPlace>(workplace);
             }
         }
 
@@ -55,6 +56,11 @@ namespace App.Character.UserControl
         {
             GameManager.CharacterHud.WorkEvent -= OnUseWorkplace;
             GameManager.CharacterHud.Active = false;
+            
+        }
+
+        public override void ReceiveTask(CharacterStatemachineTask task)
+        {
             
         }
     }

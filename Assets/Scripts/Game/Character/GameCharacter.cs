@@ -9,6 +9,5 @@ namespace App.Character
     {
         public GameCharacterAgent agent;
 
-        private GameCharacterState state;
     }
 }

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using App.Character;
+using App.Character.AI;
 using App.Character.UserControl;
 using App.Character.UserControl.Modules;
-using DefaultNamespace;
 using Lib;
 using ShipSystems;
-using UnityEngine;
 
 namespace App
 {
@@ -31,6 +30,7 @@ namespace App
         public static readonly GameCharacterSystem Characters = AddSystem(new GameCharacterSystem());
         public static readonly UserControlSystem CharacterUserControl = AddSystem(new UserControlSystem());
         public static readonly UserCharacterHud CharacterHud = AddSystem(new UserCharacterHud());
+        public static readonly AiCharacterSystem Npc = AddSystem(new AiCharacterSystem());
 
         public T GetSystem<T>() where T : GameSystem => systemsMap.Get<T>();
 
@@ -70,5 +70,15 @@ namespace App
             LateUpdateEvent?.Invoke();
         }
 
+        public List<T> GetSystems<T>()
+        {
+            var result = new List<T>();
+            foreach (var system in systems)
+            {
+                if (system is T tSystem) result.Add(tSystem);
+            }
+
+            return result;
+        }
     }
 }

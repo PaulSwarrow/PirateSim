@@ -1,7 +1,9 @@
 namespace App.Character.AI
 {
-    public class NpcBrain
+    public class NpcBrain 
     {
-        
+        private readonly GameCharacter character;
+
+
     }
 }

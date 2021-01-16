@@ -106,8 +106,7 @@ namespace Lib.UnityQuickTools.Collections
 
             return result;
         }
-        
-        
+
 
         public static int Least<T>(this IList<T> collection, Func<T, float> selectBy)
         {
@@ -121,6 +120,24 @@ namespace Lib.UnityQuickTools.Collections
                 {
                     result = i;
                     min = value;
+                }
+            }
+
+            return result;
+        }
+
+        public static int Most<T>(this IList<T> collection, Func<T, float> selectBy)
+        {
+            var result = -1;
+            var max = float.MinValue;
+            for (var i = 0; i < collection.Count; i++)
+            {
+                var item = collection[i];
+                var value = selectBy(item);
+                if (value >= max)
+                {
+                    result = i;
+                    max = value;
                 }
             }
 

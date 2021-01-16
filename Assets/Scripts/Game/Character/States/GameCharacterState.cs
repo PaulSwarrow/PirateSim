@@ -1,3 +1,6 @@
+using App.Character.AI;
+using Game.Character.Statemachine;
+
 namespace App.Character
 {
     /*
@@ -21,14 +24,22 @@ namespace App.Character
 
         public abstract void Stop();
 
+        public abstract void ReceiveTask(CharacterStatemachineTask task);
     }
-    public abstract class GameCharacterState<TData> : GameCharacterState
+    public abstract class GameCharacterState<TApi> : GameCharacterState where TApi: BaseStateApi, new()
     {
-        protected TData data { get; private set; }
-        public void SetData(TData data)
+        protected TApi api { get;} = new TApi();
+
+
+        public override void ReceiveTask(CharacterStatemachineTask task)
         {
-            this.data = data;
+            task.Update(api);
         }
+    }
+
+    public interface IStateWithData<TData>
+    {
+        void SetData(TData data);
 
     }
 }

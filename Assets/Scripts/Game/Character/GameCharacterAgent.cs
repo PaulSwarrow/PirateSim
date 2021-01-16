@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using App.AI;
 using App.Navigation;
 using Lib;
@@ -7,6 +8,10 @@ using UnityEngine;
 
 namespace App.Character
 {
+    public enum CharacterControlMode
+    {
+        none, ai, user
+    }
     /*
      * A concrete instance of the character.
      * Provides facade api for GameCharacterMotdel
@@ -22,7 +27,8 @@ namespace App.Character
         public event TriggerEvent TriggerExitEvent;
 
         [SerializeField] public CharacterMainMotor defaultMotor;
-        private CharacterMotor motor;
+        public CharacterMotor motor;
+        public CharacterControlMode controlMode;
         public GameCharacterView view { get; private set; }
         public DynamicNavmeshAgent navigator { get; private set; }
 
@@ -30,6 +36,10 @@ namespace App.Character
         {
             view = GetComponentInChildren<GameCharacterView>();
             navigator = GetComponent<DynamicNavmeshAgent>();
+        }
+
+        private void Start()
+        {
             GameCharacterSystem.AddAgent(this);
         }
 
