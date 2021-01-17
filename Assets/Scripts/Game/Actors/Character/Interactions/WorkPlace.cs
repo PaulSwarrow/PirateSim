@@ -8,12 +8,16 @@ namespace Game.Actors.Character.Interactions
 {
     public abstract class WorkPlace : BaseComponent
     {
+        public abstract bool AllowChilling { get; }
+        
         public event Action TakenEvent; 
         public event Action ReleasedEvent;
         
         [SerializeField] public PlayableDirector entryScene;
         [SerializeField] public PlayableDirector exitScene;
         private GameCharacter character;
+
+        public Vector3 EnterPosition => entryScene.transform.position;
 
         private void Awake()
         {

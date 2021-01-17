@@ -10,14 +10,16 @@ namespace Game.Actors.Character.AI
 
         private int index;
 
-        public void Execute(Npc npc, Action callback)
+        public void Execute(Npc npc, Action callback, bool resume)
         {
+            if (!resume) index = 0;
+
             var step = sequence[index];
             index = index < sequence.Length - 1 ? index + 1 : 0;
-            step.Execute(npc, callback);
+            step.Execute(npc, callback, sequence.Length == 1);
         }
     }
-    
+
     public class BehaviourTreeStrongSequence : IBehaviourTreeNode
     {
         public IBehaviourTreeNode[] sequence;
@@ -25,7 +27,8 @@ namespace Game.Actors.Character.AI
         private int index;
         private Npc npc;
         private Action callback;
-        public void Execute(Npc npc, Action callback)
+
+        public void Execute(Npc npc, Action callback, bool resume)
         {
             this.npc = npc;
             this.callback = callback;
@@ -38,7 +41,7 @@ namespace Game.Actors.Character.AI
             {
                 var step = sequence[index];
                 index++;
-                step.Execute(npc, Next);
+                step.Execute(npc, Next, sequence.Length == 1);
             }
             else
             {
@@ -46,5 +49,4 @@ namespace Game.Actors.Character.AI
             }
         }
     }
-    
 }

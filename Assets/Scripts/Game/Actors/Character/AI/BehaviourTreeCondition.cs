@@ -11,10 +11,14 @@ namespace Game.Actors.Character.AI
         //TODO separate properties and instance variables?
 
 
-        public void Execute(Npc npc, Action callback)
+        private IBehaviourTreeNode lastSelection;
+        public void Execute(Npc npc, Action callback, bool resume)
         {
-            var currentBranch = Condition(npc) ? BranchA : BranchB;
-            currentBranch.Execute(npc, callback);
+            
+            var branch = Condition(npc) ? BranchA : BranchB;
+            resume = resume && lastSelection == branch;
+            lastSelection = branch;
+            branch.Execute(npc, callback, resume);
         }
     }
 }

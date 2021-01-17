@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Game.Actors.Character
 {
     /*
@@ -9,5 +11,6 @@ namespace Game.Actors.Character
     {
         public GameCharacterActor actor;
 
+        public Vector3 Position => actor.transform.position;
     }
 }

@@ -25,6 +25,7 @@ namespace Game.Actors.Character.Interactions
 
 
         [SerializeField] private WorkSpaceCharacterMotor motor;
+        public override bool AllowChilling => true;
         public override CharacterMotor characterMotor => motor;
     }
 }
