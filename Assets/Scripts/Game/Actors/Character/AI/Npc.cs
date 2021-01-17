@@ -14,6 +14,7 @@ namespace Game.Actors.Character.AI
         public WorkPlace targetWorkPlace;
         public NavPoint targetPosition;
         public float travelAccurancy = .1f;
+        public NavMeshPath path = new NavMeshPath();
 
 
         public Npc(GameCharacter gameCharacter)

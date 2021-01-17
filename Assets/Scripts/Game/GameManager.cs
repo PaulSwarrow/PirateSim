@@ -17,6 +17,7 @@ namespace Game
         public static event Action FixedUpdateEvent;
         public static event Action LateUpdateEvent;
         public static event Action EndEvent;
+        public static event Action GizmosEvent;
         public SailingConstantsConfig sailsConfig;
         public static GameManager current { get; set; }
         private static List<IGameSystem> systems = new List<IGameSystem>();
@@ -71,7 +72,13 @@ namespace Game
 
         private void OnDestroy()
         {
+            systems.Foreach(system=> system.Stop());
             EndEvent?.Invoke();
+        }
+
+        private void OnDrawGizmos()
+        {
+            GizmosEvent?.Invoke();
         }
 
         public List<T> GetSystems<T>()
