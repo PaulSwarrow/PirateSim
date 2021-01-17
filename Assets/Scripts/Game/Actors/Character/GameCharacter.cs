@@ -11,6 +11,7 @@ namespace Game.Actors.Character
     {
         public GameCharacterActor actor;
 
-        public Vector3 Position => actor.transform.position;
+        public Vector3 worldPosition => actor.transform.position;
+        public Vector3 navPosition => actor.navigator.NavPosition;
     }
 }

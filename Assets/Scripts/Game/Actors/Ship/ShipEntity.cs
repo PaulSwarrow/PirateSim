@@ -1,9 +1,12 @@
 using System;
 using Game.Actors.Ship.Sails;
 using Game.Actors.Ship.View;
+using Game.Interfaces;
+using Game.Navigation;
 using Game.Systems.Sea;
 using Lib;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Actors.Ship
 {
@@ -35,7 +38,7 @@ namespace Game.Actors.Ship
     }
 
 
-    public class ShipEntity : BaseComponent
+    public class ShipEntity : BaseComponent, ICharacterLiveArea
     {
         private Vector3 floor;
         // private WindSystem windSystem;
@@ -79,6 +82,13 @@ namespace Game.Actors.Ship
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
             Sails.FullStop();
+        }
+
+        
+        //TEMP solution
+        public bool TryFindPlace(Vector3 worldPosition, float area, out VirtualNavPoint place)
+        {
+            return GetComponent<DynamicNavMeshSurface>().virtualNavmesh.SamplePosition(worldPosition, out place, area);
         }
     }
 }

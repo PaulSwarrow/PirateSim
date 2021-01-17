@@ -49,6 +49,7 @@ namespace Game.Systems.Characters
                 deltaQuaternion = Quaternion.Lerp(Quaternion.identity, deltaQuaternion, 0.2f);
                 motor.Forward = deltaQuaternion * motor.Forward;
                 motor.NormalizedVelocity = (Vector3.forward * (move.magnitude));
+                Debug.Log("User:" + move.magnitude);
             }
             else
             {

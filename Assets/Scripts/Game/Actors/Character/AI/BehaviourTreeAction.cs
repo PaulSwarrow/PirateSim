@@ -25,6 +25,7 @@ namespace Game.Actors.Character.AI
         public void Execute(Npc npc, Action callback, bool resume)
         {
             action(npc, resume);
+            callback();
         }
     }
 

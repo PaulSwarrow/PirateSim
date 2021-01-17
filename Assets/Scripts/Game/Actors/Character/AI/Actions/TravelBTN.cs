@@ -17,7 +17,7 @@ namespace Game.Actors.Character.AI.Hardcode
             };
         }
 
-        private NavMeshPath path;
+        private NavMeshPath path = new NavMeshPath();
         private int progress;
 
         private void Move(Npc npc, bool resume)
@@ -25,7 +25,8 @@ namespace Game.Actors.Character.AI.Hardcode
             if (!resume) //recalculate from time to time
             {
                 progress = 0;
-                NavMesh.CalculatePath(npc.character.Position, npc.targetPosition, NavMesh.AllAreas, path);
+                NavMesh.CalculatePath(npc.character.navPosition, npc.targetPosition.virtualPosition, NavMesh.AllAreas,
+                    path);
             }
 
             var motor = (CharacterMainMotor) npc.character.actor.motor;
@@ -33,15 +34,15 @@ namespace Game.Actors.Character.AI.Hardcode
             if (progress < path.corners.Length)
             {
                 var point = path.corners[progress];
-                if (Vector3.Distance(point, npc.character.Position) < npc.travelAccurancy)
+                if (Vector3.Distance(point, npc.character.navPosition) < npc.travelAccurancy)
                 {
                     progress++;
                 }
                 else
                 {
-                    var movementVector = point - npc.character.Position;
+                    var movementVector = point - npc.character.navPosition;
                     motor.Forward = movementVector;
-                    motor.NormalizedVelocity = movementVector.normalized;
+                    motor.NormalizedVelocity = Vector3.forward;
                 }
             }
             else

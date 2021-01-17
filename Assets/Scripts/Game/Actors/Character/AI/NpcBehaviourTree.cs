@@ -1,17 +1,18 @@
 using System.Collections;
+using Game.Actors.Character.AI.Hardcode;
 using UnityEngine;
 
 namespace Game.Actors.Character.AI
 {
     public class NpcBehaviourTree
     {
-        public IBehaviourTreeNode rootNode;
-        private Npc npc;
+        public IBehaviourTreeNode rootNode = new ChillBTN();
+        public Npc npc;
 
         //TODO downfall update for pause|resume option?
         //TODO stop|dispose feature?
 
-        public IEnumerator Start(Npc npc)
+        public IEnumerator Coroutine()
         {
             while (true)
             {

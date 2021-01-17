@@ -11,7 +11,7 @@ namespace Game.Navigation
 
         void Awake()
         {
-            virtualNavmesh = new VirtualNavmesh(Instantiate(navMeshData), transform);
+            virtualNavmesh = new VirtualNavmesh(Instantiate(navMeshData), this);
 
         }
 

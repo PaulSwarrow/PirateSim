@@ -1,4 +1,4 @@
-using System;
+using UnityEngine;
 
 namespace Game.Actors.Character.AI.Actions
 {
@@ -11,8 +11,10 @@ namespace Game.Actors.Character.AI.Actions
 
         private void FindPlace(Npc npc, bool resume)
         {
-            npc.liveArea.TryFindPlace(10, out npc.navTarget);
-
+            var offset = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * Random.Range(5f, 10);
+            var searchPosition = npc.character.worldPosition + offset;
+            npc.liveArea.TryFindPlace(searchPosition, 10, out var position);
+            npc.targetPosition = position;
         }
     }
 }

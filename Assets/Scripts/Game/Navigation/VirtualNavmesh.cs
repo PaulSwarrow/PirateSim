@@ -15,7 +15,7 @@ namespace Game.Navigation
         
 
 
-        public Transform surface { get; private set; }
+        public DynamicNavMeshSurface surface { get; private set; }
         public Transform transform { get; private set; }
 
         private static Vector3 FindNewPosition()
@@ -26,7 +26,7 @@ namespace Game.Navigation
 
         public Vector3 Position { get; }
 
-        public VirtualNavmesh(NavMeshData data, Transform surface)
+        public VirtualNavmesh(NavMeshData data, DynamicNavMeshSurface surface)
         {
             this.surface = surface;
             Position = FindNewPosition();
@@ -40,18 +40,26 @@ namespace Game.Navigation
 
         public Vector3 FromWorld2VirtualPoint(Vector3 position)
         {
-            return transform.TransformPoint(surface.InverseTransformPoint(position));
+            return transform.TransformPoint(surface.transform.InverseTransformPoint(position));
         }
         public Vector3 Virtual2WorldPoint(Vector3 position)
         {
-            return surface.TransformPoint(transform.InverseTransformPoint(position));
+            return surface.transform.TransformPoint(transform.InverseTransformPoint(position));
         }
         
         
-        public bool SamplePosition(Vector3 sourcePosition, out NavMeshHit hit, float maxDistance, int filter = NavMesh.AllAreas)
+        public bool SamplePosition(Vector3 worldPosition, out VirtualNavPoint point, float maxDistance, int filter = NavMesh.AllAreas)
         {
-            var virtualPosition = FromWorld2VirtualPoint(sourcePosition);
-            return NavMesh.SamplePosition(virtualPosition, out hit, maxDistance, filter);
+            var virtualPosition = FromWorld2VirtualPoint(worldPosition);
+            if (NavMesh.SamplePosition(virtualPosition, out var hit, maxDistance, filter))
+            {
+                point = new VirtualNavPoint(surface, hit.position);
+                return true;
+                
+            }
+
+            point = default;
+            return false;
         }
         
 

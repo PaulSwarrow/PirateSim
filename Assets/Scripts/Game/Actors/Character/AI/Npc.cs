@@ -2,6 +2,7 @@ using Game.Actors.Character.Interactions;
 using Game.Interfaces;
 using Game.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Actors.Character.AI
 {
@@ -11,8 +12,7 @@ namespace Game.Actors.Character.AI
         public ICharacterLiveArea liveArea;
         public WorkPlace currentWorkPlace;
         public WorkPlace targetWorkPlace;
-        public NavPoint navTarget;
-        public Vector3 targetPosition;
+        public NavPoint targetPosition;
         public float travelAccurancy = .1f;
 
 
@@ -21,6 +21,6 @@ namespace Game.Actors.Character.AI
             character = gameCharacter;
         }
 
-        public Vector3 Position => character.Position;
+        public Vector3 Position => character.worldPosition;
     }
 }

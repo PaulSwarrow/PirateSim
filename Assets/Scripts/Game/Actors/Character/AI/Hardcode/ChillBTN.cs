@@ -12,7 +12,7 @@ namespace Game.Actors.Character.AI.Hardcode
         {
             cases = new List<(Condition condition, IBehaviourTreeNode handler)>
             {
-                ((npc, resume)=> !resume || Vector3.Distance(npc.targetPosition, npc.Position) < npc.travelAccurancy, new FindRandomPlaceBTN()),
+                ((npc, resume)=> !resume || Vector3.Distance(npc.targetPosition.virtualPosition, npc.character.navPosition) < npc.travelAccurancy, new FindRandomPlaceBTN()),
             };
 
             defaultBehaviour = new TravelBTN();

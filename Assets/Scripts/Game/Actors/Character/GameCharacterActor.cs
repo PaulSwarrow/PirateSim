@@ -72,5 +72,11 @@ namespace Game.Actors.Character
         {
             SetMotor(defaultMotor);
         }
+
+        public NavPoint GetCurrentNavPoint()
+        {
+            if (navigator.surface) return new VirtualNavPoint(navigator.surface, navigator.NavPosition);
+            else return new WorldNavPoint(navigator.NavPosition);
+        }
     }
 }

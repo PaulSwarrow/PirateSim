@@ -30,7 +30,7 @@ namespace Game.Actors.Character.AI
         {
             resume = resume && lastChoice == index;
             lastChoice = index;
-            defaultBehaviour.Execute(npc, callback, resume);
+            node.Execute(npc, callback, resume);
         }
     }
 }

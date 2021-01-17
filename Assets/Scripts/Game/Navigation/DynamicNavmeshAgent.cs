@@ -30,7 +30,7 @@ namespace Game.Navigation
             set => ghost.WorldForward = value;
         }
 
-        public Vector3 navPosition => ghost.transform.position;
+        public Vector3 NavPosition => ghost.transform.position;
 
         private void Awake()
         {

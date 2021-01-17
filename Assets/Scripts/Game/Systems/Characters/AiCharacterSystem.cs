@@ -7,7 +7,7 @@ namespace Game.Systems.Characters
 {
     public class AiCharacterSystem : IGameSystem
     {
-        private List<Npc> list = new List<Npc>();
+        private List<NpcBehaviourTree> list = new List<NpcBehaviourTree>();
 
 
         public void Init()
@@ -27,8 +27,17 @@ namespace Game.Systems.Characters
         {
             if (character.actor.controlMode != CharacterControlMode.ai) return;
 
-            var npc = new Npc(character);
-            list.Add(npc);
+            var tree = new NpcBehaviourTree
+            {
+                npc = new Npc(character)
+                {
+                    liveArea = GameManager.current.currentShip,
+                    targetPosition = character.actor.GetCurrentNavPoint()
+                },
+                
+            };
+            list.Add(tree);
+            GameManager.current.StartCoroutine(tree.Coroutine());
         }
     }
 }
