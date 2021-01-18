@@ -24,6 +24,8 @@ namespace Game.Actors.Character.AI.Hardcode
             //TODO path based on navpoints!
             NavMesh.CalculatePath(npc.character.navPosition, npc.targetPosition.virtualPosition, NavMesh.AllAreas,
                 npc.path);
+
+            npc.character.actor.Goto(npc.targetPosition);
         }
 
         private int progress;
@@ -46,7 +48,7 @@ namespace Game.Actors.Character.AI.Hardcode
                 {
                     var movementVector = point - npc.character.navPosition;
                     //HOT-FIX!
-                    movementVector = npc.character.actor.navigator.surface.Virtual2WorldDirection(movementVector);
+                    movementVector = npc.character.actor.navigator.navSpace.Virtual2WorldDirection(movementVector);
                     motor.Forward = movementVector;
                     motor.NormalizedVelocity = Vector3.forward;
                 }

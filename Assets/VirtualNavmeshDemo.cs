@@ -25,7 +25,7 @@ public class VirtualNavmeshDemo : MonoBehaviour
             Debug.DrawLine(ray.origin, ray.origin + ray.direction* 45, Color.magenta);
             if (Physics.Raycast(ray, out var hit, 45))
             {
-                target.GotToPlace(hit.point);
+                // target.GotToPlace(hit.point);
             }
         }
         

@@ -1,16 +1,18 @@
 using Lib;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions;
 
 namespace Game.Navigation
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class VirtualNavmeshGhost : BaseComponent
+    public class VirtualNavmeshGhost : BaseComponent, INavSpaceConverter
     {
-        public NavMeshAgent agent;
+        private NavMeshAgent agent;
 
         public DynamicNavmeshAgent owner;
         private DynamicNavMeshSurface surface;
+        private bool hasSurface;
 
         private void Awake()
         {
@@ -21,11 +23,14 @@ namespace Game.Navigation
 
         public void SetSurface(DynamicNavMeshSurface surface)
         {
-            // if(surface == this.surface) return;
+            Assert.IsNull(this.surface);
+            Assert.IsNotNull(surface);
+            hasSurface = true;
             this.surface = surface;
             transform.parent = surface.virtualNavmesh.transform;
             RecalculatePosition();
         }
+
         public void RecalculatePosition()
         {
             agent.enabled = false;
@@ -33,12 +38,11 @@ namespace Game.Navigation
             transform.localPosition = surface.transform.InverseTransformPoint(owner.transform.position);
             agent.nextPosition = transform.position;
             agent.enabled = true;
-            
-            
         }
 
         public void ClearSurface()
         {
+            hasSurface = false;
             agent.enabled = false;
             transform.parent = null;
             transform.position = owner.transform.position;
@@ -50,25 +54,58 @@ namespace Game.Navigation
 
         public Vector3 WorldPosition
         {
-            get =>surface ? surface.Virtual2WorldPoint(transform.position) : transform.position;
-            set => transform.position = surface ? surface.World2VirtualPoint(value) : value;
+            get => hasSurface ? surface.Virtual2WorldPoint(transform.position) : transform.position;
+            set => transform.position = hasSurface ? surface.World2VirtualPoint(value) : value;
         }
 
         public Vector3 WorldForward
         {
-            get =>  surface ? surface.Virtual2WorldDirection(transform.forward) : transform.forward; 
-            set => transform.forward = surface? surface.World2VirtualDirection(value) : value;
+            get => hasSurface ? surface.Virtual2WorldDirection(transform.forward) : transform.forward;
+            set => transform.forward = hasSurface ? surface.World2VirtualDirection(value) : value;
         }
 
-        public void FindTargetPosition(Vector3 worldPosition)
+        public void GotoPosition(NavPoint navPoint)
         {
-            var localPosition = surface.transform.InverseTransformPoint(worldPosition);
-            var virtualPosition = surface.virtualNavmesh.transform.TransformPoint(localPosition);
-            if (NavMesh.SamplePosition(virtualPosition, out var hit, 10, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(navPoint.virtualPosition, out var hit, 10, NavMesh.AllAreas))
             {
                 agent.SetDestination(hit.position);
+                agent.isStopped = false;
             }
-            
+        }
+
+        public void Stop()
+        {
+            agent.isStopped = true;
+        }
+
+        public void Move(Vector3 worldDirection)
+        {
+            agent.Move(hasSurface ? surface.World2VirtualDirection(worldDirection) : worldDirection);
+        }
+
+        public NavPoint GetCurrentNavPoint()
+        {
+            return NavPoint.Create(transform.position, surface);
+        }
+
+        public Vector3 Virtual2WorldPoint(Vector3 position)
+        {
+            return hasSurface ? surface.Virtual2WorldPoint(position) : position;
+        }
+
+        public Vector3 World2VirtualPoint(Vector3 position)
+        {
+            return hasSurface ? surface.World2VirtualPoint(position) : position;
+        }
+
+        public Vector3 Virtual2WorldDirection(Vector3 direction)
+        {
+            return hasSurface ? surface.Virtual2WorldDirection(direction) : direction;
+        }
+
+        public Vector3 World2VirtualDirection(Vector3 direction)
+        {
+            return hasSurface ? surface.World2VirtualDirection(direction) : direction;
         }
     }
 }

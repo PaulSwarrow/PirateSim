@@ -8,6 +8,13 @@ namespace Game.Navigation
         {
             return Vector3.Distance(a.worldPosition, b.worldPosition);
         }
+
+        public static NavPoint Create(Vector3 position, DynamicNavMeshSurface surface = null)
+        {
+            if (surface) return new VirtualNavPoint(surface, position);
+            return new WorldNavPoint(position);
+        }
+
         public abstract Vector3 virtualPosition { get; }
         public abstract Vector3 worldPosition { get; }
     }

@@ -75,8 +75,13 @@ namespace Game.Actors.Character
 
         public NavPoint GetCurrentNavPoint()
         {
-            if (navigator.surface) return new VirtualNavPoint(navigator.surface, navigator.NavPosition);
-            else return new WorldNavPoint(navigator.NavPosition);
+            return navigator.GetCurrentNavPoint();
         }
+
+        public void Goto(NavPoint targetPosition)
+        {
+            navigator.GotToPlace(targetPosition);
+        }
+
     }
 }

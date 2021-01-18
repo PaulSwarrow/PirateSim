@@ -1,3 +1,4 @@
+using Game.Navigation;
 using UnityEngine;
 
 namespace Game.Actors.Character
@@ -13,5 +14,6 @@ namespace Game.Actors.Character
 
         public Vector3 worldPosition => actor.transform.position;
         public Vector3 navPosition => actor.navigator.NavPosition;
+
     }
 }

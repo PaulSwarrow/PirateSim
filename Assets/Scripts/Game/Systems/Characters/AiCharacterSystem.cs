@@ -30,7 +30,7 @@ namespace Game.Systems.Characters
             {
                 Gizmos.color = Color.blue;
                 Gizmos.DrawWireSphere(
-                    npc.character.actor.navigator.surface.virtualNavmesh.Virtual2WorldPoint(pathCorner), 1);
+                    npc.character.actor.navigator.navSpace.Virtual2WorldPoint(pathCorner), 1);
             }
 
             Gizmos.color = Color.green;

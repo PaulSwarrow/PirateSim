@@ -21,7 +21,6 @@ namespace Game.Navigation
         [SerializeField] private Properties properties;
         private VirtualNavmeshGhost ghost;
         [SerializeField] private VirtualNavmeshGhost ghostPrefab;
-        public DynamicNavMeshSurface surface;
 
 
         public Vector3 Forward
@@ -43,7 +42,9 @@ namespace Game.Navigation
         {
             //TODO runtime support
             var ray = new Ray(transform.position + Vector3.up, Vector3.down);
-            if (Physics.Raycast(ray, out var hit, 1.5f) && hit.rigidbody && hit.rigidbody.TryGetComponent(out surface))
+            if (Physics.Raycast(ray, out var hit, 1.5f) 
+                && hit.rigidbody 
+                && hit.rigidbody.TryGetComponent<DynamicNavMeshSurface>(out var surface))
             {
                 ghost.SetSurface(surface);
             }
@@ -60,22 +61,21 @@ namespace Game.Navigation
                 Quaternion.LookRotation(ghost.WorldForward, Vector3.up), blendWeights);
         }
 
-        public void Move(Vector3 offset)
+        public void Move(Vector3 worldDirection)
         {
-            if (surface) offset = surface.World2VirtualDirection(offset);
-            ghost.agent.Move(offset);
+            ghost.Move(worldDirection);
         }
 
-        public void GotToPlace(Vector3 worldPosition)
+        public void GotToPlace(NavPoint navPoint)
         {
-            ghost.FindTargetPosition(worldPosition);
+            ghost.GotoPosition(navPoint);
         }
 
-        public NavMeshPath GetPath(Vector3 navPoint)
+        public NavPoint GetCurrentNavPoint()
         {
-            var path = new NavMeshPath();
-            NavMesh.CalculatePath(ghost.transform.position, navPoint, NavMesh.AllAreas, path);
-            return path;
+            return ghost.GetCurrentNavPoint();
         }
+
+        public INavSpaceConverter navSpace => ghost;
     }
 }
