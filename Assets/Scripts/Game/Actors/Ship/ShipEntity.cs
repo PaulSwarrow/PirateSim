@@ -10,8 +10,6 @@ using UnityEngine.AI;
 
 namespace Game.Actors.Ship
 {
-
-
     [Serializable]
     public class SailGroup //split into config & state
     {
@@ -44,18 +42,28 @@ namespace Game.Actors.Ship
         // private WindSystem windSystem;
         // private SailingConstantsConfig sailsConfig;
 
-        
+
         //components:
         private Transform self;
         private Rigidbody rigidbody;
         private WindSystem windSystem;
         public ShipSailsController Sails { get; private set; }
         public Keel Keel { get; private set; }
-        
+
         //values:
         public Vector3 localWind { get; private set; }
         public float LinearVelocity => Vector3.Dot(self.forward, rigidbody.velocity);
         public float AngularVelocity => rigidbody.angularVelocity.y;
+
+        private void Awake()
+        {
+            GameManager.ReadSceneEvent += RegisterShip;
+        }
+
+        private void RegisterShip()
+        {
+            GameManager.ReadSceneEvent -= RegisterShip;
+        }
 
         private void Start()
         {
@@ -74,9 +82,11 @@ namespace Game.Actors.Ship
 
         private void Update()
         {
-            localWind = self.InverseTransformVector(WindSystem.Wind);
+            localWind = self.InverseTransformVector(GameManager.Wind.Force);
         }
 
+        
+        
         public void FullStop()
         {
             rigidbody.velocity = Vector3.zero;
@@ -84,7 +94,7 @@ namespace Game.Actors.Ship
             Sails.FullStop();
         }
 
-        
+
         //TEMP solution
         public bool TryFindPlace(Vector3 worldPosition, float area, out VirtualNavPoint place)
         {

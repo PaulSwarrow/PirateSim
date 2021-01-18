@@ -50,7 +50,7 @@ namespace Game.Actors.Ship.Sails
 
         private void FixedUpdate()
         {
-            localWind = self.InverseTransformVector(WindSystem.Wind);
+            localWind = self.InverseTransformVector(GameManager.Wind.Force);
 
             foreach (var sail in sails)
             {

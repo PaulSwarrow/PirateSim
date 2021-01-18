@@ -23,9 +23,9 @@ namespace Game.Ui
         {
             var forward = RelativeTo != null? RelativeTo.forward: Vector3.forward;
             forward.y = 0;
-            var angle = Vector3.SignedAngle(WindSystem.Wind, forward, Vector3.up);
+            var angle = Vector3.SignedAngle(GameManager.Wind.Force, forward, Vector3.up);
             Arrow.rotation = Quaternion.Euler(0, 0, angle);
-            Label.text = "Wind: "+ WindSystem.Wind.magnitude.ToString("0.00");
+            Label.text = "Wind: "+ GameManager.Wind.Force.magnitude.ToString("0.00");
         }
     }
 }

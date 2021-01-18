@@ -20,6 +20,7 @@ namespace Game
         public static event Action GizmosEvent;
         public SailingConstantsConfig sailsConfig;
         public static GameManager current { get; set; }
+
         private static List<IGameSystem> systems = new List<IGameSystem>();
         private static GenericMap<IGameSystem> systemsMap = new GenericMap<IGameSystem>();
 

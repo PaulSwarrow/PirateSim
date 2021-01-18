@@ -5,7 +5,7 @@ namespace Game.Systems.Sea
 {
     public class WindSystem : IGameSystem
     {
-        public static Vector3 Wind;
+        public Vector3 Force { get; private set; } = Vector3.forward;
         public void Init()
         {
             
@@ -21,7 +21,7 @@ namespace Game.Systems.Sea
 
         public void SetWind(float angle, float force)
         {
-            Wind = Quaternion.Euler(0, angle, 0) * Vector3.forward * force;
+            Force = Quaternion.Euler(0, angle, 0) * Vector3.forward * force;
         }
 
     }
