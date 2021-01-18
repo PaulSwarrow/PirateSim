@@ -2,7 +2,7 @@ using System;
 
 namespace Game.Actors.Character.AI
 {
-    public class BehaviourTreeCondition : IBehaviourTreeNode
+    public class BehaviourTreeCondition : BaseBehaviourTreeCondition
     {
         public Predicate<Npc> Condition;
         public IBehaviourTreeNode BranchA;
@@ -12,30 +12,9 @@ namespace Game.Actors.Character.AI
 
 
         private IBehaviourTreeNode lastSelection;
-        public void Start(Npc npc)
+        protected override IBehaviourTreeNode Select(Npc npc)
         {
-        }
-
-        public void Resume(Npc npc, Action callback)
-        {
-            var branch = Condition(npc) ? BranchA : BranchB;
-            if (lastSelection != branch)
-            {
-                lastSelection?.Stop(npc);
-                branch.Start(npc);
-            }
-            
-            lastSelection = branch;
-            branch.Resume(npc, callback);
-        }
-
-        public void Stop(Npc npc)
-        {
-            if (lastSelection != null)
-            {
-                lastSelection.Stop(npc);
-                lastSelection = null;
-            }
+            return Condition(npc) ? BranchA : BranchB;
         }
     }
 }

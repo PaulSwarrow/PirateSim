@@ -13,7 +13,7 @@ namespace Game.Actors.Character.AI.Hardcode
         {
             cases = new List<(Condition condition, IBehaviourTreeNode handler)>
             {
-                ((npc) => firstTime || Vector3.Distance(npc.targetPosition.virtualPosition, npc.character.navPosition) < npc.travelAccurancy,
+                ((npc) => Reset || Vector3.Distance(npc.targetPosition.virtualPosition, npc.character.navPosition) < npc.travelAccurancy,
                     new FindRandomPlaceBTN()),
             };
 
