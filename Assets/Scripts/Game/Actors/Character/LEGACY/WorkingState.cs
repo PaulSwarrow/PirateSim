@@ -1,27 +1,24 @@
 using System.Collections;
 using Game.Actors.Character.Interactions;
-using Game.Actors.Character.Statemachine;
 
 namespace Game.Actors.Character.States
 {
-    public class WorkingState : GameCharacterState<WorkingState.Api>, IStateWithData<WorkPlace>
+    //LEGACY to remove
+    public class WorkingState
     {
         //API:
-        public class Api : BaseStateApi
+        public class Api
         {
+            public bool Exit;
             public WorkPlace WorkPlace { get; internal set; }
             public bool Entered { get; internal set; }
             public bool Ready { get; internal set; }
         }
 
+        private Api api;
+        private GameCharacter character;
 
-
-        public void SetData(WorkPlace data)
-        {
-            api.WorkPlace = data;
-        }
-
-        public override void Start()
+        public void Start()
         {
             GameManager.current.StartCoroutine(EnterCoroutine());
         }
@@ -46,17 +43,12 @@ namespace Game.Actors.Character.States
             // stateMachine.RequireState<MainState>();//To the main state
         }
 
-        public override void Update()
+        public void Update()
         {
             if (api.Ready && api.Exit)
             {
                 GameManager.current.StartCoroutine(ExitCoroutine());
             }
-        }
-
-        public override void Stop()
-        {
-            
         }
     }
 }

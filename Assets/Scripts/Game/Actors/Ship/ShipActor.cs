@@ -46,9 +46,9 @@ namespace Game.Actors.Ship
         //components:
         private Transform self;
         private Rigidbody rigidbody;
-        private WindSystem windSystem;
         public ShipSailsController Sails { get; private set; }
         public Keel Keel { get; private set; }
+        public DynamicNavMeshSurface NavSurface { get; private set; }
 
         //values:
         public Vector3 localWind { get; private set; }
@@ -57,6 +57,11 @@ namespace Game.Actors.Ship
 
         private void Awake()
         {
+            rigidbody = GetComponent<Rigidbody>();
+            Keel = GetComponent<Keel>();
+            Sails = GetComponent<ShipSailsController>();
+            NavSurface = GetComponent<DynamicNavMeshSurface>();
+            self = transform;
             GameManager.ReadSceneEvent += RegisterShip;
         }
 
@@ -65,20 +70,6 @@ namespace Game.Actors.Ship
             GameManager.ReadSceneEvent -= RegisterShip;
         }
 
-        private void Start()
-        {
-            rigidbody = GetComponent<Rigidbody>();
-            Keel = GetComponent<Keel>();
-            Sails = GetComponent<ShipSailsController>();
-            self = transform;
-            windSystem = GameManager.current.GetSystem<WindSystem>();
-            /*foreach (var group in sails)
-            {
-                group.view.model = group;
-            }
-
-            sailsConfig = GameManager.current.sailsConfig;*/
-        }
 
         private void Update()
         {
