@@ -24,6 +24,7 @@ namespace Game.Actors.Character.Motors
 
         protected override void OnEnable()
         {
+            Run = false;
             Actor.navigator.CheckSurface();
             Actor.navigator.Forward = Actor.transform.forward; //bad code - bind to be adter checkSurface()
             Actor.view.MoveEvent += OnAnimatorMove;
@@ -83,7 +84,10 @@ namespace Game.Actors.Character.Motors
 
         public void Look(Vector3 forward)
         {
-            Actor.navigator.Forward = forward;
+            var current = Actor.navigator.Forward;
+            var deltaQuaternion = Quaternion.FromToRotation(current, forward);
+            deltaQuaternion = Quaternion.Lerp(Quaternion.identity, deltaQuaternion, 6.2f * Time.deltaTime);
+            Actor.navigator.Forward = deltaQuaternion * current;
         }
         
         

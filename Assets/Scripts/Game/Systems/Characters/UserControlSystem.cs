@@ -36,6 +36,7 @@ namespace Game.Systems.Characters
             input = Vector3.ClampMagnitude(input, 1); // fix for keyboard
             var jump = Input.GetButtonDown("Jump");
 
+            
             var vector = Camera.main.transform.TransformDirection(input);
             vector.y = 0; //compensate camera x-angle
             vector = vector.normalized * input.magnitude;
@@ -45,9 +46,7 @@ namespace Game.Systems.Characters
 
             if (move.magnitude > 0)
             {
-                var deltaQuaternion = Quaternion.FromToRotation(motor.LookDirection, move);
-                deltaQuaternion = Quaternion.Lerp(Quaternion.identity, deltaQuaternion, 0.2f);
-                motor.Look(deltaQuaternion * motor.LookDirection);
+                motor.Look(move);
                 motor.Move(move);
             }
         }
