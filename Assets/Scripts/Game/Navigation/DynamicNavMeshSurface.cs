@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace Game.Navigation
 {
-    public class DynamicNavMeshSurface : MonoBehaviour
+    public class DynamicNavMeshSurface : MonoBehaviour, INavSpaceConverter
     {
         [SerializeField] private NavMeshData navMeshData;
         // Start is called before the first frame update

@@ -1,7 +1,6 @@
 using System;
 using Lib;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Game.Navigation
 {
@@ -42,8 +41,8 @@ namespace Game.Navigation
         {
             //TODO runtime support
             var ray = new Ray(transform.position + Vector3.up, Vector3.down);
-            if (Physics.Raycast(ray, out var hit, 1.5f) 
-                && hit.rigidbody 
+            if (Physics.Raycast(ray, out var hit, 1.5f)
+                && hit.rigidbody
                 && hit.rigidbody.TryGetComponent<DynamicNavMeshSurface>(out var surface))
             {
                 ghost.SetSurface(surface);
