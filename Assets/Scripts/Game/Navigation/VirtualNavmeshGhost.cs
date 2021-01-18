@@ -78,10 +78,15 @@ namespace Game.Navigation
             agent.isStopped = true;
         }
 
-        public void Move(Vector3 worldDirection)
+        public void Move(Vector3 velocity)
         {
-            agent.Move(hasSurface ? surface.World2VirtualDirection(worldDirection) : worldDirection);
+            var movement = hasSurface ? surface.World2VirtualDirection(velocity) : velocity;
+            agent.velocity = movement; //uniform with traveling
+            // agent.Move(movement * Time.deltaTime);
         }
+
+
+        public Vector3 WorldMoveVelocity => Virtual2WorldDirection(agent.velocity);
 
         public NavPoint GetCurrentNavPoint()
         {
@@ -106,6 +111,11 @@ namespace Game.Navigation
         public Vector3 World2VirtualDirection(Vector3 direction)
         {
             return hasSurface ? surface.World2VirtualDirection(direction) : direction;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            agent.speed = speed;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Game.Navigation;
 using UnityEngine;
 
 namespace Game.Actors.Character.Motors
@@ -11,14 +12,20 @@ namespace Game.Actors.Character.Motors
         private static readonly int InAirKey = Animator.StringToHash("InAir");
         private float blendWeights = 0;
 
+        [SerializeField] private float walkSpeed = 2;
+        [SerializeField] private float runSpeed = 4;
+
 
         private Tween tween;
         public bool active = true;
+        private bool run;
+        public Vector3 LookDirection => Actor.navigator.Forward;
+        public Vector3 WorldVelocity => Actor.navigator.WorldVelocity;
 
         protected override void OnEnable()
         {
             Actor.navigator.CheckSurface();
-            Actor.navigator.Forward = Forward = Actor.transform.forward; //bad code - bind to be adter checkSurface()
+            Actor.navigator.Forward = Actor.transform.forward; //bad code - bind to be adter checkSurface()
             Actor.view.MoveEvent += OnAnimatorMove;
 
             blendWeights = 0;
@@ -28,19 +35,21 @@ namespace Game.Actors.Character.Motors
                 .OnComplete(() => tween = null);
 
             Actor.navigator.Sync(blendWeights);
+            
         }
 
         public override void Update()
         {
             if (!active) return;
             Actor.navigator.Sync(blendWeights);
-            Actor.view.animator.SetFloat(ForwardKey, NormalizedVelocity.z);
-            Actor.navigator.Forward = Forward;
+            
+            Actor.view.animator.SetFloat(ForwardKey, Actor.navigator.LocalVelocity.z);
         }
+
 
         private void OnAnimatorMove()
         {
-            Actor.navigator.Move(Actor.view.deltaPosition);
+            // Actor.navigator.Move(Actor.view.deltaPosition);
         }
 
         protected override void OnDisable()
@@ -49,8 +58,39 @@ namespace Game.Actors.Character.Motors
         }
 
         //API:
-        public Vector3 NormalizedVelocity { get; set; }
+        public void Move(Vector3 direction)
+        {
+            Stop();
+            direction = Vector3.ClampMagnitude(direction, 1);
+            
+            Actor.navigator.Move(direction * ((run ? runSpeed : walkSpeed)));
+        }
 
-        public Vector3 Forward { get; set; }
+        public bool Run
+        {
+            get => run;
+            set
+            {
+                run = value;
+                Actor.navigator.SetSpeed(value ? runSpeed : walkSpeed);
+            }
+        }
+
+        public void Travel(NavPoint point)
+        {
+            Actor.navigator.StartTravel(point);
+        }
+
+        public void Look(Vector3 forward)
+        {
+            Actor.navigator.Forward = forward;
+        }
+        
+        
+
+        public void Stop()
+        {
+            Actor.navigator.StopTravel();
+        }
     }
 }

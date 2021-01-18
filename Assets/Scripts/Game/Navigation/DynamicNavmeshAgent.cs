@@ -61,14 +61,19 @@ namespace Game.Navigation
                 Quaternion.LookRotation(ghost.WorldForward, Vector3.up), blendWeights);
         }
 
-        public void Move(Vector3 worldDirection)
+        public void Move(Vector3 velocity)
         {
-            ghost.Move(worldDirection);
+            ghost.Move(velocity);
         }
 
-        public void GotToPlace(NavPoint navPoint)
+        public void StartTravel(NavPoint navPoint)
         {
             ghost.GotoPosition(navPoint);
+        }
+
+        public void StopTravel()
+        {
+            ghost.Stop();
         }
 
         public NavPoint GetCurrentNavPoint()
@@ -77,5 +82,12 @@ namespace Game.Navigation
         }
 
         public INavSpaceConverter navSpace => ghost;
+        public Vector3 LocalVelocity => transform.InverseTransformDirection(WorldVelocity);
+        public Vector3 WorldVelocity => ghost.WorldMoveVelocity;
+
+        public void SetSpeed(float speed)
+        {
+            ghost.SetSpeed(speed);
+        }
     }
 }

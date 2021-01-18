@@ -45,15 +45,10 @@ namespace Game.Systems.Characters
 
             if (move.magnitude > 0)
             {
-                var deltaQuaternion = Quaternion.FromToRotation(motor.Forward, move);
+                var deltaQuaternion = Quaternion.FromToRotation(motor.LookDirection, move);
                 deltaQuaternion = Quaternion.Lerp(Quaternion.identity, deltaQuaternion, 0.2f);
-                motor.Forward = deltaQuaternion * motor.Forward;
-                motor.NormalizedVelocity = (Vector3.forward * (move.magnitude));
-                Debug.Log("User:" + move.magnitude);
-            }
-            else
-            {
-                motor.NormalizedVelocity = Vector3.zero;
+                motor.Look(deltaQuaternion * motor.LookDirection);
+                motor.Move(move);
             }
         }
     }

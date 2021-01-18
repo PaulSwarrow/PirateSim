@@ -2,6 +2,7 @@ using Game.Actors.Character.Motors;
 using Game.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions;
 
 namespace Game.Actors.Character.AI.Hardcode
 {
@@ -13,50 +14,33 @@ namespace Game.Actors.Character.AI.Hardcode
             BranchA = new ExitWorkPlaceBTN();
             BranchB = new BehaviourTreeInstantAction
             {
-                start = FindPath,
-                action = Move
+                start = StartMovement,
+                action = Move,
+                stop = StopMovement
             };
         }
 
-        private void FindPath(Npc npc)
+
+        private CharacterMainMotor motor;
+        private void StartMovement(Npc npc)
         {
-            progress = 0;
             //TODO path based on navpoints!
             NavMesh.CalculatePath(npc.character.navPosition, npc.targetPosition.virtualPosition, NavMesh.AllAreas,
                 npc.path);
 
-            npc.character.actor.Goto(npc.targetPosition);
+            motor = (CharacterMainMotor) npc.character.actor.motor;
+            Assert.IsNotNull(motor);
+            motor.Travel(npc.targetPosition);
         }
-
-        private int progress;
-        
-        
 
         private void Move(Npc npc)
         {
+            motor.Look(motor.WorldVelocity);
+        }
 
-            var motor = (CharacterMainMotor) npc.character.actor.motor;
-
-            if (progress < npc.path.corners.Length)
-            {
-                var point = npc.path.corners[progress];
-                if (Vector3.Distance(point, npc.character.navPosition) < npc.travelAccurancy)
-                {
-                    progress++;
-                }
-                else
-                {
-                    var movementVector = point - npc.character.navPosition;
-                    //HOT-FIX!
-                    movementVector = npc.character.actor.navigator.navSpace.Virtual2WorldDirection(movementVector);
-                    motor.Forward = movementVector;
-                    motor.NormalizedVelocity = Vector3.forward;
-                }
-            }
-            else
-            {
-                motor.NormalizedVelocity = Vector3.zero;
-            }
+        private void StopMovement(Npc npc)
+        {
+            motor.Stop();
         }
     }
 }

@@ -78,10 +78,6 @@ namespace Game.Actors.Character
             return navigator.GetCurrentNavPoint();
         }
 
-        public void Goto(NavPoint targetPosition)
-        {
-            navigator.GotToPlace(targetPosition);
-        }
 
     }
 }
