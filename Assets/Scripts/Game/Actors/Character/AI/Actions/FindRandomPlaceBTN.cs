@@ -9,7 +9,7 @@ namespace Game.Actors.Character.AI.Actions
             action = FindPlace;
         }
 
-        private void FindPlace(Npc npc, bool resume)
+        private void FindPlace(Npc npc)
         {
             var offset = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward * Random.Range(5f, 10);
             var searchPosition = npc.character.worldPosition + offset;

@@ -7,7 +7,7 @@ namespace Game.Actors.Character.AI.Hardcode
             action = Wait;
         }
 
-        private void Wait(Npc npc, bool resume)
+        private void Wait(Npc npc)
         {
         }
     }

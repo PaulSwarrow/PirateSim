@@ -4,6 +4,8 @@ namespace Game.Actors.Character.AI
 {
     public interface IBehaviourTreeNode
     {
-        void Execute(Npc npc, Action callback, bool resume);
+        void Start(Npc npc);
+        void Resume(Npc npc, Action callback);
+        void Stop(Npc npc);
     }
 }

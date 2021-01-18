@@ -34,6 +34,7 @@ namespace Game.Navigation
             agent.nextPosition = transform.position;
             agent.enabled = true;
             
+            
         }
 
         public void ClearSurface()

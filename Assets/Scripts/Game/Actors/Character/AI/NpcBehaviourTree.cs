@@ -14,10 +14,11 @@ namespace Game.Actors.Character.AI
 
         public IEnumerator Coroutine()
         {
+            rootNode.Start(npc);
             while (true)
             {
                 var complete = false;
-                rootNode.Execute(npc, () => complete = true, true);
+                rootNode.Resume(npc, () => complete = true);
                 yield return new WaitUntil(() => complete);
             }
         }

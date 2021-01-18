@@ -8,15 +8,16 @@ namespace Game.Actors.Character.AI.Hardcode
 {
     public class ChillBTN : BehaviourTreeSwitcher
     {
+
         public ChillBTN()
         {
             cases = new List<(Condition condition, IBehaviourTreeNode handler)>
             {
-                ((npc, resume)=> !resume || Vector3.Distance(npc.targetPosition.virtualPosition, npc.character.navPosition) < npc.travelAccurancy, new FindRandomPlaceBTN()),
+                ((npc) => firstTime || Vector3.Distance(npc.targetPosition.virtualPosition, npc.character.navPosition) < npc.travelAccurancy,
+                    new FindRandomPlaceBTN()),
             };
 
             defaultBehaviour = new TravelBTN();
         }
-
     }
 }

@@ -13,21 +13,25 @@ namespace Game.Actors.Character.AI.Hardcode
             BranchA = new ExitWorkPlaceBTN();
             BranchB = new BehaviourTreeInstantAction
             {
+                start = FindPath,
                 action = Move
             };
         }
 
-        private int progress;
-
-        private void Move(Npc npc, bool resume)
+        private void FindPath(Npc npc)
         {
-            if (!resume) //recalculate from time to time
-            {
-                progress = 0;
-                //TODO path based on navpoints!
-                NavMesh.CalculatePath(npc.character.navPosition, npc.targetPosition.virtualPosition, NavMesh.AllAreas,
-                    npc.path);
-            }
+            progress = 0;
+            //TODO path based on navpoints!
+            NavMesh.CalculatePath(npc.character.navPosition, npc.targetPosition.virtualPosition, NavMesh.AllAreas,
+                npc.path);
+        }
+
+        private int progress;
+        
+        
+
+        private void Move(Npc npc)
+        {
 
             var motor = (CharacterMainMotor) npc.character.actor.motor;
 

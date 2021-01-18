@@ -12,7 +12,7 @@ namespace Game.Actors.Character.AI.Hardcode
             action = Exit;
         }
 
-        private IEnumerator Exit(Npc npc, bool resume)
+        private IEnumerator Exit(Npc npc)
         {
             Assert.IsNotNull(npc.currentWorkPlace);
 

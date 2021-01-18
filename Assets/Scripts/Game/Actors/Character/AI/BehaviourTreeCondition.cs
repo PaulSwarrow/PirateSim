@@ -12,13 +12,30 @@ namespace Game.Actors.Character.AI
 
 
         private IBehaviourTreeNode lastSelection;
-        public void Execute(Npc npc, Action callback, bool resume)
+        public void Start(Npc npc)
         {
-            
+        }
+
+        public void Resume(Npc npc, Action callback)
+        {
             var branch = Condition(npc) ? BranchA : BranchB;
-            resume = resume && lastSelection == branch;
+            if (lastSelection != branch)
+            {
+                lastSelection?.Stop(npc);
+                branch.Start(npc);
+            }
+            
             lastSelection = branch;
-            branch.Execute(npc, callback, resume);
+            branch.Resume(npc, callback);
+        }
+
+        public void Stop(Npc npc)
+        {
+            if (lastSelection != null)
+            {
+                lastSelection.Stop(npc);
+                lastSelection = null;
+            }
         }
     }
 }
