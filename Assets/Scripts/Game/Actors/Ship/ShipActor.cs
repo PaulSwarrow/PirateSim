@@ -2,9 +2,9 @@ using System;
 using Game.Actors.Ship.Sails;
 using Game.Actors.Ship.View;
 using Game.Interfaces;
-using Game.Navigation;
 using Game.Systems.Sea;
 using Lib;
+using Lib.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 

@@ -1,4 +1,3 @@
-using Game.Navigation;
 using UnityEngine;
 
 namespace Game.Actors.Character

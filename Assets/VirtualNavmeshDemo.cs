@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
-using Game.Navigation;
 using Game.Ui;
+using Lib.Navigation;
 using UnityEngine;
 
 public class VirtualNavmeshDemo : MonoBehaviour

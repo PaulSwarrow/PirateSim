@@ -1,6 +1,6 @@
 using Game.Actors.Character.Interactions;
 using Game.Interfaces;
-using Game.Navigation;
+using Lib.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 

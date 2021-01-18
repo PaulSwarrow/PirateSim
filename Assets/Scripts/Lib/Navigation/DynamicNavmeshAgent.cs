@@ -1,8 +1,7 @@
 using System;
-using Lib;
 using UnityEngine;
 
-namespace Game.Navigation
+namespace Lib.Navigation
 {
     /* Responsibility:
      * creates a virtual ghost and provides surface for it.

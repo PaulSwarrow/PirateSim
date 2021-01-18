@@ -3,7 +3,7 @@ using Lib.UnityQuickTools.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Game.Navigation
+namespace Lib.Navigation
 {
     public class VirtualNavmesh
     {

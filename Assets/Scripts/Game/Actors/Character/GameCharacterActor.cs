@@ -1,6 +1,6 @@
 using Game.Actors.Character.Motors;
-using Game.Navigation;
 using Lib;
+using Lib.Navigation;
 using UnityEngine;
 
 namespace Game.Actors.Character

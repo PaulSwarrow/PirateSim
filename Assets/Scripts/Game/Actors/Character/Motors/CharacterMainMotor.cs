@@ -1,6 +1,6 @@
 using System;
 using DG.Tweening;
-using Game.Navigation;
+using Lib.Navigation;
 using UnityEngine;
 
 namespace Game.Actors.Character.Motors

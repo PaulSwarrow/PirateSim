@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Game.Navigation;
+using Lib.Navigation;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;

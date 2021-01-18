@@ -1,5 +1,4 @@
 using Game.Actors.Character.Motors;
-using Game.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
