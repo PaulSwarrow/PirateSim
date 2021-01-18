@@ -9,7 +9,7 @@ namespace Game.Ui.Ship
 {
     public class SailsUi : BaseComponent
     {
-        private ShipEntity target;
+        private ShipActor target;
         [SerializeField] private SailOrderListUi ordersList;
 
         private LocalFactory<SimpleSailsUi> sailFactory;

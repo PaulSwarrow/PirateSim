@@ -36,7 +36,7 @@ namespace Game.Actors.Ship
     }
 
 
-    public class ShipEntity : BaseComponent, ICharacterLiveArea
+    public class ShipActor : BaseComponent, ICharacterLiveArea
     {
         private Vector3 floor;
         // private WindSystem windSystem;

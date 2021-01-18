@@ -40,7 +40,7 @@ namespace Game
         public T GetSystem<T>() where T : IGameSystem => systemsMap.Get<T>();
 
 
-        public ShipEntity currentShip;
+        public ShipActor currentShip;
 
         private void Awake()
         {

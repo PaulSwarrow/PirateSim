@@ -10,7 +10,7 @@ namespace Game.Systems
             
         }
 
-        public void RegisterShip(ShipEntity entity)
+        public void RegisterShip(ShipActor actor)
         {
             
         }

@@ -7,10 +7,10 @@ namespace Game.Ui.Ship
 {
     public class ShipControllUi : BaseComponent
     {
-        [SerializeField] private ShipEntity target;
+        [SerializeField] private ShipActor target;
         [SerializeField] private Slider wheelSlider;
 
-        public ShipEntity Target => target;
+        public ShipActor Target => target;
         
         
         public void Show()

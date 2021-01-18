@@ -16,7 +16,7 @@ namespace DefaultNamespace.Components
 
         [SerializeField] private float[] Angles;
         [SerializeField] private ColorizedUiGroup target;
-        [SerializeField] private ShipEntity ship;
+        [SerializeField] private ShipActor ship;
         [SerializeField] private float accurancy = 1f;
         [SerializeField] private float timeToAccept = 3;
         private float angleDelta;

@@ -18,7 +18,7 @@ namespace Game.Ui.Ship
         public SailGroupUi target;
 
         public SailGroupModel Model => target.Model;
-        public ShipEntity Ship => target.Ship;
+        public ShipActor Ship => target.Ship;
 
         private void Awake()
         {

@@ -80,7 +80,7 @@ namespace Game.Ui.Ship
         }
 
 
-        public ShipEntity Ship { get; set; }
+        public ShipActor Ship { get; set; }
 
 
         protected virtual void Update()

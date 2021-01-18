@@ -24,7 +24,7 @@ namespace DefaultNamespace.Components
         public string GoalDescription { get; private set; }
         public string GoalState { get; private set; }
 
-        private ShipEntity ship;
+        private ShipActor ship;
         private int progress;
         [SerializeField] private Part[] sequence;
         private Part currentStep;
