@@ -4,6 +4,7 @@ using System.Linq;
 using Game.Actors.Character;
 using Game.Interfaces;
 using Lib.UnityQuickTools.Collections;
+using UnityEngine;
 
 namespace Game.Systems.Characters
 {
@@ -18,19 +19,30 @@ namespace Game.Systems.Characters
         public static GameCharacter First() => list.First();
 
         public List<GameCharacter> FindAll(Predicate<GameCharacter> predicate) => list.FindAll(predicate);
-        public bool TryFind(Predicate<GameCharacter> predicate, out GameCharacter character) => list.TryFind(predicate, out character);
+
+        public bool TryFind(Predicate<GameCharacter> predicate, out GameCharacter character) =>
+            list.TryFind(predicate, out character);
 
         public void Foreach(Action<GameCharacter> handler) => list.Foreach(handler);
 
 
-        public void RegisterAgent(GameCharacterActor actor)
+        public GameCharacter CreateCharacter(Vector3 position, Vector3 forward)
         {
             var character = new GameCharacter
             {
-                actor = actor,
+                actor = CreateActor(position, forward),
             };
             character.actor.SetMotor(character.actor.defaultMotor);
             list.Add(character);
+            return character;
+        }
+
+        private GameCharacterActor CreateActor(Vector3 position, Vector3 forward)
+        {
+            return GameManager.SpawnManager.Spawn(
+                GameManager.Properties.characterActorPrefab,
+                position,
+                Quaternion.LookRotation(forward, Vector3.up));
         }
 
         public void Init()

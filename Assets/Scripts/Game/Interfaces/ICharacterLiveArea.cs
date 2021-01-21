@@ -8,6 +8,7 @@ namespace Game.Interfaces
 {
     public interface ICharacterLiveArea
     {
-        bool TryFindPlace(Vector3 worldPosition, float area, out VirtualNavPoint place);
+        bool TryFindPlace(Vector3 worldPosition, float area, out NavPoint place);
+        bool TryFindWorkPlace(Predicate<WorkPlace> predicate, out WorkPlace workPlace);
     }
 }

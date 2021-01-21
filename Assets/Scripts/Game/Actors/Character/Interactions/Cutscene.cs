@@ -2,6 +2,7 @@ using System.Collections;
 using Game.Actors.Character.Motors;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Playables;
 
 namespace Game.Actors.Character.Interactions
@@ -13,6 +14,8 @@ namespace Game.Actors.Character.Interactions
 
         public static IEnumerator EnterWorkPlace(GameCharacter character, WorkPlace workPlace)
         {
+            Assert.IsNull(character.actor.currentWorkPlace);
+            character.actor.currentWorkPlace = workPlace;
             yield return TransitionCutscene(character.actor, workPlace.entryScene,
                 workPlace.characterMotor.animator);
             character.actor.transform.SetParent(workPlace.transform, true);
@@ -20,15 +23,16 @@ namespace Game.Actors.Character.Interactions
         }
 
 
-        public static IEnumerator ExitWorkPlace(GameCharacter character, WorkPlace workPlace)
+        public static IEnumerator ExitWorkPlace(GameCharacter character)
         {
+            Assert.IsNotNull(character.actor.currentWorkPlace);
             yield return TransitionCutscene(
                 character.actor,
-                workPlace.exitScene,
+                character.actor.currentWorkPlace.exitScene,
                 character.actor.defaultMotor.animator);
             character.actor.transform.SetParent(null, true);
-            workPlace.Release();
-            //work place = null
+            character.actor.currentWorkPlace.Release();
+            character.actor.currentWorkPlace = null;
             character.actor.SetDefaultMotor();
         }
 

@@ -10,17 +10,20 @@ namespace Game.Systems.Characters
      */
     public class UserControlSystem : IGameSystem
     {
-        public GameCharacter Character => character;
-
-        private GameCharacter character;
+        public GameCharacter Character { get; private set; }
 
         public void Init()
         {
         }
 
+        public void CreatePlayer(Vector3 position, Vector3 forward)
+        {
+            Character = GameManager.Characters.CreateCharacter(position, forward);
+
+        }
+
         public void Start()
         {
-            GameManager.Characters.TryFind(item => item.actor.controlMode == CharacterControlMode.user, out character);
             GameManager.UpdateEvent += Update;
         }
 

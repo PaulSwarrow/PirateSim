@@ -1,3 +1,4 @@
+using Game.Actors.Character.Interactions;
 using Game.Actors.Character.Motors;
 using Lib;
 using Lib.Navigation;
@@ -28,21 +29,14 @@ namespace Game.Actors.Character
 
         [SerializeField] public CharacterMainMotor defaultMotor;
         public CharacterMotor motor;
-        public CharacterControlMode controlMode;
         public GameCharacterView view { get; private set; }
         public DynamicNavmeshAgent navigator { get; private set; }
+        public WorkPlace currentWorkPlace  { get; set; }
 
         private void Awake()
         {
             view = GetComponentInChildren<GameCharacterView>();
             navigator = GetComponent<DynamicNavmeshAgent>();
-            GameManager.ReadSceneEvent += RegisterActor; //TODO remove
-        }
-
-        private void RegisterActor()
-        {
-            GameManager.StartEvent -= RegisterActor;
-            GameManager.Characters.RegisterAgent(this);
         }
 
         public void SetMotor(CharacterMotor motor)

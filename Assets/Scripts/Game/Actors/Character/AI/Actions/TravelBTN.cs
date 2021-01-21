@@ -9,7 +9,7 @@ namespace Game.Actors.Character.AI.Hardcode
     {
         public TravelBTN()
         {
-            Condition = npc => npc.currentWorkPlace;
+            Condition = npc => npc.character.actor.currentWorkPlace;
             BranchA = new ExitWorkPlaceBTN();
             BranchB = new BehaviourTreeInstantAction
             {

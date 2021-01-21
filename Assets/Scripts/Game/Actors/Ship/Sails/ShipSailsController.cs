@@ -26,7 +26,7 @@ namespace Game.Actors.Ship.Sails
         private void Start()
         {
             self = transform;
-            sailingConstants = GameManager.current.sailsConfig;
+            sailingConstants = GameManager.Properties.sailsConfig;
             rigidbody = GetComponent<Rigidbody>();
 
             foreach (var sailConfig in config.sails)

@@ -1,4 +1,5 @@
 using Game.Interfaces;
+using Game.Models;
 
 namespace Game.Systems
 {
@@ -7,6 +8,14 @@ namespace Game.Systems
         public void Init()
         {
             
+        }
+
+        public Crew CreateCrew(ICharacterLiveArea livingArea)
+        {
+            return new Crew
+            {
+                livigArea = livingArea
+            };
         }
 
         public void Start()

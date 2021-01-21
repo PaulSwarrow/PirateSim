@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Game.Actors.Character.Interactions;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine.Assertions;
 
 namespace Game.Actors.Character.AI.Hardcode
@@ -14,19 +15,7 @@ namespace Game.Actors.Character.AI.Hardcode
 
         private IEnumerator Exit(Npc npc)
         {
-            Assert.IsNotNull(npc.currentWorkPlace);
-            
-            
-
-            yield return Cutscene.TransitionCutscene(
-                npc.character.actor,
-                npc.currentWorkPlace.exitScene,
-                npc.character.actor.defaultMotor.animator);
-            npc.character.actor.transform.SetParent(null, true);
-            npc.currentWorkPlace.Release();
-            npc.currentWorkPlace = null;
-
-            npc.character.actor.SetDefaultMotor();
+            return Cutscene.ExitWorkPlace(npc.character);
         }
     }
 }

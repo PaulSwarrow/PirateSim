@@ -10,7 +10,6 @@ namespace Game.Actors.Character.AI
     {
         public readonly GameCharacter character;
         public ICharacterLiveArea liveArea;
-        public WorkPlace currentWorkPlace;
         public WorkPlace targetWorkPlace;
         public NavPoint targetPosition;
         public float travelAccurancy = .1f;

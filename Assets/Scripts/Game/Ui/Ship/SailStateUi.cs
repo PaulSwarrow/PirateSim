@@ -43,7 +43,7 @@ namespace Game.Ui.Ship
                 
                 var abs = Mathf.Abs(value);
                 int i;
-                if (abs < GameManager.current.sailsConfig.MinWindCatch) i = 0;
+                if (abs < GameManager.Properties.sailsConfig.MinWindCatch) i = 0;
                 else i = Mathf.CeilToInt(abs * stateIcons.Length) - 1;
                 image.sprite = stateIcons[i];
             }

@@ -18,13 +18,12 @@ namespace Game.Systems.Characters
 
         public void Start()
         {
-            GameManager.Characters.Foreach(TryCreateNpc);
             GameManager.GizmosEvent += DrawGizmos;
         }
 
         private void DrawGizmos()
         {
-            var npc = list.First().npc;
+            /*var npc = list.First().npc;
             if (npc.targetPosition == null) return;
             foreach (var pathCorner in npc.path.corners)
             {
@@ -34,7 +33,7 @@ namespace Game.Systems.Characters
             }
 
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(npc.targetPosition.worldPosition, 1);
+            Gizmos.DrawWireSphere(npc.targetPosition.worldPosition, 1);*/
         }
 
         public void Stop()
@@ -42,6 +41,7 @@ namespace Game.Systems.Characters
             GameManager.GizmosEvent -= DrawGizmos;
         }
 
+        /*
         private void TryCreateNpc(GameCharacter character)
         {
             if (character.actor.controlMode != CharacterControlMode.ai) return;
@@ -50,12 +50,12 @@ namespace Game.Systems.Characters
             {
                 npc = new Npc(character)
                 {
-                    liveArea = GameManager.current.currentShip,
+                    liveArea = GameManager.current.currentShi,
                     targetPosition = character.actor.GetCurrentNavPoint()
                 },
             };
             list.Add(tree);
             GameManager.current.StartCoroutine(tree.Coroutine());
-        }
+        }*/
     }
 }

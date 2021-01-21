@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using Game.Actors.Ship;
 using Game.Interfaces;
+using Game.Systems;
 using Game.Systems.Characters;
 using Game.Systems.Sea;
 using Lib;
 using Lib.UnityQuickTools.Collections;
+using UnityEngine;
 
 namespace Game
 {
@@ -18,9 +20,11 @@ namespace Game
         public static event Action LateUpdateEvent;
         public static event Action EndEvent;
         public static event Action GizmosEvent;
-        public SailingConstantsConfig sailsConfig;
+        public static GameProperties Properties => current.properties;
         public static GameManager current { get; set; }
 
+        [SerializeField] private GameProperties properties;
+ 
         private static List<IGameSystem> systems = new List<IGameSystem>();
         private static GenericMap<IGameSystem> systemsMap = new GenericMap<IGameSystem>();
 
@@ -36,6 +40,9 @@ namespace Game
         public static readonly GameCharacterSystem Characters = AddSystem(new GameCharacterSystem());
         public static readonly UserControlSystem CharacterUserControl = AddSystem(new UserControlSystem());
         public static readonly UserCharacterHud CharacterHud = AddSystem(new UserCharacterHud());
+        public static readonly LivingAreaSystem LivingAreaSystem = AddSystem(new LivingAreaSystem());
+        public static readonly ShipsCrewSystem CrewSystem = AddSystem(new ShipsCrewSystem());
+        public static readonly ObjsetSpawnSystem SpawnManager = AddSystem(new ObjsetSpawnSystem());
 
         public T GetSystem<T>() where T : IGameSystem => systemsMap.Get<T>();
 

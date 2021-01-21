@@ -656,7 +656,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b02e33454b1aade2592d0415fb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sailsConfig: {fileID: 11400000, guid: 82dbfe8d7ad5605499f4838148036fd1, type: 2}
+  properties:
+    sailsConfig: {fileID: 11400000, guid: 82dbfe8d7ad5605499f4838148036fd1, type: 2}
+    characterActorPrefab: {fileID: 4803903091227326536, guid: cc867cac67ad54b40b847d46237f6cc1,
+      type: 3}
   currentShip: {fileID: 3787459566697224106}
 --- !u!114 &6206474256546344945
 MonoBehaviour:

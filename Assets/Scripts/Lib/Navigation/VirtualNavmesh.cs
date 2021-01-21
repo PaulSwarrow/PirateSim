@@ -48,7 +48,7 @@ namespace Lib.Navigation
         }
         
         
-        public bool SamplePosition(Vector3 worldPosition, out VirtualNavPoint point, float maxDistance, int filter = NavMesh.AllAreas)
+        public bool SamplePosition(Vector3 worldPosition, out NavPoint point, float maxDistance, int filter = NavMesh.AllAreas)
         {
             var virtualPosition = FromWorld2VirtualPoint(worldPosition);
             if (NavMesh.SamplePosition(virtualPosition, out var hit, maxDistance, filter))

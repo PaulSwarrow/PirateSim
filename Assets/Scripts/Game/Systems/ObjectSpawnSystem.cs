@@ -1,0 +1,76 @@
+using System.Collections.Generic;
+using Game.Interfaces;
+using Lib.UnityQuickTools.Collections;
+using UnityEngine;
+
+namespace Game.Systems
+{
+    public class ObjsetSpawnSystem : IGameSystem
+    {
+        private Dictionary<int, Queue<GameObject>> pools = new Dictionary<int, Queue<GameObject>>();
+        private Dictionary<GameObject, int> instanceMap = new Dictionary<GameObject, int>(); //BAD!, better solution?
+
+        public void Init()
+        {
+        }
+
+        public T Spawn<T>(T prefab, Vector3 position, Quaternion rotation, Transform parent = null)
+            where T : Component
+        {
+            T instance;
+            var prefabID = prefab.gameObject.GetInstanceID();
+            if (pools.TryGetValue(prefabID, out var queue) && queue.Count > 0)
+            {
+                var item = queue.Dequeue();
+
+                item.gameObject.SetActive(true);
+                item.gameObject.transform.position = position;
+                item.gameObject.transform.rotation = rotation;
+                item.gameObject.transform.parent = parent;
+
+                instance = item.GetComponent<T>();
+            }
+            else
+            {
+                pools.Add(prefabID, new Queue<GameObject>());
+                instance =  Object.Instantiate(prefab, position, rotation, parent);
+            }
+
+            instanceMap[instance.gameObject] = prefabID;
+            //call poolable spawn event
+            return instance;
+        }
+
+
+        public void Destroy<T>(T item) where T : Component
+        {
+            var gameObject = item.gameObject;
+            gameObject.SetActive(false);
+            gameObject.GetComponents<IPoolable>().Foreach(OnDisposeItem);
+            if (instanceMap.TryGetValue(gameObject, out var prefabId))
+            {
+                
+                pools[prefabId].Enqueue(gameObject);
+            }
+            else
+            {
+                item.gameObject.SetActive(false);
+                Object.Destroy(gameObject);
+                //TODO create prefab from this?
+            }
+        }
+
+        private void OnDisposeItem(IPoolable item)
+        {
+            item.OnDispose();
+        }
+
+        public void Start()
+        {
+        }
+
+        public void Stop()
+        {
+        }
+    }
+}
