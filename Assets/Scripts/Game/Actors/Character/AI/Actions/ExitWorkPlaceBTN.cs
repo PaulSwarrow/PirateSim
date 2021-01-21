@@ -15,6 +15,8 @@ namespace Game.Actors.Character.AI.Hardcode
         private IEnumerator Exit(Npc npc)
         {
             Assert.IsNotNull(npc.currentWorkPlace);
+            
+            
 
             yield return Cutscene.TransitionCutscene(
                 npc.character.actor,

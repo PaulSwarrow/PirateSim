@@ -10,31 +10,6 @@ using UnityEngine.AI;
 
 namespace Game.Actors.Ship
 {
-    [Serializable]
-    public class SailGroup //split into config & state
-    {
-        public string Name;
-        public int Value;
-        [HideInInspector] public bool jib;
-        public int Angle;
-        [HideInInspector] public float Offset;
-        public float[] Options = new float[0];
-
-
-        public SailGroupView view;
-
-
-        public Vector3 GetNormaleVector()
-        {
-            return Quaternion.Euler(0, Options[Angle], 0) * (jib ? Vector3.right : Vector3.forward);
-        }
-
-        public static Vector3 GetNormaleVector(float angle, bool jib)
-        {
-            return Quaternion.Euler(0, angle, 0) * (jib ? Vector3.right : Vector3.forward);
-        }
-    }
-
 
     public class ShipActor : BaseComponent, ICharacterLiveArea
     {

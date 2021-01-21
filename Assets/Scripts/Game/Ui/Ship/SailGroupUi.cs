@@ -86,7 +86,7 @@ namespace Game.Ui.Ship
         protected virtual void Update()
         {
             item.Angle = order.sails.Config.GetAngle(order.task.angleIndex);
-            item.Fill = Vector3.Dot(Ship.localWind.normalized, SailGroup.GetNormaleVector(item.Angle, item.Jib));
+            item.Fill = Vector3.Dot(Ship.localWind.normalized, SailMath.GetNormaleVector(item.Angle, item.Jib));
             item.Value = order.task.sailsUp;
         }
     }

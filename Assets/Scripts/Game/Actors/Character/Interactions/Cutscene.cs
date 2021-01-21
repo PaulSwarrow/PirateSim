@@ -10,9 +10,31 @@ namespace Game.Actors.Character.Interactions
     {
         private const string TrackName = "Character";
 
-       
 
-        public static IEnumerator TransitionCutscene(GameCharacterActor actor, PlayableDirector director, RuntimeAnimatorController nextAnimator = null)
+        public static IEnumerator EnterWorkPlace(GameCharacter character, WorkPlace workPlace)
+        {
+            yield return TransitionCutscene(character.actor, workPlace.entryScene,
+                workPlace.characterMotor.animator);
+            character.actor.transform.SetParent(workPlace.transform, true);
+            character.actor.SetMotor(workPlace.characterMotor);
+        }
+
+
+        public static IEnumerator ExitWorkPlace(GameCharacter character, WorkPlace workPlace)
+        {
+            yield return TransitionCutscene(
+                character.actor,
+                workPlace.exitScene,
+                character.actor.defaultMotor.animator);
+            character.actor.transform.SetParent(null, true);
+            workPlace.Release();
+            //work place = null
+            character.actor.SetDefaultMotor();
+        }
+
+
+        public static IEnumerator TransitionCutscene(GameCharacterActor actor, PlayableDirector director,
+            RuntimeAnimatorController nextAnimator = null)
         {
             actor.SetMotor(CutsceneCharacterMotor.Create());
             director.time = 0;
@@ -22,21 +44,20 @@ namespace Game.Actors.Character.Interactions
             {
                 director.SetGenericBinding(track.sourceObject, actor.view.animator);
             }
-            
+
             director.enabled = true;
             director.Play();
             yield return new WaitUntil(() => director.time / director.duration > .5f);
             if (nextAnimator != null)
             {
                 actor.view.animator.runtimeAnimatorController = nextAnimator;
-
             }
+
             yield return new WaitUntil(() => director.state == PlayState.Paused);
             director.enabled = false;
             actor.transform.position = actor.view.transform.position;
             actor.transform.rotation = actor.view.transform.rotation;
             actor.view.transform.SetParent(actor.transform, true);
-
         }
     }
 }
