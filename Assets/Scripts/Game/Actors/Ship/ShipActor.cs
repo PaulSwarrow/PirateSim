@@ -10,7 +10,6 @@ using UnityEngine.AI;
 
 namespace Game.Actors.Ship
 {
-
     public class ShipActor : BaseComponent
     {
         private Vector3 floor;
@@ -42,17 +41,15 @@ namespace Game.Actors.Ship
 
         private void RegisterShip()
         {
+            GameManager.Ships.RegisterShip(this);
             GameManager.ReadSceneEvent -= RegisterShip;
         }
-
 
         private void Update()
         {
             localWind = self.InverseTransformVector(GameManager.Wind.Force);
         }
 
-        
-        
         public void FullStop()
         {
             rigidbody.velocity = Vector3.zero;

@@ -41,21 +41,19 @@ namespace Game.Systems.Characters
             GameManager.GizmosEvent -= DrawGizmos;
         }
 
-        /*
-        private void TryCreateNpc(GameCharacter character)
+        public GameCharacter Create(Vector3 position, Vector3 forward)
         {
-            if (character.actor.controlMode != CharacterControlMode.ai) return;
-
+            var character = GameManager.Characters.CreateCharacter(position, forward);
             var tree = new NpcBehaviourTree
             {
                 npc = new Npc(character)
                 {
-                    liveArea = GameManager.current.currentShi,
                     targetPosition = character.actor.GetCurrentNavPoint()
                 },
             };
             list.Add(tree);
             GameManager.current.StartCoroutine(tree.Coroutine());
-        }*/
+            return character;
+        }
     }
 }

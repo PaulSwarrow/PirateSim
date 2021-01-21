@@ -14,6 +14,7 @@ namespace Game.Actors.Character.AI
 
         public IEnumerator Coroutine()
         {
+            yield return null;
             rootNode.Start(npc);
             while (true)
             {

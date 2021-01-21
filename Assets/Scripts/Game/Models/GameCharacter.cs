@@ -1,3 +1,4 @@
+using Game.Interfaces;
 using UnityEngine;
 
 namespace Game.Actors.Character
@@ -10,6 +11,7 @@ namespace Game.Actors.Character
     public class GameCharacter
     {
         public GameCharacterActor actor;
+        public ICharacterLiveArea livingArea;
 
         public Vector3 worldPosition => actor.transform.position;
         public Vector3 navPosition => actor.navigator.NavPosition;

@@ -38,6 +38,7 @@ namespace Game
         public static readonly WindSystem Wind = AddSystem(new WindSystem());
         public static readonly AiCharacterSystem Npc = AddSystem(new AiCharacterSystem());
         public static readonly GameCharacterSystem Characters = AddSystem(new GameCharacterSystem());
+        public static readonly ShipsSystem Ships = AddSystem(new ShipsSystem());
         public static readonly UserControlSystem CharacterUserControl = AddSystem(new UserControlSystem());
         public static readonly UserCharacterHud CharacterHud = AddSystem(new UserCharacterHud());
         public static readonly LivingAreaSystem LivingAreaSystem = AddSystem(new LivingAreaSystem());

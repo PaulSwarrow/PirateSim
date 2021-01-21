@@ -18,7 +18,7 @@ namespace Game.Systems
                 actor = actor,
                 livingArea = GameManager.LivingAreaSystem.CreateArea(actor.NavSurface)
             };
-            ship.crew = GameManager.CrewSystem.CreateCrew(ship.livingArea);
+            ship.crew = GameManager.CrewSystem.CreateCrew(10, ship.livingArea);
         }
         
         public void Start()

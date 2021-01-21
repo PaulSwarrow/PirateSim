@@ -32,8 +32,7 @@ namespace Game.Systems
             }
             else
             {
-                pools.Add(prefabID, new Queue<GameObject>());
-                instance =  Object.Instantiate(prefab, position, rotation, parent);
+                instance = Object.Instantiate(prefab, position, rotation, parent);
             }
 
             instanceMap[instance.gameObject] = prefabID;
@@ -49,8 +48,13 @@ namespace Game.Systems
             gameObject.GetComponents<IPoolable>().Foreach(OnDisposeItem);
             if (instanceMap.TryGetValue(gameObject, out var prefabId))
             {
-                
-                pools[prefabId].Enqueue(gameObject);
+                if (!pools.TryGetValue(prefabId, out var queue))
+                {
+                    queue = new Queue<GameObject>();
+                    pools.Add(prefabId, queue);
+                }
+
+                queue.Enqueue(gameObject);
             }
             else
             {
@@ -59,6 +63,7 @@ namespace Game.Systems
                 //TODO create prefab from this?
             }
         }
+
 
         private void OnDisposeItem(IPoolable item)
         {

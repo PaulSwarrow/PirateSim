@@ -9,7 +9,7 @@ namespace Game.Actors.Character.AI
     public class Npc
     {
         public readonly GameCharacter character;
-        public ICharacterLiveArea liveArea;
+        public ICharacterLiveArea liveArea => character.livingArea;
         public WorkPlace targetWorkPlace;
         public NavPoint targetPosition;
         public float travelAccurancy = .1f;
