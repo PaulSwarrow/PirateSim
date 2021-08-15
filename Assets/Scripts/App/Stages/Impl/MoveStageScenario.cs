@@ -62,7 +62,7 @@ namespace DefaultNamespace.Components
             GoalDescription = "Reach highlighted area";
             currentStep = sequence[progress];
             currentStep.trigger.gameObject.SetActive(true);
-            GameManager.current.GetSystem<WindSystem>().SetWind(currentStep.wind, windForce);
+            GameManager.current.Get<WindSystem>().SetWind(currentStep.wind, windForce);
         }
     }
 }

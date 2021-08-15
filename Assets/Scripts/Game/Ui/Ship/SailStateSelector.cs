@@ -47,7 +47,7 @@ namespace Game.Ui.Ship
         {
             foreach (var item in items)
             {
-                item.Fill = Vector3.Dot(Ship.localWind.normalized, SailMath.GetNormaleVector(item.Angle, Model.Jib));
+                item.Fill = Vector3.Dot(Ship.LocalWind.normalized, SailMath.GetNormaleVector(item.Angle, Model.Jib));
             }
 
         }

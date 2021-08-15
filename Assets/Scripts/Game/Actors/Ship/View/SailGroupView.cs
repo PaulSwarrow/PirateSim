@@ -31,7 +31,7 @@ namespace Game.Actors.Ship.View
             {
                 var view = sails[i];
                 view.Progress = model.State.sails[Mathf.Min(i, model.State.sails.Length-1)].value;
-                view.Wind = GameManager.Wind.Force;
+                view.Wind = GameManager.current.Get<WindSystem>().Force;
             }
 
             if (rotationTarget)

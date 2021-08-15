@@ -16,7 +16,7 @@ namespace Game.GDTools
         private void Update()
         {
             Angle %= 360;
-            GameManager.Wind.SetWind(Angle, Force);
+            GameManager.current.Get<WindSystem>().SetWind(Angle, Force);
         }
         
     }

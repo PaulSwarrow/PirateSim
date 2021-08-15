@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DI;
 using Game.Actors.Ship;
 using Game.Interfaces;
 using Game.Systems;
@@ -28,33 +29,36 @@ namespace Game
         private static List<IGameSystem> systems = new List<IGameSystem>();
         private static GenericMap<IGameSystem> systemsMap = new GenericMap<IGameSystem>();
 
+        private readonly DependencyContainer diContainer = new DependencyContainer();
+
         private static T AddSystem<T>(T system) where T : IGameSystem
         {
             systems.Add(system);
             systemsMap.Set(system);
+            
             return system;
         }
-
-        public static readonly WindSystem Wind = AddSystem(new WindSystem());
-        public static readonly AiCharacterSystem Npc = AddSystem(new AiCharacterSystem());
-        public static readonly GameCharacterSystem Characters = AddSystem(new GameCharacterSystem());
-        public static readonly ShipsSystem Ships = AddSystem(new ShipsSystem());
-        public static readonly UserControlSystem CharacterUserControl = AddSystem(new UserControlSystem());
-        public static readonly UserCharacterHud CharacterHud = AddSystem(new UserCharacterHud());
-        public static readonly LivingAreaSystem LivingAreaSystem = AddSystem(new LivingAreaSystem());
-        public static readonly ShipsCrewSystem CrewSystem = AddSystem(new ShipsCrewSystem());
-        public static readonly ObjsetSpawnSystem SpawnManager = AddSystem(new ObjsetSpawnSystem());
-
-        public T GetSystem<T>() where T : IGameSystem => systemsMap.Get<T>();
-
 
         public ShipActor currentShip;
 
         private void Awake()
         {
+            diContainer.Register(AddSystem(new WindSystem()));
+            diContainer.Register(AddSystem(new AiCharacterSystem()));
+            diContainer.Register(AddSystem(new GameCharacterSystem()));
+            diContainer.Register(AddSystem(new ShipsSystem()));
+            diContainer.Register(AddSystem(new UserControlSystem()));
+            diContainer.Register(AddSystem(new UserCharacterHud()));
+            diContainer.Register(AddSystem(new LivingAreaSystem()));
+            diContainer.Register(AddSystem(new ShipsCrewSystem()));
+            diContainer.Register(AddSystem(new ObjectSpawnSystem()));
+            
+            diContainer.InjectDependencies();
             current = this;
             systems.Foreach(system=> system.Init());
         }
+
+        public T Get<T>() => diContainer.GetItem<T>();
 
         private void Start()
         {
@@ -88,17 +92,6 @@ namespace Game
         private void OnDrawGizmos()
         {
             GizmosEvent?.Invoke();
-        }
-
-        public List<T> GetSystems<T>()
-        {
-            var result = new List<T>();
-            foreach (var system in systems)
-            {
-                if (system is T tSystem) result.Add(tSystem);
-            }
-
-            return result;
         }
     }
 }

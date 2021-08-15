@@ -1,19 +1,10 @@
 using System;
+using Game.Actors.Character;
 using UnityEngine;
 
 namespace Game.Tools
 {
-    public class PlayerSpawn : MonoBehaviour
+    public class PlayerSpawn : BaseActor<PlayerSpawn>
     {
-        private void Awake()
-        {
-            GameManager.ReadSceneEvent += AddPlayerCharacter;
-        }
-
-        private void AddPlayerCharacter()
-        {
-            GameManager.ReadSceneEvent -= AddPlayerCharacter;
-            GameManager.CharacterUserControl.CreatePlayer(transform.position, transform.forward);
-        }
     }
 }

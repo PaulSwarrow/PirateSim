@@ -1,6 +1,9 @@
+using App.SceneContext;
+using DI;
 using Game.Actors.Character;
 using Game.Actors.Character.Motors;
 using Game.Interfaces;
+using Game.Tools;
 using UnityEngine;
 
 namespace Game.Systems.Characters
@@ -10,20 +13,21 @@ namespace Game.Systems.Characters
      */
     public class UserControlSystem : IGameSystem
     {
+        [Inject] private GameCharacterSystem _charactersSystem;  
+        private ActorSelector<PlayerSpawn> spawnPoints = new ActorSelector<PlayerSpawn>();
         public GameCharacter Character { get; private set; }
 
         public void Init()
         {
         }
 
-        public void CreatePlayer(Vector3 position, Vector3 forward)
-        {
-            Character = GameManager.Characters.CreateCharacter(position, forward);
-
-        }
-
         public void Start()
         {
+            if (spawnPoints.GetRandom(out var point))
+            {
+                var transform = point.transform;
+                Character = _charactersSystem.CreateCharacter(transform.position, transform.forward);
+            }
             GameManager.UpdateEvent += Update;
         }
 

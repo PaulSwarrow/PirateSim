@@ -1,4 +1,5 @@
 using System;
+using DI;
 using Game.Actors.Character;
 using Game.Actors.Character.Interactions;
 using Game.Interfaces;
@@ -9,6 +10,9 @@ namespace Game.Systems.Characters
 {
     public class UserCharacterHud : IGameSystem
     {
+        [Inject] private UserControlSystem _userControlSystem;
+        [Inject] private UserCharacterHud _hudSystem;
+        
         public event Action<WorkableObject> WorkEvent; 
         
         private GameCharacterActor actor;
@@ -28,8 +32,8 @@ namespace Game.Systems.Characters
         public void Start()
         {
             objectSelector.SetCamera(Camera.main);
-            character = GameManager.CharacterUserControl.Character;
-            actor = GameManager.CharacterUserControl.Character.actor;
+            character = _userControlSystem.Character;
+            actor = _userControlSystem.Character.actor;
             actor.TriggerEnterEvent += OnTriggerEnter;
             actor.TriggerExitEvent += OnTriggerExit;
             
@@ -56,7 +60,7 @@ namespace Game.Systems.Characters
                 
                 if (Input.GetButtonDown("Action"))
                 {
-                    if (GameManager.CharacterHud.InteractionObject.TryGetComponent<WorkableObject>(out var workableObject))
+                    if (_hudSystem.InteractionObject.TryGetComponent<WorkableObject>(out var workableObject))
                     {
                         WorkEvent?.Invoke(workableObject);
                     }

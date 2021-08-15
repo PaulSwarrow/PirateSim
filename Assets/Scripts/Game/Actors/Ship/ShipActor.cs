@@ -1,4 +1,5 @@
 using System;
+using Game.Actors.Character;
 using Game.Actors.Ship.Sails;
 using Game.Actors.Ship.View;
 using Game.Interfaces;
@@ -10,7 +11,7 @@ using UnityEngine.AI;
 
 namespace Game.Actors.Ship
 {
-    public class ShipActor : BaseComponent
+    public class ShipActor : BaseActor<ShipActor>
     {
         private Vector3 floor;
         // private WindSystem windSystem;
@@ -25,7 +26,7 @@ namespace Game.Actors.Ship
         public DynamicNavMeshSurface NavSurface { get; private set; }
 
         //values:
-        public Vector3 localWind { get; private set; }
+        public Vector3 LocalWind { get; set; }
         public float LinearVelocity => Vector3.Dot(self.forward, rigidbody.velocity);
         public float AngularVelocity => rigidbody.angularVelocity.y;
 
@@ -36,19 +37,8 @@ namespace Game.Actors.Ship
             Sails = GetComponent<ShipSailsController>();
             NavSurface = GetComponent<DynamicNavMeshSurface>();
             self = transform;
-            GameManager.ReadSceneEvent += RegisterShip;
         }
-
-        private void RegisterShip()
-        {
-            GameManager.Ships.RegisterShip(this);
-            GameManager.ReadSceneEvent -= RegisterShip;
-        }
-
-        private void Update()
-        {
-            localWind = self.InverseTransformVector(GameManager.Wind.Force);
-        }
+        
 
         public void FullStop()
         {

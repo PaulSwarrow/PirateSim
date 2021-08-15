@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DI;
 using Game.Actors.Character;
 using Game.Interfaces;
 using Lib.UnityQuickTools.Collections;
@@ -14,6 +15,7 @@ namespace Game.Systems.Characters
      */
     public class GameCharacterSystem : IGameSystem
     {
+        [Inject] private ObjectSpawnSystem _spawnSystem;
         private static List<GameCharacter> list = new List<GameCharacter>();
 
         public static GameCharacter First() => list.First();
@@ -39,7 +41,7 @@ namespace Game.Systems.Characters
 
         private GameCharacterActor CreateActor(Vector3 position, Vector3 forward)
         {
-            return GameManager.SpawnManager.Spawn(
+            return _spawnSystem.Spawn(
                 GameManager.Properties.characterActorPrefab,
                 position,
                 Quaternion.LookRotation(forward, Vector3.up));

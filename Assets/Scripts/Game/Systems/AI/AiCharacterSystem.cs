@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DI;
 using Game.Actors.Character;
 using Game.Actors.Character.AI;
 using Game.Interfaces;
@@ -12,6 +13,7 @@ namespace Game.Systems.Characters
         private List<NpcBehaviourTree> list = new List<NpcBehaviourTree>();
 
 
+        [Inject] private GameCharacterSystem _characters;
         public void Init()
         {
         }
@@ -43,7 +45,7 @@ namespace Game.Systems.Characters
 
         public GameCharacter Create(Vector3 position, Vector3 forward)
         {
-            var character = GameManager.Characters.CreateCharacter(position, forward);
+            var character = _characters.CreateCharacter(position, forward);
             var tree = new NpcBehaviourTree
             {
                 npc = new Npc(character)

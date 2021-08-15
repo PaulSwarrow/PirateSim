@@ -1,4 +1,5 @@
 using System;
+using Game.Systems.Characters;
 using Lib;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +13,11 @@ namespace Game.Ui.Hud
 
         private void Update()
         {
-            img.gameObject.SetActive(GameManager.CharacterHud.InteractionAvailable);
-            if (GameManager.CharacterHud.InteractionAvailable)
+            var hud = GameManager.current.Get<UserCharacterHud>();
+            img.gameObject.SetActive(hud.InteractionAvailable);
+            if (hud.InteractionAvailable)
             {
-                img.rectTransform.anchoredPosition = GameManager.CharacterHud.InteractionViewportPoint;
+                img.rectTransform.anchoredPosition = hud.InteractionViewportPoint;
             }
         }
     }
