@@ -11,7 +11,7 @@ using UnityEngine.AI;
 
 namespace Game.Actors.Ship
 {
-    public class ShipActor : BaseActor<ShipActor>
+    public class ShipActor : SceneActor<ShipActor>
     {
         private Vector3 floor;
         // private WindSystem windSystem;

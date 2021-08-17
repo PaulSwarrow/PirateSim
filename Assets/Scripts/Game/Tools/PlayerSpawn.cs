@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Tools
 {
-    public class PlayerSpawn : BaseActor<PlayerSpawn>
+    public class PlayerSpawn : SceneActor<PlayerSpawn>
     {
     }
 }

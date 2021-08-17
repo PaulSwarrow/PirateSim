@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Game.Actors.Character;
-using Lib.UnityQuickTools.Collections;
-using Random = UnityEngine.Random;
 
-namespace App.SceneContext
+namespace Game.Actors
 {
-    public static class ActorTracker<T> where T : BaseActor<T>
+    public static class ActorTracker<T> where T : IActor
     {
         private static readonly HashSet<T> List = new HashSet<T>();
 

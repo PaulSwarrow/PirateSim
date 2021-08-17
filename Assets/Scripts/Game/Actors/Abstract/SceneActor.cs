@@ -5,12 +5,8 @@ using Lib;
 
 namespace Game.Actors.Character
 {
-    public abstract class BaseActor : BaseComponent
-    {
-        
-    }
     
-    public abstract class BaseActor<T> : BaseActor where T: BaseActor<T>
+    public abstract class SceneActor<T> : BaseComponent, IActor where T: SceneActor<T>
     {
         private void OnEnable()
         {

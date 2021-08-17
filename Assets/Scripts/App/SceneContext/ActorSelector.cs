@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Actors;
 using Game.Actors.Character;
 using Game.Actors.Ship;
 using Lib.UnityQuickTools.Collections;
@@ -7,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace App.SceneContext
 {
-    public class ActorSelector<T> where T : BaseActor<T>
+    public class ActorSelector<T> where T : SceneActor<T>
     {
         private HashSet<T> unprocessed = new HashSet<T>();
         private Action<T> addListener;

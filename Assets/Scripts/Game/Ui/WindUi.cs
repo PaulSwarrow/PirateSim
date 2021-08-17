@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Game.Ui
 {
-    public class WindUi : BaseActor<WindUi>
+    public class WindUi : SceneActor<WindUi>
     {
         [SerializeField] private Transform Arrow;
         [SerializeField] private Text Label;

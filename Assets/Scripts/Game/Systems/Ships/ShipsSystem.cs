@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using App.SceneContext;
 using DI;
+using Game.Actors;
 using Game.Actors.Ship;
 using Game.Interfaces;
 using Game.Models;
