@@ -9,17 +9,12 @@ using Game.Systems.Sea;
 using Lib;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Game
 {
     public class GameManager : BaseComponent
     {
-        public static event Action ReadSceneEvent;
-        public static event Action StartEvent;
-        public static event Action UpdateEvent;
-        public static event Action FixedUpdateEvent;
-        public static event Action LateUpdateEvent;
-        public static event Action EndEvent;
         public static event Action GizmosEvent;
         public static GameProperties Properties => current.properties;
         public static GameManager current { get; set; }
@@ -27,6 +22,11 @@ namespace Game
         [SerializeField] private GameProperties properties;
  
         private static List<IGameSystem> systems = new List<IGameSystem>();
+        private static List<IGameUpdateSystem> updateSystems = new List<IGameUpdateSystem>();
+        private static List<IGameLateUpdateSystem> lateUpdateSystems = new List<IGameLateUpdateSystem>();
+        private static List<IGamePhysicsSystem> physicsSystems = new List<IGamePhysicsSystem>();
+        
+        
         private static GenericMap<IGameSystem> systemsMap = new GenericMap<IGameSystem>();
 
         private readonly DependencyContainer diContainer = new DependencyContainer();
@@ -35,6 +35,9 @@ namespace Game
         {
             systems.Add(system);
             systemsMap.Set(system);
+            if (system is IGameUpdateSystem updateSystem) updateSystems.Add(updateSystem);
+            if (system is IGameLateUpdateSystem lateUpdateSystem) lateUpdateSystems.Add(lateUpdateSystem);
+            if (system is IGamePhysicsSystem physicsSystem) physicsSystems.Add(physicsSystem);
             
             return system;
         }
@@ -62,31 +65,28 @@ namespace Game
 
         private void Start()
         {
-            ReadSceneEvent?.Invoke();
             systems.Foreach(system=> system.Start());
-            StartEvent?.Invoke();
         }
 
 
         private void Update()
         {
-            UpdateEvent?.Invoke();
+            updateSystems.Foreach(system => system.Update());
         }
 
         private void FixedUpdate()
         {
-            FixedUpdateEvent?.Invoke();
+            physicsSystems.Foreach(system => system.FixedUpdate());
         }
 
         private void LateUpdate()
         {
-            LateUpdateEvent?.Invoke();
+            lateUpdateSystems.Foreach(system=> system.LateUpdate());
         }
 
         private void OnDestroy()
         {
             systems.Foreach(system=> system.Stop());
-            EndEvent?.Invoke();
         }
 
         private void OnDrawGizmos()

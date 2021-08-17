@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Game.Systems.Characters
 {
-    public class UserCharacterHud : IGameSystem
+    public class UserCharacterHud : IGameSystem, IGameUpdateSystem
     {
         [Inject] private UserControlSystem _userControlSystem;
         [Inject] private UserCharacterHud _hudSystem;
@@ -36,15 +36,12 @@ namespace Game.Systems.Characters
             actor = _userControlSystem.Character.actor;
             actor.TriggerEnterEvent += OnTriggerEnter;
             actor.TriggerExitEvent += OnTriggerExit;
-            
-            GameManager.UpdateEvent += Update;
         }
 
         public void Stop()
         {
             actor.TriggerEnterEvent -= OnTriggerEnter;
             actor.TriggerExitEvent -= OnTriggerExit;
-            GameManager.UpdateEvent -= Update;
         }
 
         public void Update()

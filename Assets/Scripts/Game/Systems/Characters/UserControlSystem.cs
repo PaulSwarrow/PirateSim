@@ -11,7 +11,7 @@ namespace Game.Systems.Characters
     /*
      * Implements user control for selected character
      */
-    public class UserControlSystem : IGameSystem
+    public class UserControlSystem : IGameSystem, IGameUpdateSystem
     {
         [Inject] private GameCharacterSystem _charactersSystem;  
         private ActorSelector<PlayerSpawn> spawnPoints = new ActorSelector<PlayerSpawn>();
@@ -28,12 +28,10 @@ namespace Game.Systems.Characters
                 var transform = point.transform;
                 Character = _charactersSystem.CreateCharacter(transform.position, transform.forward);
             }
-            GameManager.UpdateEvent += Update;
         }
 
         public void Stop()
         {
-            GameManager.UpdateEvent -= Update;
         }
 
         public void Update()

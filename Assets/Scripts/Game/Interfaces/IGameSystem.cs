@@ -6,4 +6,19 @@ namespace Game.Interfaces
         void Start();
         void Stop();
     }
+    
+    public interface IGameUpdateSystem
+    {
+        void Update();
+    }
+
+    public interface IGameLateUpdateSystem
+    {
+        void LateUpdate();
+    }
+    
+    public interface IGamePhysicsSystem
+    {
+        void FixedUpdate();
+    }
 }

@@ -13,7 +13,7 @@ namespace Game.Systems.Characters
      * Global characters system
      * Implements characters statemachines
      */
-    public class GameCharacterSystem : IGameSystem
+    public class GameCharacterSystem : IGameSystem, IGameUpdateSystem
     {
         [Inject] private ObjectSpawnSystem _spawnSystem;
         private static List<GameCharacter> list = new List<GameCharacter>();
@@ -53,17 +53,15 @@ namespace Game.Systems.Characters
 
         public void Start()
         {
-            GameManager.UpdateEvent += Update;
+        }
+
+        public void Update()
+        {
+            list.ForEach(UpdateCharacter);
         }
 
         public void Stop()
         {
-            GameManager.UpdateEvent -= Update;
-        }
-
-        private void Update()
-        {
-            list.ForEach(UpdateCharacter);
         }
 
         private void UpdateCharacter(GameCharacter character)

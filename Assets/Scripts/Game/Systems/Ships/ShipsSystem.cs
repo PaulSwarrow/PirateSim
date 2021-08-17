@@ -10,7 +10,7 @@ using Lib.UnityQuickTools.Collections;
 
 namespace Game.Systems
 {
-    public class ShipsSystem : IGameSystem
+    public class ShipsSystem : IGameSystem, IGameUpdateSystem
     {
         [Inject] private LivingAreaSystem livingArea;
         [Inject] private ShipsCrewSystem crewSystem;
@@ -25,21 +25,20 @@ namespace Game.Systems
         public void Start()
         {
             ActorTracker<ShipActor>.All.Foreach(ShipFromActor);
-            GameManager.UpdateEvent += OnUpdate;
         }
 
-        public void Stop()
-        {
-            
-        }
-
-        private void OnUpdate()
+        public void Update()
         {
             foreach (var item in items)
             {
                 var localWind = item.actor.transform.InverseTransformVector(windSystem.Force);
                 item.actor.LocalWind = localWind;
             }
+        }
+
+        public void Stop()
+        {
+            
         }
         
         private void ShipFromActor(ShipActor actor)

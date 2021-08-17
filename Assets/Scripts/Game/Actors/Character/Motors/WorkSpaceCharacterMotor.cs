@@ -12,7 +12,6 @@ namespace Game.Actors.Character.Motors
         {
             localPosition = Actor.transform.localPosition;
             localRotation = Actor.transform.localRotation;
-            GameManager.LateUpdateEvent += OnLateUpdate;
             Actor.view.MoveEvent += OnAnimatorMove;
         }
 
@@ -23,11 +22,10 @@ namespace Game.Actors.Character.Motors
 
         protected override void OnDisable()
         {
-            GameManager.LateUpdateEvent -= OnLateUpdate;
             Actor.view.MoveEvent -= OnAnimatorMove;
         }
 
-        private void OnLateUpdate()
+        private void LateUpdate()
         {
             Actor.transform.localPosition = localPosition;
             Actor.transform.localRotation = localRotation;
