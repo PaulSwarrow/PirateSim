@@ -49,7 +49,8 @@ namespace Game
             diContainer.Register(AddSystem(new WindSystem()));
             diContainer.Register(AddSystem(new AiCharacterSystem()));
             diContainer.Register(AddSystem(new GameCharacterSystem()));
-            diContainer.Register(AddSystem(new ShipsSystem()));
+            diContainer.Register(AddSystem(new ShipModelSystem()));
+            diContainer.Register(AddSystem(new ShipActorsSystem()));
             diContainer.Register(AddSystem(new UserControlSystem()));
             diContainer.Register(AddSystem(new UserCharacterHud()));
             diContainer.Register(AddSystem(new LivingAreaSystem()));
