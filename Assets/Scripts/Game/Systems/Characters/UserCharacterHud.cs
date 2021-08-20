@@ -33,6 +33,7 @@ namespace Game.Systems.Characters
         {
             objectSelector.SetCamera(Camera.main);
             character = _userControlSystem.Character;
+            if(character == null) return;//TODO remove hardcode
             actor = _userControlSystem.Character.actor;
             actor.TriggerEnterEvent += OnTriggerEnter;
             actor.TriggerExitEvent += OnTriggerExit;
@@ -40,6 +41,7 @@ namespace Game.Systems.Characters
 
         public void Stop()
         {
+            if(actor == null) return; //TODO remove hardcode
             actor.TriggerEnterEvent -= OnTriggerEnter;
             actor.TriggerExitEvent -= OnTriggerExit;
         }

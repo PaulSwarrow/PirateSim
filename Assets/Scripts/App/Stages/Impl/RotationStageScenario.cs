@@ -1,5 +1,7 @@
+using System.Linq;
 using Game;
 using Game.Actors.Ship;
+using Game.Systems;
 using Game.Ui.Dialogs;
 using Game.Ui.Views;
 using UnityEngine;
@@ -26,7 +28,8 @@ namespace DefaultNamespace.Components
 
         private void Start()
         {
-            ship = GameManager.current.currentShip;
+            //TODO may be to early. Need to integrate in game manager lifecycle
+            ship = GameManager.current.Get<ShipModelSystem>().All.First().actor;
             StartCoroutine(Tutorial(dialogs));
         }
 

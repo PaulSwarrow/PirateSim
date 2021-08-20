@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Game;
 using Game.Actors.Ship;
+using Game.Systems;
 using Game.Systems.Sea;
 using Game.Tools;
 using Game.Ui.Dialogs;
@@ -32,7 +34,8 @@ namespace DefaultNamespace.Components
 
         private void Start()
         {
-            ship = GameManager.current.currentShip;
+            //TODO may be to early. Need to integrate in game manager lifecycle
+            ship = GameManager.current.Get<ShipModelSystem>().All.First().actor;
             foreach (var part in sequence)
             {
                 part.trigger.gameObject.SetActive(false);

@@ -11,6 +11,8 @@ namespace Game.Systems.Abstract
         where T : IDisposable, new()
     {
         private HashSet<T> list = new HashSet<T>();
+
+        public IReadOnlyCollection<T> All => list;
         public virtual void Init()
         {
             

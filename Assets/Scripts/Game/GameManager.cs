@@ -42,8 +42,6 @@ namespace Game
             return system;
         }
 
-        public ShipActor currentShip;
-
         private void Awake()
         {
             diContainer.Register(AddSystem(new WindSystem()));

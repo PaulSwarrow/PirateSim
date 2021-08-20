@@ -11,6 +11,7 @@ namespace Game.Systems.Characters
     /*
      * Implements user control for selected character
      */
+    //TODO single-entity system
     public class UserControlSystem : IGameSystem, IGameUpdateSystem
     {
         [Inject] private GameCharacterSystem _charactersSystem;  
@@ -36,6 +37,9 @@ namespace Game.Systems.Characters
 
         public void Update()
         {
+            //TODO remove hardcode
+            if(Character == null) return;
+            
             var input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             var run = Input.GetButton("Run");
             input = Vector3.ClampMagnitude(input, 1); // fix for keyboard
