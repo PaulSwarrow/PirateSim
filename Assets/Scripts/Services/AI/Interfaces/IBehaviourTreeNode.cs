@@ -5,7 +5,7 @@ namespace Services.AI.Interfaces
     public interface IBehaviourTreeNode
     {
         void Start();
-        void Resume(Action callback);
+        void Resume(IBehaviourTreeContext context, Action callback);
         void Stop();
     }
 }

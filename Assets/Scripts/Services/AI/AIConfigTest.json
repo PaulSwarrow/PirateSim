@@ -5,21 +5,22 @@
     "type": "condition",
     "options": [
       {//switcher option desc
-        "case": {//condition desc
-          "property": "target.busy",//call to target context field
-          "operator":"equal",
-          "value": false
+        "condition": {//condition desc
+          "valueType": "Boolean",
+          "comparison":{"operation":"Equal"},
+          "a": {
+            "source": 1,
+            "path": "target.busy"
+          },
+          "b": {
+            "source": 0,
+            "value": false
+          }
         },
         "node": {//some node
           "type": "task",
           "node": "ChillBehaviourGUID"
         }
-      },
-      {
-        
-      },
-      {
-        
       }
     ]
   }
