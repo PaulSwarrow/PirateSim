@@ -10,8 +10,6 @@ namespace Game.Systems.Characters
 {
     public class AiCharacterSystem : IGameSystem
     {
-        private List<NpcBehaviourTree> list = new List<NpcBehaviourTree>();
-
 
         [Inject] private GameCharacterSystem _characters;
         public void Init()
@@ -46,15 +44,6 @@ namespace Game.Systems.Characters
         public GameCharacter Create(Vector3 position, Vector3 forward)
         {
             var character = _characters.CreateCharacter(position, forward);
-            var tree = new NpcBehaviourTree
-            {
-                npc = new Npc(character)
-                {
-                    targetPosition = character.actor.GetCurrentNavPoint()
-                },
-            };
-            list.Add(tree);
-            GameManager.current.StartCoroutine(tree.Coroutine());
             return character;
         }
     }

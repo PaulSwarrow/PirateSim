@@ -1,0 +1,26 @@
+{
+  "name": "bla",
+  "target": "npc",
+  "root":{ //switcher node
+    "type": "condition",
+    "options": [
+      {//switcher option desc
+        "case": {//condition desc
+          "property": "target.busy",//call to target context field
+          "operator":"equal",
+          "value": false
+        },
+        "node": {//some node
+          "type": "task",
+          "node": "ChillBehaviourGUID"
+        }
+      },
+      {
+        
+      },
+      {
+        
+      }
+    ]
+  }
+}
