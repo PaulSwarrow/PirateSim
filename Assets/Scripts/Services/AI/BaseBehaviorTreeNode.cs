@@ -6,8 +6,8 @@ using Services.AI.Interfaces;
 namespace Services.AI
 {
     [JsonConverter(typeof(JsonSubtypes), nameof(type))]
-    [JsonSubtypes.KnownSubTypeAttribute(typeof(BehaviourTreeCondition), nameof(BehaviourTreeCondition))]
-    public abstract class BaseBehaviourTreeNode : IBehaviourTreeNode, IValidatable
+    [JsonSubtypes.KnownSubTypeAttribute(typeof(BehaviorTreeCondition), nameof(BehaviorTreeCondition))]
+    public abstract class BaseBehaviorTreeNode : IBehaviorTreeNode, IValidatable
     {
         public abstract void Validate();
         private string type => GetType().Name;
@@ -16,8 +16,8 @@ namespace Services.AI
             
         }
 
-        public abstract void Resume(IBehaviourTreeContext context, Action callback);
-
+        public abstract void Resume(IBehaviorContext context, Action callback);
+        
         public void Stop()
         {
         }

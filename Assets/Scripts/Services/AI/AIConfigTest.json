@@ -1,13 +1,18 @@
 {
   "name": "bla",
   "target": "npc",
-  "root":{ //switcher node
+  "root": {
+    //switcher node
     "type": "condition",
     "options": [
-      {//switcher option desc
-        "condition": {//condition desc
+      {
+        //switcher option desc
+        "condition": {
+          //condition desc
           "valueType": "Boolean",
-          "comparison":{"operation":"Equal"},
+          "comparison": {
+            "operation": "Equal"
+          },
           "a": {
             "source": 1,
             "path": "target.busy"
@@ -17,9 +22,47 @@
             "value": false
           }
         },
-        "node": {//some node
+        "node": {
+          //some node
           "type": "task",
-          "node": "ChillBehaviourGUID"
+          "context": [
+            {
+              "name": "targetWorkPlace",
+              "type": "Link",
+              "targetType": "Workplace",
+              "defaultValue": null
+            }
+          ],
+          "root": {
+            "type": "condition",
+            "options": [
+              {
+                "condition": {
+                  "valueType": "Boolean",
+                  "comparison": {
+                    "operation": "Equal"
+                  },
+                  "a": {
+                    "source": 1,
+                    "path": "targetWorkplace"
+                  },
+                  "b": {
+                    "source": 0,
+                    "value": null
+                  }
+                },
+                "node": {
+                  "type": "FindWorkplace",
+                  "property": "targetWorkplace"
+                }
+              },
+              {
+                "condition": {
+                  "valueType":""
+                }
+              }
+            ]
+          }
         }
       }
     ]

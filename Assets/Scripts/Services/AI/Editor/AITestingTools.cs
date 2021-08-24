@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using JsonSubTypes;
-using Newtonsoft.Json;
-using Services.AI;
+﻿using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
-public static class AITestingTools 
+namespace Services.AI.Editor
 {
-    [MenuItem("Dev/AI test")]
-    private static void TestJson()
+    public static class AITestingTools 
     {
-        var path = "Assets/Scripts/Services/AI/AIConfigTest 1.json";
-        var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-        var obj = JsonConvert.DeserializeObject<BaseBehaviourTreeNode>(asset.text);
-        Debug.Log(obj);
+        [MenuItem("Dev/AI test")]
+        private static void TestJson()
+        {
+            var path = "Assets/Scripts/Services/AI/AIConfigTest 1.json";
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+            var obj = JsonConvert.DeserializeObject<BaseBehaviorTreeNode>(asset.text);
+            Debug.Log(obj);
 
 
-    }
+        }
     
+    }
 }

@@ -1,19 +1,19 @@
 using System;
 using System.Linq;
 using Lib.UnityQuickTools.Collections;
-using Services.AI.Data;
 using Services.AI.Enums;
 using Services.AI.Interfaces;
+using Services.AI.Structure;
 using UnityEngine.Assertions;
 
 namespace Services.AI
 {
-    public class BehaviourTreeCondition : BaseBehaviourTreeNode
+    public class BehaviorTreeCondition : BaseBehaviorTreeNode
     {
         public class Option : IValidatable
         {
             public Condition condition;
-            public BaseBehaviourTreeNode node;
+            public BaseBehaviorTreeNode node;
             public void Validate()
             {
                 condition.Validate();
@@ -30,7 +30,7 @@ namespace Services.AI
             options.Foreach(option=> option.Validate());
         }
 
-        public override void Resume(IBehaviourTreeContext context, Action callback)
+        public override void Resume(IBehaviorContext context, Action callback)
         {
             
             foreach (var option in options)

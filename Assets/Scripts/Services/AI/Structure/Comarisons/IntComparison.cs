@@ -2,7 +2,7 @@ using System;
 using Services.AI.Enums;
 using Services.AI.Interfaces;
 
-namespace Services.AI.Data.Comarisons
+namespace Services.AI.Structure.Comarisons
 {
     internal class IntComparison : IComparison<int>
     {

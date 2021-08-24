@@ -1,17 +1,20 @@
 using Game.Actors.Character;
-using Game.Actors.Character.AI;
 using Services.AI.Interfaces;
+using Services.AI.Structure;
+using Services.AI.Structure.PropertyGetters;
 
 namespace Game.AI
 {
-    public class CharacterBehaviourContext : IBehaviourTreeContext
+    public class CharacterBehaviourContext : BehaviorDataProxy
     {
-        public GameCharacterActor actor;
+        public ObjectBehaviorProperty<GameCharacterActor> actor;
 
 
-        public T GetProperty<T>(string property)
+
+        protected override void CreateProperties()
         {
-            return default;
+            actor = Property<GameCharacterActor>("actor");
+
         }
     }
 }
