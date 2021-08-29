@@ -9,7 +9,7 @@ namespace Lib.Navigation
         {
             if (NavMesh.SamplePosition(sourcePosition, out var hitPoint, maxDistance, filter))
             {
-                hit = new WorldNavPoint(hitPoint.position);
+                hit = new NavPoint(hitPoint.position);
                 return true;
             }
 
