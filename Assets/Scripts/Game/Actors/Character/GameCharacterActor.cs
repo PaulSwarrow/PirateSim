@@ -37,6 +37,7 @@ namespace Game.Actors.Character
         {
             view = GetComponentInChildren<GameCharacterView>();
             navigator = GetComponent<DynamicNavmeshAgent>();
+            SetMotor(defaultMotor);
         }
 
         public void SetMotor(CharacterMotor motor)

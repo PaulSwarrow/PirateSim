@@ -3,9 +3,9 @@ using UnityEngine.AI;
 
 namespace Lib.Navigation
 {
-    public static class DynamicNavmeshSystem
+    public static class DynamicNavmesh
     {
-        public static bool SamplePosition(Vector3 sourcePosition, out NavPoint hit, float maxDistance, int filter)
+        public static bool SamplePosition(Vector3 sourcePosition, out NavPoint hit, float maxDistance, int filter = NavMesh.AllAreas)
         {
             if (NavMesh.SamplePosition(sourcePosition, out var hitPoint, maxDistance, filter))
             {

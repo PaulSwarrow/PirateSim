@@ -1,46 +1,45 @@
+using System;
 using UnityEngine;
 
 namespace Lib.Navigation
 {
-    public abstract class NavPoint
+    [Serializable]
+    public class NavPoint
     {
+        [SerializeField] private Vector3 position;
+        [SerializeField] private DynamicNavMeshSurface surface;
+        [SerializeField] private string label;
+
         public static float Distance(NavPoint a, NavPoint b)
         {
-            return Vector3.Distance(a.worldPosition, b.worldPosition);
+            return Vector3.Distance(a.WorldPosition, b.WorldPosition);
         }
 
-        public static NavPoint Create(Vector3 position, DynamicNavMeshSurface surface = null)
+        public NavPoint()
         {
-            if (surface) return new VirtualNavPoint(surface, position);
-            return new WorldNavPoint(position);
+            
+        }
+        
+        public NavPoint(Vector3 position, DynamicNavMeshSurface surface = null)
+        {
+            this.position = position;
+            SetSurface(surface);
         }
 
-        public abstract Vector3 virtualPosition { get; }
-        public abstract Vector3 worldPosition { get; }
-    }
 
-    public class WorldNavPoint : NavPoint
-    {
-        public WorldNavPoint(Vector3 position)
+        public void SetSurface(DynamicNavMeshSurface surface)
         {
-            virtualPosition = worldPosition = position;
-        }
+            if (surface == this.surface) return;
+            var cachePosition = WorldPosition;
 
-        public override Vector3 virtualPosition { get; }
-        public override Vector3 worldPosition { get; }
-    }
-
-    public class VirtualNavPoint : NavPoint
-    {
-        private DynamicNavMeshSurface surface;
-
-        public VirtualNavPoint(DynamicNavMeshSurface surface, Vector3 virtualPosition)
-        {
             this.surface = surface;
-            this.virtualPosition = virtualPosition;
+            if (surface)
+            {
+                position = surface.World2VirtualPoint(cachePosition);
+            }
         }
 
-        public override Vector3 worldPosition => surface.Virtual2WorldPoint(virtualPosition);
-        public override Vector3 virtualPosition { get; }
+        public Vector3 LocalPosition => position;
+        public Vector3 WorldPosition => surface ? surface.Virtual2WorldPoint(position) : position;
     }
 }

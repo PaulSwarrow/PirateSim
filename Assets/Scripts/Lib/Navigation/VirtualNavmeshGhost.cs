@@ -65,7 +65,7 @@ namespace Lib.Navigation
 
         public void GotoPosition(NavPoint navPoint)
         {
-            if (NavMesh.SamplePosition(navPoint.virtualPosition, out var hit, 10, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(navPoint.LocalPosition, out var hit, 10, NavMesh.AllAreas))
             {
                 agent.SetDestination(hit.position);
                 agent.isStopped = false;
@@ -89,7 +89,7 @@ namespace Lib.Navigation
 
         public NavPoint GetCurrentNavPoint()
         {
-            return NavPoint.Create(transform.position, surface);
+            return new NavPoint(transform.position, surface);
         }
 
         public Vector3 Virtual2WorldPoint(Vector3 position)

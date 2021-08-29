@@ -32,7 +32,7 @@ namespace Game.Systems
             for (var i = 0; i < amount; i++)
             {
                 var position = livingArea.FindRandomPlace();
-                var character = _aiSystem.Create(position.worldPosition, Geometry.GetRandomForward());
+                var character = _aiSystem.Create(position.WorldPosition, Geometry.GetRandomForward());
                 character.livingArea = livingArea;
                 list.Add(character);
             }

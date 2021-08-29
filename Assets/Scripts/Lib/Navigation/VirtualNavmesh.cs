@@ -53,7 +53,7 @@ namespace Lib.Navigation
             var virtualPosition = FromWorld2VirtualPoint(worldPosition);
             if (NavMesh.SamplePosition(virtualPosition, out var hit, maxDistance, filter))
             {
-                point = new VirtualNavPoint(surface, hit.position);
+                point = new NavPoint(hit.position, surface);
                 return true;
                 
             }
