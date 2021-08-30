@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game.AI.BehaviorDesigner.Data
 {
     [Serializable]
-    public class BehaviorFloatModificator
+    public class BehaviorFloatModifier
     {
         public enum Operation
         {
@@ -39,7 +39,7 @@ namespace Game.AI.BehaviorDesigner.Data
     [Serializable]
     public class FloatModifiers 
     {
-        public List<BehaviorFloatModificator> modificators;
+        public List<BehaviorFloatModifier> modificators;
         public float Apply(float input)
         {
             var value = input;

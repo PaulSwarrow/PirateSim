@@ -12,28 +12,28 @@ namespace Game.Actors.Character.Interactions
         private const string TrackName = "Character";
 
 
-        public static IEnumerator EnterWorkPlace(GameCharacter character, WorkPlace workPlace)
+        public static IEnumerator EnterWorkPlace(GameCharacterActor actor, WorkPlace workPlace)
         {
-            Assert.IsNull(character.actor.currentWorkPlace);
-            character.actor.currentWorkPlace = workPlace;
-            yield return TransitionCutscene(character.actor, workPlace.entryScene,
+            Assert.IsNull(actor.currentWorkPlace);
+            actor.currentWorkPlace = workPlace;
+            yield return TransitionCutscene(actor, workPlace.entryScene,
                 workPlace.characterMotor.animator);
-            character.actor.transform.SetParent(workPlace.transform, true);
-            character.actor.SetMotor(workPlace.characterMotor);
+            actor.transform.SetParent(workPlace.transform, true);
+            actor.SetMotor(workPlace.characterMotor);
         }
 
 
-        public static IEnumerator ExitWorkPlace(GameCharacter character)
+        public static IEnumerator ExitWorkPlace(GameCharacterActor actor)
         {
-            Assert.IsNotNull(character.actor.currentWorkPlace);
+            Assert.IsNotNull(actor.currentWorkPlace);
             yield return TransitionCutscene(
-                character.actor,
-                character.actor.currentWorkPlace.exitScene,
-                character.actor.defaultMotor.animator);
-            character.actor.transform.SetParent(null, true);
-            character.actor.currentWorkPlace.Release();
-            character.actor.currentWorkPlace = null;
-            character.actor.SetDefaultMotor();
+                actor,
+                actor.currentWorkPlace.exitScene,
+                actor.defaultMotor.animator);
+            actor.transform.SetParent(null, true);
+            actor.currentWorkPlace.Release();
+            actor.currentWorkPlace = null;
+            actor.SetDefaultMotor();
         }
 
 
