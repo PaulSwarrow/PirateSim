@@ -51,7 +51,7 @@ public class ClothJoints : MonoBehaviour
             var joint = new ClothJoint
             {
                 bone = bone,
-                vertex = vertices.Least(a => Vector3.Distance(a, bone.position))
+                vertex = vertices.LeastIndex(a => Vector3.Distance(a, bone.position))
             };
             // var coefficient = constraints[joint.vertex];
             // coefficient.maxDistance = joint.active ? joint.value : float.MaxValue;

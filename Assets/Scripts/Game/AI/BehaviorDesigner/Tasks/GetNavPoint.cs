@@ -1,12 +1,16 @@
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
+using Game.AI.BehaviorDesigner.Variables;
 using Lib.Navigation;
 
 namespace Game.AI.BehaviorDesigner.Tasks
 {
     public class GetNavPoint : Action
     {
+        [RequiredField]
         public SharedGameObject gameObject;
+        
+        [RequiredField]
         public SharedNavPoint variableToStore;
         public float distance;
 

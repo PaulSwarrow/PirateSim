@@ -12,7 +12,7 @@ namespace Game.Actors.Character.Interactions
         {
             if (workplaces.TryFind(item => !item.Occupied, out workPlace))
             {
-                workPlace.Occupy(owner);
+                workPlace.Occupy(owner.actor);
                 return true;
             }
 

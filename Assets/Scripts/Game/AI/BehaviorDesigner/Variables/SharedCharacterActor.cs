@@ -1,7 +1,7 @@
 using BehaviorDesigner.Runtime;
 using Game.Actors.Character;
 
-namespace Game.AI.BehaviorDesigner
+namespace Game.AI.BehaviorDesigner.Variables
 {
     public class SharedCharacterActor : SharedVariable<GameCharacterActor>
     {

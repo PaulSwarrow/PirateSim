@@ -1,12 +1,14 @@
 using BehaviorDesigner.Runtime.Tasks;
+using Game.AI.BehaviorDesigner.Tasks.Abstract;
+using Game.AI.BehaviorDesigner.Variables;
 using Lib.Navigation;
 
 namespace Game.AI.BehaviorDesigner.Tasks
 {
-    public class TravelTask : Action
+    public class TravelTask : BaseCharacterAction
     {
+        [RequiredField]
         public SharedNavPoint point;
-        public SharedCharacterActor actor;
         public float accurancy = 0.1f;
 
         public override void OnStart()

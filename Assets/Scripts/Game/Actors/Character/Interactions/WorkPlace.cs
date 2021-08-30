@@ -1,12 +1,13 @@
 using System;
 using Lib;
+using Lib.Navigation;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Playables;
 
 namespace Game.Actors.Character.Interactions
 {
-    public abstract class WorkPlace : BaseComponent
+    public abstract class WorkPlace : SceneActor<WorkPlace>
     {
         public abstract bool AllowChilling { get; }
         
@@ -15,19 +16,21 @@ namespace Game.Actors.Character.Interactions
         
         [SerializeField] public PlayableDirector entryScene;
         [SerializeField] public PlayableDirector exitScene;
-        private GameCharacter character;
+        private GameCharacterActor character;
 
-        public Vector3 EnterPosition => entryScene.transform.position;
+        //TODO bake in surface owner for this workplace for optimization and safety
+        public NavPoint EnterPosition => DynamicNavmesh.RequirePosition(entryScene.transform.position);
 
         private void Awake()
         {
         }
 
+        public GameCharacterActor Visitor => character;
 
         public bool Occupied { get; private set; }
         public abstract CharacterMotor characterMotor { get;}
 
-        public void Occupy(GameCharacter character)
+        public void Occupy(GameCharacterActor character)
         {
             Assert.IsNull(this.character);
             this.character = character;

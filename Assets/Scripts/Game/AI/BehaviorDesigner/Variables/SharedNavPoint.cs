@@ -2,7 +2,7 @@ using System;
 using BehaviorDesigner.Runtime;
 using Lib.Navigation;
 
-namespace Game.AI.BehaviorDesigner
+namespace Game.AI.BehaviorDesigner.Variables
 {
     [Serializable]
     public class SharedNavPoint : SharedVariable<NavPoint>
