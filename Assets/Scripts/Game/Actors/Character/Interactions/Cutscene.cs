@@ -1,5 +1,6 @@
 using System.Collections;
 using Game.Actors.Character.Motors;
+using Game.Actors.Character.Motors.Settings.Impl;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,7 +13,7 @@ namespace Game.Actors.Character.Interactions
         private const string TrackName = "Character";
 
 
-        public static IEnumerator EnterWorkPlace(GameCharacterActor actor, WorkPlace workPlace)
+        /*public static IEnumerator EnterWorkPlace(GameCharacterActor actor, WorkPlace workPlace)
         {
             Assert.IsNull(actor.currentWorkPlace);
             actor.currentWorkPlace = workPlace;
@@ -35,18 +36,19 @@ namespace Game.Actors.Character.Interactions
             actor.currentWorkPlace = null;
             actor.SetDefaultMotor();
         }
+        */
 
 
         public static IEnumerator TransitionCutscene(GameCharacterActor actor, PlayableDirector director,
             RuntimeAnimatorController nextAnimator = null)
         {
-            actor.SetMotor(CutsceneCharacterMotor.Create());
+            actor.Core.SetMotor<InternalRootMotionMotor>();
             director.time = 0;
-            actor.view.transform.SetParent(director.transform, true);
+            actor.View.transform.SetParent(director.transform, true);
             var tracks = director.playableAsset.outputs;
             if (tracks.TryFind(item => item.streamName == TrackName, out var track))
             {
-                director.SetGenericBinding(track.sourceObject, actor.view.animator);
+                director.SetGenericBinding(track.sourceObject, actor.View.animator);
             }
 
             director.enabled = true;
@@ -54,14 +56,14 @@ namespace Game.Actors.Character.Interactions
             yield return new WaitUntil(() => director.time / director.duration > .5f);
             if (nextAnimator != null)
             {
-                actor.view.animator.runtimeAnimatorController = nextAnimator;
+                actor.View.animator.runtimeAnimatorController = nextAnimator;
             }
 
             yield return new WaitUntil(() => director.state == PlayState.Paused);
             director.enabled = false;
-            actor.transform.position = actor.view.transform.position;
-            actor.transform.rotation = actor.view.transform.rotation;
-            actor.view.transform.SetParent(actor.transform, true);
+            actor.transform.position = actor.View.transform.position;
+            actor.transform.rotation = actor.View.transform.rotation;
+            actor.View.transform.SetParent(actor.transform, true);
         }
     }
 }

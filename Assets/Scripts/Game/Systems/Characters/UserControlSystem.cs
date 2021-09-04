@@ -51,12 +51,11 @@ namespace Game.Systems.Characters
             vector = vector.normalized * input.magnitude;
             var move = vector;
 
-            var motor = (CharacterMainMotor) Character.actor.motor;
 
             if (move.magnitude > 0)
             {
-                motor.Look(move);
-                motor.Move(move);
+                Character.actor.Input.Rotate(move);
+                Character.actor.Input.Move(move);
             }
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Actors.Character.Motors
 {
-    [Serializable]
+    /*[Serializable]
     public class WorkSpaceCharacterMotor : CharacterMotor
     {
         private Vector3 localPosition;
@@ -37,5 +37,5 @@ namespace Game.Actors.Character.Motors
             localPosition += Actor.view.deltaPosition;
             localRotation *= Actor.view.deltaRotation;
         }
-    }
+    }*/
 }

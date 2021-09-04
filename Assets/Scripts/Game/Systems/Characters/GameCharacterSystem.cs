@@ -34,7 +34,6 @@ namespace Game.Systems.Characters
             {
                 actor = CreateActor(position, forward),
             };
-            character.actor.SetMotor(character.actor.defaultMotor);
             list.Add(character);
             return character;
         }

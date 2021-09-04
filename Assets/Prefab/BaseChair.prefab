@@ -173,8 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryScene: {fileID: 183142096509152416}
   exitScene: {fileID: 8880091762322205772}
-  motor:
-    animator: {fileID: 9100000, guid: 718ffff71a598a241b9445b0adc00295, type: 2}
+  animator: {fileID: 9100000, guid: 718ffff71a598a241b9445b0adc00295, type: 2}
 --- !u!1 &6545368267677949095
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ namespace Game.AI.BehaviorDesigner.Workplaces.Tasks
             if (character.currentWorkPlace == workPlace.Value) isComplete = true; //TODO weak code. can possibly be in a transition!
             else
             {
-                GameManager.current.Get<WorkPlacesSystem>().EnterWorkPlace(actor.Value, workPlace.Value, OnComplete);
+                actor.Value.StateMachine.EnterWorkPlace(workPlace.Value, OnComplete);
             }
         }
 

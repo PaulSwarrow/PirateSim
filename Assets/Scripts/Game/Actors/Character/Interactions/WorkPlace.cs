@@ -16,6 +16,7 @@ namespace Game.Actors.Character.Interactions
         
         [SerializeField] public PlayableDirector entryScene;
         [SerializeField] public PlayableDirector exitScene;
+        [SerializeField] public RuntimeAnimatorController animator;
         private GameCharacterActor character;
 
         //TODO bake in surface owner for this workplace for optimization and safety
@@ -28,7 +29,6 @@ namespace Game.Actors.Character.Interactions
         public GameCharacterActor Visitor => character;
 
         public bool Occupied { get; private set; }
-        public abstract CharacterMotor characterMotor { get;}
 
         public void Occupy(GameCharacterActor character)
         {

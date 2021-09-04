@@ -1,5 +1,7 @@
+using DI;
 using Game.Actors.Character.Interactions;
-using Game.Actors.Character.Motors;
+using Game.Actors.Character.Motors.Settings;
+using Game.Actors.Character.StateMachine;
 using Lib;
 using Lib.Navigation;
 using UnityEngine;
@@ -27,30 +29,48 @@ namespace Game.Actors.Character
         public event TriggerEvent TriggerEnterEvent;
         public event TriggerEvent TriggerExitEvent;
 
-        [SerializeField] public CharacterMainMotor defaultMotor;
-        public CharacterMotor motor;
-        public GameCharacterView view { get; private set; }
-        public DynamicNavmeshAgent navigator { get; private set; }
+        [SerializeField] private CharacterActorSettings _settings;
+        private CharacterStateMachine _stateMachine;
+        private DependencyContainer _di;
+        private CharacterInput _input;
+        private CharacterActorContext _context = new CharacterActorContext();
+
+        public CharacterCore Core => _context.core;
+        public GameCharacterView View => _context.view;
         public WorkPlace currentWorkPlace  { get; set; }
+        public CharacterInput Input => _input;
+        public CharacterStateMachine StateMachine => _stateMachine;
+
 
         private void Awake()
         {
-            view = GetComponentInChildren<GameCharacterView>();
-            navigator = GetComponent<DynamicNavmeshAgent>();
-            SetMotor(defaultMotor);
+            _di = new DependencyContainer();
+            _di.Register( GetComponentInChildren<GameCharacterView>());
+            _di.Register(GetComponent<DynamicNavmeshAgent>());
+            _di.Register<ICharacterInput>(_input = new CharacterInput());
+            _di.Register( new CharacterCore());
+            _di.Register(transform);
+            _di.Register(_settings);
+            _di.Register(_context);
+            _di.Register(this);
+
+            _di.InjectDependencies();
+
+            _context.view.MoveEvent += OnRootMotion;
+
+            _stateMachine = new CharacterStateMachine(_di);
         }
 
-        public void SetMotor(CharacterMotor motor)
+        private void OnRootMotion()
         {
-            if (this.motor == motor) return;
-            this.motor?.Disable();
-            this.motor = motor;
-            this.motor.Enable(this);
+            _context.core.OnRootMotion();
         }
 
         private void Update()
         {
-            motor.Update();
+            _context.core.Update();
+            _stateMachine.Update();
+            _input.CleanUp();
         }
 
         public void OnAreaEnter(Collider area)
@@ -63,14 +83,9 @@ namespace Game.Actors.Character
             TriggerExitEvent?.Invoke(area);
         }
 
-        public void SetDefaultMotor()
-        {
-            SetMotor(defaultMotor);
-        }
-
         public NavPoint GetCurrentNavPoint()
         {
-            return navigator.GetCurrentNavPoint();
+            return _context.agent.GetCurrentNavPoint();
         }
 
 

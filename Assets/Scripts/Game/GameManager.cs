@@ -54,7 +54,6 @@ namespace Game
             diContainer.Register(AddSystem(new LivingAreaSystem()));
             diContainer.Register(AddSystem(new ShipsCrewSystem()));
             diContainer.Register(AddSystem(new ObjectSpawnSystem()));
-            diContainer.Register(AddSystem(new WorkPlacesSystem()));
             
             diContainer.InjectDependencies();
             current = this;

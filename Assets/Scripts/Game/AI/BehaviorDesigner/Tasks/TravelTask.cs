@@ -1,4 +1,5 @@
 using BehaviorDesigner.Runtime.Tasks;
+using Game.Actors.Character.StateMachine;
 using Game.AI.BehaviorDesigner.Tasks.Abstract;
 using Game.AI.BehaviorDesigner.Variables;
 using Lib.Navigation;
@@ -14,19 +15,20 @@ namespace Game.AI.BehaviorDesigner.Tasks
         public override void OnStart()
         {
             base.OnStart();
-            actor.Value.navigator.StartTravel(point.Value);
+            actor.Value.Input.Trigger(CharacterInputTrigger.StartTravel);
+            actor.Value.Input.Destination = point.Value;
             
         }
 
         public override TaskStatus OnUpdate()
         {
-            var reached = NavPoint.Distance(point.Value, actor.Value.navigator.GetCurrentNavPoint()) < accurancy;
+            var reached = NavPoint.Distance(point.Value, actor.Value.GetCurrentNavPoint()) < accurancy;
             return reached ? TaskStatus.Success : TaskStatus.Running;
         }
 
         public override void OnEnd()
         {
-            actor.Value.navigator.StopTravel();
+            actor.Value.Input.Destination = null;
             base.OnEnd();
         }
 
