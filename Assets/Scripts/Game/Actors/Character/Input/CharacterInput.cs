@@ -1,7 +1,8 @@
+using Game.Actors.Character.StateMachine;
 using Lib.Navigation;
 using UnityEngine;
 
-namespace Game.Actors.Character.StateMachine
+namespace Game.Actors.Character.Input
 {
     public class CharacterInput :ICharacterInput
     {

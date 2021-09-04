@@ -1,6 +1,5 @@
 using System.Collections;
-using Game.Actors.Character.Motors;
-using Game.Actors.Character.Motors.Settings.Impl;
+using Game.Actors.Character.Core.Motors;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;

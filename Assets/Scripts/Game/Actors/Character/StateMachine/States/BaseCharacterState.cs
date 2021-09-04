@@ -1,5 +1,5 @@
 using DI;
-using Game.Actors.Character.Motors.Settings;
+using Game.Actors.Character.Core;
 using UnityEngine;
 
 namespace Game.Actors.Character.StateMachine.States

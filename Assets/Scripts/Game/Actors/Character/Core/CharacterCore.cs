@@ -1,8 +1,6 @@
 using DI;
-using Lib.Navigation;
-using UnityEngine;
 
-namespace Game.Actors.Character.Motors.Settings
+namespace Game.Actors.Character.Core
 {
     public class CharacterCore
     {

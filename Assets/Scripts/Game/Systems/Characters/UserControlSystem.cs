@@ -1,7 +1,6 @@
 using App.SceneContext;
 using DI;
 using Game.Actors.Character;
-using Game.Actors.Character.Motors;
 using Game.Interfaces;
 using Game.Tools;
 using UnityEngine;

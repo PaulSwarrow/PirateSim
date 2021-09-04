@@ -1,5 +1,5 @@
 using DI;
-using Game.Actors.Character.Motors.Settings;
+using Game.Actors.Character.Core;
 using Game.Actors.Character.StateMachine;
 using Lib.Navigation;
 using UnityEngine;

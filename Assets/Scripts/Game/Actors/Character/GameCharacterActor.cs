@@ -1,6 +1,7 @@
 using DI;
+using Game.Actors.Character.Core;
+using Game.Actors.Character.Input;
 using Game.Actors.Character.Interactions;
-using Game.Actors.Character.Motors.Settings;
 using Game.Actors.Character.StateMachine;
 using Lib;
 using Lib.Navigation;

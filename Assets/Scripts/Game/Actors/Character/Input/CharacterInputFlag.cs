@@ -1,6 +1,6 @@
 using Lib.Tools;
 
-namespace Game.Actors.Character.StateMachine
+namespace Game.Actors.Character.Input
 {
     public class CharacterInputFlag
     {

@@ -1,4 +1,5 @@
 using BehaviorDesigner.Runtime.Tasks;
+using Game.Actors.Character.Input;
 using Game.Actors.Character.StateMachine;
 using Game.AI.BehaviorDesigner.Tasks.Abstract;
 using Game.AI.BehaviorDesigner.Variables;

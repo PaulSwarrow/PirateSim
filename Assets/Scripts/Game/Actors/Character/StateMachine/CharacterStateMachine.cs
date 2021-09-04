@@ -1,7 +1,6 @@
 using System;
 using DI;
 using Game.Actors.Character.Interactions;
-using Game.Actors.Character.Motors.Settings;
 using Game.Actors.Character.StateMachine.States;
 using Game.Actors.Character.StateMachine.Transitions;
 using Lib.Navigation;

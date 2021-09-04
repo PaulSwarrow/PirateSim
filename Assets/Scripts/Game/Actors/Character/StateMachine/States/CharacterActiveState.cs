@@ -1,10 +1,10 @@
 using System;
 using DI;
-using Game.Actors.Character.Motors.Settings.Impl;
+using Game.Actors.Character.Core.Motors;
 using Lib.Navigation;
 using UnityEngine;
-using static Game.Actors.Character.StateMachine.CharacterInputFlag;
-using static Game.Actors.Character.StateMachine.CharacterInputTrigger;
+using static Game.Actors.Character.Input.CharacterInputFlag;
+using static Game.Actors.Character.Input.CharacterInputTrigger;
 
 namespace Game.Actors.Character.StateMachine.States
 {

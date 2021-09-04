@@ -1,8 +1,4 @@
-using System;
-using Game.Actors.Character.Motors;
-using UnityEngine;
-
-namespace Game.Actors.Character.Interactions
+namespace Game.Actors.Character.Interactions.WorkPlaces
 {
     public class IdleWorkPlace : WorkPlace
     {

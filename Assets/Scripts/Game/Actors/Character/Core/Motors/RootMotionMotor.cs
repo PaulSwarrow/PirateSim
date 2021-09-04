@@ -1,8 +1,4 @@
-using DI;
-using Lib.Navigation;
-using UnityEngine;
-
-namespace Game.Actors.Character.Motors.Settings.Impl
+namespace Game.Actors.Character.Core.Motors
 {
     public class RootMotionMotor : ICharacterMotor
     {
