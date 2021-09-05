@@ -7,6 +7,7 @@ namespace Game.Actors.Character.StateMachine.Transitions
     {
         public void Start()
         {
+            IsComplete = false;
             GameManager.current.StartCoroutine(Coroutine());
 
         }
@@ -30,6 +31,5 @@ namespace Game.Actors.Character.StateMachine.Transitions
         public bool IsComplete { get; private set; }
         public bool Interruptable => false;
         public abstract ICharacterState NextState { get; }
-        public RuntimeAnimatorController Animator => null;
     }
 }
