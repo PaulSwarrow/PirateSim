@@ -13,6 +13,7 @@ namespace Game.Actors.Character.StateMachine.Transitions
     {
         [Inject] private GameCharacterActor _actor;
         [Inject] private CharacterActiveState _targetState;
+        [Inject] private CharacterActorSettings _settings;
         private Action _callback;
         public override ICharacterState NextState => _targetState;
 
@@ -28,7 +29,8 @@ namespace Game.Actors.Character.StateMachine.Transitions
             yield return Cutscene.TransitionCutscene(
                 _actor,
                 _actor.currentWorkPlace.exitScene,
-                _targetState.Animator);
+                _settings.animator
+                );
             
             _actor.transform.SetParent(null, true);
             _actor.currentWorkPlace.Release();

@@ -3,6 +3,7 @@ using BehaviorDesigner.Runtime.Tasks;
 using DI;
 using Game.Actors.Character.Interactions;
 using Game.Actors.Character.StateMachine.States;
+using UnityEngine;
 using UnityEngine.Assertions;
 using Action = System.Action;
 
@@ -12,6 +13,7 @@ namespace Game.Actors.Character.StateMachine.Transitions
     {
         [Inject] private GameCharacterActor _actor;
         [Inject] private CharacterWorkPlaceState _targetState;
+        [Inject] private CharacterActorSettings _settings;
         private WorkPlace _place;
         private Action _callback;
 
@@ -28,7 +30,7 @@ namespace Game.Actors.Character.StateMachine.Transitions
         {
             Assert.IsNull(_actor.currentWorkPlace);
             _actor.currentWorkPlace = _place;
-            yield return Cutscene.TransitionCutscene(_actor, _place.entryScene, _targetState.Animator);
+            yield return Cutscene.TransitionCutscene(_actor, _place.entryScene, _place.animator);
             _actor.transform.SetParent(_place.transform, true);
             _callback.Invoke();
         }

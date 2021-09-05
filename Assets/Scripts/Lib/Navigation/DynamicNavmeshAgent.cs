@@ -28,13 +28,23 @@ namespace Lib.Navigation
             set => ghost.WorldForward = value;
         }
 
-        public Vector3 Position => ghost.transform.position;
+        public Vector3 Position => ghost.WorldPosition;
 
         private void Awake()
         {
             ghost = Instantiate(ghostPrefab, transform.position, Quaternion.identity);
             ghost.name = name + " ghost";
             ghost.owner = this;
+        }
+
+        private void OnEnable()
+        {
+            CheckSurface();
+        }
+
+        private void OnDisable()
+        {
+            StopTravel();
         }
 
         public void CheckSurface()
@@ -53,13 +63,6 @@ namespace Lib.Navigation
             }
         }
 
-        public void Sync(float blendWeights)
-        {
-            transform.position = Vector3.Lerp(transform.position, ghost.WorldPosition, blendWeights);
-            transform.rotation = Quaternion.Lerp(transform.rotation,
-                Quaternion.LookRotation(ghost.WorldForward, Vector3.up), blendWeights);
-        }
-
         public void Move(Vector3 velocity)
         {
             Assert.IsFalse(IsTraveling);
@@ -70,11 +73,14 @@ namespace Lib.Navigation
         {
             Assert.IsFalse(IsTraveling);
             IsTraveling = true;
+            ghost.UpdateRotation = true;
+            ghost.WorldForward = transform.forward;
             ghost.GotoPosition(navPoint);
         }
 
         public void StopTravel()
         {
+            ghost.UpdateRotation = false;
             Assert.IsTrue(IsTraveling);
             IsTraveling = false;
             ghost.Stop();
@@ -85,8 +91,7 @@ namespace Lib.Navigation
             return ghost.GetCurrentNavPoint();
         }
 
-        public INavSpaceConverter navSpace => ghost;
-        public Vector3 LocalVelocity => transform.InverseTransformDirection(WorldVelocity);
+        public Vector3 RelactiveVelocity => transform.InverseTransformDirection(WorldVelocity);
         public Vector3 WorldVelocity => ghost.WorldMoveVelocity;
         public bool IsTraveling { get; private set; }
 

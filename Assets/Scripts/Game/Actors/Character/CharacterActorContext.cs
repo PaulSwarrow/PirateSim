@@ -14,5 +14,7 @@ namespace Game.Actors.Character
         [Inject] public Transform transform;
         [Inject] public GameCharacterView view;
         [Inject] public CharacterActorSettings settings;
+        [Inject] public Animator animator;
     }
+    
 }

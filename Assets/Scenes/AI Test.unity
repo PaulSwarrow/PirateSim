@@ -519,6 +519,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4803903091227326536, guid: cc867cac67ad54b40b847d46237f6cc1,
+        type: 3}
+      propertyPath: _settings.animator
+      value: 
+      objectReference: {fileID: 9100000, guid: ee38a95dec4fb6a4b9dee7e25473f5b8, type: 2}
     - target: {fileID: 6722401767479906407, guid: cc867cac67ad54b40b847d46237f6cc1,
         type: 3}
       propertyPath: m_Name
@@ -1174,7 +1179,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4962391832681880584}
-  m_LocalRotation: {x: -0.025711106, y: 0.00019132605, z: 0.0000049208306, w: 0.99966943}
+  m_LocalRotation: {x: -0.025711106, y: 0.00019133034, z: 0.000004920941, w: 0.99966943}
   m_LocalPosition: {x: 0, y: -0.25765514, z: -0.16616821}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2266,7 +2271,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7861848793283627875}
-  m_LocalRotation: {x: -0.0075714146, y: 0.00019138573, z: 0.0000014491021, w: 0.99997133}
+  m_LocalRotation: {x: -0.0075714155, y: 0.00019138627, z: 0.0000014491064, w: 0.99997133}
   m_LocalPosition: {x: 0, y: -0.25765514, z: -0.16616821}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2742,11 +2747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9acc422cd8c24be09a70344c2fcf03b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMotor:
-    animator: {fileID: 9100000, guid: ee38a95dec4fb6a4b9dee7e25473f5b8, type: 2}
-    walkSpeed: 2
-    runSpeed: 4
-    active: 1
+  _settings:
+    animator: {fileID: 0}
+    walkSpeed: 0
 --- !u!1 &5059780518662398199
 GameObject:
   m_ObjectHideFlags: 0

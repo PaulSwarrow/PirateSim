@@ -11,7 +11,6 @@ namespace Game.Actors.Character.StateMachine.States
         protected ICharacterInput Input => context.input;
         public virtual void Start()
         {
-            context.view.animator.runtimeAnimatorController = Animator;
             context.core.SetMotor<TMotor>();
         }
 
@@ -25,7 +24,6 @@ namespace Game.Actors.Character.StateMachine.States
         }
 
         
-        public abstract RuntimeAnimatorController Animator { get; }
         public bool IsComplete => false;
         public bool Interruptable => true;
         public ICharacterState NextState { get; protected set; }

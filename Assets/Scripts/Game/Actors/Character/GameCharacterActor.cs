@@ -35,9 +35,10 @@ namespace Game.Actors.Character
         private DependencyContainer _di;
         private CharacterInput _input;
         private CharacterActorContext _context = new CharacterActorContext();
+        private GameCharacterView _view;
 
         public CharacterCore Core => _context.core;
-        public GameCharacterView View => _context.view;
+        public GameCharacterView View => _view;
         public WorkPlace currentWorkPlace  { get; set; }
         public CharacterInput Input => _input;
         public CharacterStateMachine StateMachine => _stateMachine;
@@ -46,7 +47,8 @@ namespace Game.Actors.Character
         private void Awake()
         {
             _di = new DependencyContainer();
-            _di.Register( GetComponentInChildren<GameCharacterView>());
+            _di.Register( _view = GetComponentInChildren<GameCharacterView>());
+            _di.Register(_view.animator);
             _di.Register(GetComponent<DynamicNavmeshAgent>());
             _di.Register<ICharacterInput>(_input = new CharacterInput());
             _di.Register( new CharacterCore());

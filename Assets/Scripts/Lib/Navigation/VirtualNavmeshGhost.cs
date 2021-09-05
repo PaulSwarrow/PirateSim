@@ -20,6 +20,12 @@ namespace Lib.Navigation
             agent.updateRotation = false;
         }
 
+        public bool UpdateRotation
+        {
+            get => agent.updateRotation;
+            set => agent.updateRotation = value;
+        }
+
         public void SetSurface(DynamicNavMeshSurface surface)
         {
             Assert.IsNull(this.surface);

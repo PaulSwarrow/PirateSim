@@ -10,7 +10,5 @@ namespace Game.Actors.Character.StateMachine
         bool IsComplete { get; }
         bool Interruptable  { get; }
         ICharacterState NextState { get; }
-        
-        RuntimeAnimatorController Animator { get; }
     }
 }
