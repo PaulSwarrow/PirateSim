@@ -41,9 +41,9 @@ namespace Game.Actors.Character.Interactions
         public static IEnumerator TransitionCutscene(GameCharacterActor actor, PlayableDirector director,
             RuntimeAnimatorController nextAnimator = null)
         {
-            actor.Core.SetMotor<InternalRootMotionMotor>();
             director.time = 0;
             actor.View.transform.SetParent(director.transform, true);
+            actor.Core.SetMotor<InternalRootMotionMotor>();
             var tracks = director.playableAsset.outputs;
             if (tracks.TryFind(item => item.streamName == TrackName, out var track))
             {

@@ -9,12 +9,6 @@ using UnityEngine;
 
 namespace Game.Actors.Character
 {
-    public enum CharacterControlMode
-    {
-        none,
-        ai,
-        user
-    }
 
     /*
      * A concrete instance of the character.

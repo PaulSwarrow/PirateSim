@@ -22,6 +22,7 @@ namespace Game.Actors.Character.StateMachine.States
         public override void Start()
         {
             base.Start();
+            _agent.Forward = context.view.transform.forward;
             _agent.CheckSurface();
             context.animator.runtimeAnimatorController = context.settings.animator;
             // _agent.Forward; //bad code - bind to be adter checkSurface()

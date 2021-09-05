@@ -35,6 +35,7 @@ namespace Game.Actors.Character.StateMachine.Transitions
             _actor.transform.SetParent(null, true);
             _actor.currentWorkPlace.Release();
             _actor.currentWorkPlace = null;
+            //TODO need tween, cause nav agent will make a tiny shift on enabled 
             
             _callback?.Invoke();
             

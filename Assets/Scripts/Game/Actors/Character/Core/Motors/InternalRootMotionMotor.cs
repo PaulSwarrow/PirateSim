@@ -1,10 +1,14 @@
+using DI;
+using UnityEngine;
+
 namespace Game.Actors.Character.Core.Motors
 {
     public class InternalRootMotionMotor : ICharacterMotor
     {
-
+        private Transform _viewTransform;
         public void Enable()
         {
+            _viewTransform = context.view.transform;
         }
 
         public void Disable()
@@ -19,8 +23,8 @@ namespace Game.Actors.Character.Core.Motors
 
         public void OnRootMotion()
         {
-            context.transform.localPosition += context.view.deltaPosition;
-            context.transform.localRotation *= context.view.deltaRotation;
+            _viewTransform.localPosition += context.view.deltaPosition;
+            _viewTransform.localRotation *= context.view.deltaRotation;
         }
 
         public CharacterActorContext context { get; set; }
