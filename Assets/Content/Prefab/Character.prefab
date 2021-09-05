@@ -106,11 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9acc422cd8c24be09a70344c2fcf03b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMotor:
+  _settings:
     animator: {fileID: 9100000, guid: ee38a95dec4fb6a4b9dee7e25473f5b8, type: 2}
-    walkSpeed: 2
-    runSpeed: 4
-    active: 1
+    walkSpeed: 0
 --- !u!1001 &5125246685148084831
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using Game.Actors.Character.Core;
 using Game.Actors.Character.Input;
 using Game.Actors.Character.Interactions;
 using Game.Actors.Character.StateMachine;
+using Game.Actors.Workplaces;
 using Lib;
 using Lib.Navigation;
 using UnityEngine;

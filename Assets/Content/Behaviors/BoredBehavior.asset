@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23f08d2ae4cba14087c1ed36193d82b, type: 3}
+  m_Name: BoredBehavior
+  m_EditorClassIdentifier: 
+  mBehaviorSource:
+    behaviorName: Behavior
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(340.277374,45.9796143)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(-22.7625313,112.343857)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(3.38402748,112.622665)"},"ID":2,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-200,120)"},"ID":3,"Name":"Sequence","Instant":true,"AbortTypeabortType":"Both","Children":[{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap+WorkPlaceMapIsEmpty","NodeData":{"Offset":"(-164.3842,146.650269)"},"ID":4,"Name":"Work
+        Place Map Is Empty","Instant":true,"SharedWorkPlaceMapvariable":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap","Name":"Work
+        places","IsShared":true,"List`1mValue":[]}},{"Type":"Game.AI.BehaviorDesigner.Workplaces.Tasks.MapWorkplaces","NodeData":{"Offset":"(12.9842157,146.650269)"},"ID":5,"Name":"Map
+        Workplaces","Instant":true,"SharedCharacterActorforActor":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedCharacterActor","Name":"Actor","IsShared":true,"GameCharacterActormValue":0},"SharedWorkPlaceMapmap":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap","Name":"Work
+        places","IsShared":true,"List`1mValue":[]},"Filterfilter":"empty"}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(335.619263,130.427124)"},"ID":6,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Game.AI.BehaviorDesigner.Workplaces.Tasks.FindWorkPlace","NodeData":{"Offset":"(-299.4426,145.549377)"},"ID":7,"Name":"Find
+        Work Place","Instant":true,"SharedWorkPlaceMapplacesAvailable":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap","Name":"Work
+        places","IsShared":true,"List`1mValue":[]},"SinglecriticalValue":1,"SharedWorkPlacecurrentWorkPlace":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true},"SharedCharacterActoractor":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedCharacterActor","Name":"Actor","IsShared":true,"GameCharacterActormValue":1}},{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(-141.428528,143.45874)"},"ID":8,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-165.63501,129.7583)"},"ID":9,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Game.AI.BehaviorDesigner.Workplaces.Tasks.ActorCheckWorkPlace","NodeData":{"Offset":"(-143.939392,122.290443)"},"ID":10,"Name":"Actor
+        Check Work Place","Instant":true,"SharedCharacterActoractor":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedCharacterActor","Name":"Actor","IsShared":true,"GameCharacterActormValue":2},"SharedWorkPlaceplaceToCompare":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true}},{"Type":"BehaviorDesigner.Runtime.Tasks.Wait","NodeData":{"Offset":"(12.5976563,132.284271)"},"ID":11,"Name":"Wait","Instant":true,"SharedFloatwaitTime":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedBoolrandomWait":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"SharedFloatrandomWaitMin":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1},"SharedFloatrandomWaitMax":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":1}}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(212.60498,118.960533)"},"ID":12,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Game.AI.BehaviorDesigner.Workplaces.Tasks.ActorExitWorkPlace","NodeData":{"Offset":"(-223.130554,131.139389)"},"ID":13,"Name":"Actor
+        Exit Work Place","Instant":true,"SharedCharacterActoractor":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedCharacterActor","Name":"Actor","IsShared":true,"GameCharacterActormValue":3}},{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace+WorkplaceGetEnterPoint","NodeData":{"Offset":"(-44.09558,125)"},"ID":14,"Name":"Workplace
+        Get Enter Point","Instant":true,"SharedWorkPlacetarget":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true},"SharedNavPointstoreResult":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedNavPoint","Name":"Target
+        position","IsShared":true,"NavPointmValue":{"Vector3position":"(0,0,0)"}}},{"Type":"Game.AI.BehaviorDesigner.Tasks.TravelTask","NodeData":{"Offset":"(115.584435,143.863632)"},"ID":15,"Name":"Travel
+        Task","Instant":true,"SharedNavPointpoint":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedNavPoint","Name":"Target
+        position","IsShared":true,"NavPointmValue":{"Vector3position":"(0,0,0)"}},"Singleaccurancy":0.1,"SharedCharacterActoractor":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedCharacterActor","Name":"Actor","IsShared":true,"GameCharacterActormValue":4}},{"Type":"Game.AI.BehaviorDesigner.Workplaces.Tasks.ActorEnterWorkPlace","NodeData":{"Offset":"(268.4696,136.773743)"},"ID":16,"Name":"Actor
+        Enter Work Place","Instant":true,"SharedWorkPlaceworkPlace":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true},"SharedCharacterActoractor":{"Type":"Game.AI.BehaviorDesigner.Variables.SharedCharacterActor","Name":"Actor","IsShared":true,"GameCharacterActormValue":5}}]}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(681.784241,143.422165)"},"ID":17,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(16.1454277,154.52153)"},"ID":18,"Name":"Sequence","Instant":true,"AbortTypeabortType":"Both","Children":[{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap+WorkPlaceMapCompareValue","NodeData":{"Offset":"(-104.521729,129.726563)"},"ID":19,"Name":"Work
+        Place Map Compare Value","Instant":true,"SharedWorkPlacekey":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true},"SingletargetValue":20,"Conditioncondition":"greater","SharedWorkPlaceMapvariable":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap","Name":"Work
+        places","IsShared":true,"List`1mValue":[]}},{"Type":"BehaviorDesigner.Runtime.Tasks.Parallel","NodeData":{"Offset":"(86.9767761,143.023254)"},"ID":20,"Name":"Parallel","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap+WorkPlaceMapUpdate","NodeData":{"Offset":"(-104.634094,136.044189)"},"ID":21,"Name":"Work
+        Place Map Update","Instant":true,"SharedWorkPlaceMapmap":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap","Name":"Work
+        places","IsShared":true,"List`1mValue":[]},"SharedWorkPlaceworkPlace":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true},"BehaviorFloatModifiermodifier":{"Operationoperation":"Add","Singlevalue":0.05}},{"Type":"Game.AI.BehaviorDesigner.Workplaces.Tasks.WorkPlaceMapUpdateAll","NodeData":{"Offset":"(129.642639,129.503357)"},"ID":22,"Name":"Work
+        Place Map Update All","Instant":true,"SharedWorkPlaceMapmap":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap","Name":"Work
+        places","IsShared":true,"List`1mValue":[]},"SharedWorkPlaceexclude":{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true},"BehaviorFloatModifiermodifier":{"Operationoperation":"Add","Singlevalue":-0.03}}]}]}]}]}]}]},"DetachedTasks":[{"Type":"BehaviorDesigner.Runtime.Tasks.BehaviorTreeReference","NodeData":{"Offset":"(1448.27319,1137.83936)"},"ID":23,"Name":"Behavior
+        Tree Reference","Instant":true,"ExternalBehavior[]externalBehaviors":[null],"SharedNamedVariable[]variables":[],"Booleancollapsed":false}],"Variables":[null,null,null,null,{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Bored","IsShared":true,"SinglemValue":0},null,{"Type":"Game.AI.BehaviorDesigner.Variables.SharedCharacterActor","Name":"Actor","IsShared":true,"GameCharacterActormValue":6},{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlaceMap","Name":"Work
+        places","IsShared":true,"List`1mValue":[]},{"Type":"Game.AI.BehaviorDesigner.Workplaces.SharedWorkPlace","Name":"Current
+        Work place","IsShared":true},{"Type":"Game.AI.BehaviorDesigner.Variables.SharedNavPoint","Name":"Target
+        position","IsShared":true,"NavPointmValue":{"Vector3position":"(0,0,0)"}}]}'
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        byteData: 
+        byteDataArray: 
+      Version: 1.7.1

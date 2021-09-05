@@ -3,6 +3,7 @@ using DI;
 using Game.Actors.Character.Interactions;
 using Game.Actors.Character.StateMachine.States;
 using Game.Actors.Character.StateMachine.Transitions;
+using Game.Actors.Workplaces;
 using Lib.Navigation;
 using UnityEngine.Assertions;
 

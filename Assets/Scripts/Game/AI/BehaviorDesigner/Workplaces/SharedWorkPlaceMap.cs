@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using Game.Actors.Character.Interactions;
+using Game.Actors.Workplaces;
 using Game.AI.BehaviorDesigner.Data;
 using Game.AI.BehaviorDesigner.Tasks.Abstract;
 using UnityEngine;

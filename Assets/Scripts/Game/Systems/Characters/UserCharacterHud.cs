@@ -1,6 +1,7 @@
 using System;
 using DI;
 using Game.Actors.Character;
+using Game.Actors.Character.Interaction;
 using Game.Actors.Character.Interactions;
 using Game.Interfaces;
 using Game.Systems.Characters.Tools;

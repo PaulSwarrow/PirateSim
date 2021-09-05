@@ -1,4 +1,4 @@
-namespace Game.Actors.Character.Interactions
+namespace Game.Actors.Character.Interaction
 {
     public interface IGameArea
     {

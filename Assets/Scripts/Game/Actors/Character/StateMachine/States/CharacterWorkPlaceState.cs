@@ -1,5 +1,6 @@
 using Game.Actors.Character.Core.Motors;
 using Game.Actors.Character.Interactions;
+using Game.Actors.Workplaces;
 using UnityEngine;
 
 namespace Game.Actors.Character.StateMachine.States

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Game.Actors.Character.Interaction;
 using Game.Actors.Character.Interactions;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;

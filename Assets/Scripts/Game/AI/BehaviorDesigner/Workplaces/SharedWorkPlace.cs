@@ -1,8 +1,10 @@
 using System;
 using BehaviorDesigner.Runtime;
 using Game.Actors.Character.Interactions;
+using Game.Actors.Workplaces;
 using Game.AI.BehaviorDesigner.Tasks.Abstract;
 using Game.AI.BehaviorDesigner.Variables;
+using Lib.UnityQuickTools.Enums;
 
 namespace Game.AI.BehaviorDesigner.Workplaces
 {
@@ -27,6 +29,25 @@ namespace Game.AI.BehaviorDesigner.Workplaces
             protected override object GetValue(SharedWorkPlace target)
             {
                 return target.Value.EnterPosition;
+            }
+        }
+        
+        public class WorkplaceGet: BaseGetVariablePropertyValue<SharedWorkPlace, SharedFloat>
+        {
+            public WorkPlaceParameter property;
+            protected override object GetValue(SharedWorkPlace target)
+            {
+                return target.Value.GetParameter(property);
+            }
+        }
+        
+        public class WorkplaceIs: BaseGetVariablePropertyValue<SharedWorkPlace, SharedBool>
+        {
+            public WorkPlaceTag mask;
+            public EnumComparison comparison; 
+            protected override object GetValue(SharedWorkPlace target)
+            {
+                return target.Value.Check(mask, comparison);
             }
         }
     }

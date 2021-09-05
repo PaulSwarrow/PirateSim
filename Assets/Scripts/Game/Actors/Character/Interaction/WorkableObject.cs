@@ -1,8 +1,9 @@
+using Game.Actors.Workplaces;
 using Lib;
 using Lib.UnityQuickTools.Collections;
 using UnityEngine;
 
-namespace Game.Actors.Character.Interactions
+namespace Game.Actors.Character.Interaction
 {
     public class WorkableObject : BaseComponent
     {

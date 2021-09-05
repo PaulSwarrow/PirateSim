@@ -1,4 +1,5 @@
 using Game.Actors.Character.Interactions;
+using Game.Actors.Workplaces;
 using Game.Interfaces;
 using Lib.Navigation;
 using UnityEngine;

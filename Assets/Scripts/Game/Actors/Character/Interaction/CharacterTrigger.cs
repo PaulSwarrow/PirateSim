@@ -1,7 +1,7 @@
 using Lib;
 using UnityEngine;
 
-namespace Game.Actors.Character.Interactions
+namespace Game.Actors.Character.Interaction
 {
     [RequireComponent(typeof(Collider))]
     public class CharacterTrigger : BaseComponent

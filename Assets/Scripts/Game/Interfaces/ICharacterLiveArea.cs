@@ -1,5 +1,6 @@
 using System;
 using Game.Actors.Character.Interactions;
+using Game.Actors.Workplaces;
 using Lib.Navigation;
 using UnityEngine;
 using UnityEngine.AI;

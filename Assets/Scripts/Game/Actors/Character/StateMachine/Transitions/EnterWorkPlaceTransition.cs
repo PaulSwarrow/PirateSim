@@ -3,6 +3,7 @@ using BehaviorDesigner.Runtime.Tasks;
 using DI;
 using Game.Actors.Character.Interactions;
 using Game.Actors.Character.StateMachine.States;
+using Game.Actors.Workplaces;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Action = System.Action;

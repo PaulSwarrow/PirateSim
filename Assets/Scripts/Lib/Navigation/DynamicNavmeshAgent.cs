@@ -44,7 +44,7 @@ namespace Lib.Navigation
 
         private void OnDisable()
         {
-            StopTravel();
+            if(IsTraveling) StopTravel();
         }
 
         public void CheckSurface()
